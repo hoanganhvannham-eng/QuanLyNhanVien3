@@ -140,7 +140,7 @@
             this.tbusename.Size = new System.Drawing.Size(390, 30);
             this.tbusename.TabIndex = 17;
             // 
-            // DangNhap
+            // F_DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -154,7 +154,7 @@
             this.Controls.Add(this.btndangnhap);
             this.Controls.Add(this.tbpassword);
             this.Controls.Add(this.tbusename);
-            this.Name = "DangNhap";
+            this.Name = "F_DangNhap";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DangNhap_Load);
             this.ResumeLayout(false);

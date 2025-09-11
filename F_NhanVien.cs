@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyNhanVien3
 {
@@ -149,6 +150,7 @@ namespace QuanLyNhanVien3
                 cn.disconnect();
                 ClearAllInputs(this);
                 LoadcomboBox();
+                tbMKkhoiphuc.UseSystemPasswordChar = true;
             }
             catch (Exception ex)
             {
@@ -221,7 +223,7 @@ namespace QuanLyNhanVien3
                     cbBoxMaPB.SelectedIndex == -1)
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -318,7 +320,7 @@ namespace QuanLyNhanVien3
                 if (!checknhanvien())
                 {
                     cn.disconnect();
-                    return; // Nếu dữ liệu không hợp lệ -> dừng luôn
+                    return; 
                 }
 
                 // Câu lệnh SQL chèn dữ liệu vào bảng tblNhanVien
@@ -440,6 +442,7 @@ namespace QuanLyNhanVien3
                 if (string.IsNullOrEmpty(tbmaNV.Text))
                 {
                     MessageBox.Show("Vui lòng chọn hoac nhap ma nhân viên cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cn.disconnect();
                     return;
                 }
 
@@ -451,7 +454,8 @@ namespace QuanLyNhanVien3
                     if (count == 0)
                     {
                         MessageBox.Show("Mã nhân viên này khong tồn tại trong hệ thống!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
                         return;
                     }
                 }
@@ -467,7 +471,8 @@ namespace QuanLyNhanVien3
                     cbBoxMaPB.SelectedIndex == -1)
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cn.disconnect();
                     return;
                 }
 
@@ -584,14 +589,53 @@ namespace QuanLyNhanVien3
 
             try
             {
-                // 1. Kiểm tra xem đã chọn nhân viên nào chưa
                 if (string.IsNullOrEmpty(tbmaNV.Text))
                 {
                     MessageBox.Show("Vui lòng chọn hoặc nhập mã nhân viên cần khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // 2. Xác nhận người dùng trước khi xóa
+                cn.connect();
+                string checkMaNVSql = "SELECT COUNT(*) FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 1";
+                using (SqlCommand cmdcheckcheckMaNVSql = new SqlCommand(checkMaNVSql, cn.conn))
+                {
+                    cmdcheckcheckMaNVSql.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
+                    int emailCount = (int)cmdcheckcheckMaNVSql.ExecuteScalar();
+
+                    if (emailCount == 0)
+                    {
+                        MessageBox.Show("Ma NV này đã tồn tại trong hệ thống!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return; 
+                    }
+                }
+
+                //
+                if (tbMKkhoiphuc.Text == "")
+                {
+                    MessageBox.Show("Vui lòng mật khẩu để khoi phuc", "Thông báo", MessageBoxButtons.OK,
+                    MessageBoxIcon.Question);
+                    return;
+                }
+
+                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau";
+                SqlCommand cmdkhoiphuc = new SqlCommand(sqMKkhoiphuc, cn.conn);
+                cmdkhoiphuc.Parameters.AddWithValue("@TenDangNhap", "admin");
+                cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
+                SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
+
+                if (reader.Read() == false)
+                {
+                    MessageBox.Show("mật khẩu không đúng? Vui lòng nhập lại mật khẩu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    tbMKkhoiphuc.Text = "";
+                    reader.Close(); 
+                    cn.disconnect();
+                    return;
+                }
+                reader.Close();
+
+
                 DialogResult confirm = MessageBox.Show(
                     "Bạn có chắc chắn muốn khôi phục nhân viên này không?",
                     "Xác nhận khôi phục",
@@ -599,9 +643,10 @@ namespace QuanLyNhanVien3
                     MessageBoxIcon.Question
                 );
 
+
                 if (confirm == DialogResult.Yes)
                 {
-                    cn.connect();
+                    tbMKkhoiphuc.Text = "";
                     string query = "UPDATE tblNhanVien SET DeletedAt = 0 WHERE MaNV = @MaNV";
                     using (SqlCommand cmd = new SqlCommand(query, cn.conn))
                     {
@@ -625,6 +670,19 @@ namespace QuanLyNhanVien3
             catch (Exception ex)
             {
                 MessageBox.Show("loi " + ex.Message);
+            }
+        }
+
+        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (checkshowpassword.Checked)
+            {
+                tbMKkhoiphuc.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbMKkhoiphuc.UseSystemPasswordChar = true;
             }
         }
     }
