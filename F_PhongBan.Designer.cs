@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanVien3
 {
-    partial class PhongBan
+    partial class F_PhongBan
     {
         /// <summary>
         /// Required designer variable.

@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class PhongBan: Form
+    public partial class F_HopDong: Form
     {
-        public PhongBan()
+        public F_HopDong()
         {
             InitializeComponent();
-        }
-
-        private void PhongBan_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

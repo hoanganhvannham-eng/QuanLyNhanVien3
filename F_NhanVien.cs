@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class NhanVien: Form
+    public partial class F_NhanVien: Form
     {
-        public NhanVien()
+        public F_NhanVien()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanVien3
 {
-    partial class Luong
+    partial class F_ChucVu
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Luong";
+            this.Text = "ChucVu";
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanVien3
 {
-    partial class NhanVien
+    partial class F_NhanVien
     {
         /// <summary>
         /// Required designer variable.

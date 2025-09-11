@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class DangNhap: Form
+    public partial class F_DangNhap: Form
     {
-        public DangNhap()
+        public F_DangNhap()
         {
             InitializeComponent();
         }
@@ -41,7 +41,7 @@ namespace QuanLyNhanVien3
             else if (reader.Read() == true)
             {
                 this.Hide();
-                FormMain f_Main = new FormMain();
+                F_FormMain f_Main = new F_FormMain();
                 //MessageBox.Show("Đăng nhập thành công!",
                 //                            "Thông báo");
                 f_Main.ShowDialog();

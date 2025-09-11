@@ -1,6 +1,6 @@
 ﻿namespace QuanLyNhanVien3
 {
-    partial class FormMain
+    partial class F_FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -68,18 +68,19 @@
             this.thongTinDuAnToolStripMenuItem.Name = "thongTinDuAnToolStripMenuItem";
             this.thongTinDuAnToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.thongTinDuAnToolStripMenuItem.Text = "Du An";
+
             // 
             // ThongTinDuAnToolStripMenuItem1
             // 
             this.ThongTinDuAnToolStripMenuItem1.Name = "ThongTinDuAnToolStripMenuItem1";
-            this.ThongTinDuAnToolStripMenuItem1.Size = new System.Drawing.Size(203, 26);
+            this.ThongTinDuAnToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.ThongTinDuAnToolStripMenuItem1.Text = "Thong Tin Du An";
             this.ThongTinDuAnToolStripMenuItem1.Click += new System.EventHandler(this.ThongTinDuAnToolStripMenuItem1_Click);
             // 
             // chiTietDuAnToolStripMenuItem1
             // 
             this.chiTietDuAnToolStripMenuItem1.Name = "chiTietDuAnToolStripMenuItem1";
-            this.chiTietDuAnToolStripMenuItem1.Size = new System.Drawing.Size(203, 26);
+            this.chiTietDuAnToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.chiTietDuAnToolStripMenuItem1.Text = "Chi Tiet Du An";
             this.chiTietDuAnToolStripMenuItem1.Click += new System.EventHandler(this.chiTietDuAnToolStripMenuItem1_Click);
             // 
@@ -132,14 +133,14 @@
             this.chamConngToolStripMenuItem.Text = "Cham Cong";
             this.chamConngToolStripMenuItem.Click += new System.EventHandler(this.chamConngToolStripMenuItem_Click);
             // 
-            // FormMain
+            // F_FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
-            this.Name = "FormMain";
+            this.Name = "F_FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormMain";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

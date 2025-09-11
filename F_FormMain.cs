@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class FormMain: Form
+    public partial class F_FormMain: Form
     {
-        public FormMain()
+        public F_FormMain()
         {
             InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace QuanLyNhanVien3
 
         private void ThongTinDuAnToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new DuAn());
+            OpenChildForm(new F_DuAn());
             //DuAn DA = new DuAn();
             //DA.MdiParent = this;
             //DA.Show();
@@ -43,7 +43,7 @@ namespace QuanLyNhanVien3
 
         private void chiTietDuAnToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ChiTietDuAn());
+            OpenChildForm(new F_ChiTietDuAn());
             //ChiTietDuAn CTDA = new ChiTietDuAn();
             //CTDA.MdiParent = this;
             //CTDA.Show();
@@ -51,7 +51,7 @@ namespace QuanLyNhanVien3
 
         private void phongBanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new PhongBan());
+            OpenChildForm(new F_PhongBan());
             //PhongBan PB = new PhongBan();
             //PB.MdiParent = this;
             //PB.Show();
@@ -59,7 +59,7 @@ namespace QuanLyNhanVien3
 
         private void chucVuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ChucVu());
+            OpenChildForm(new F_ChucVu());
             //ChucVu CV = new ChucVu();
             //CV.MdiParent = this;
             //CV.Show();
@@ -67,7 +67,7 @@ namespace QuanLyNhanVien3
 
         private void nhanVienToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new NhanVien());
+            OpenChildForm(new F_NhanVien());
             //NhanVien NV = new NhanVien();
             //NV.MdiParent = this;
             //NV.Show();
@@ -75,7 +75,7 @@ namespace QuanLyNhanVien3
 
         private void luongToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new Luong());
+            OpenChildForm(new F_Luong());
             //Luong L = new Luong();
             //L.MdiParent = this;
             //L.Show();
@@ -83,7 +83,7 @@ namespace QuanLyNhanVien3
 
         private void chamConngToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ChamCong());
+            OpenChildForm(new F_ChamCong());
             //ChamCong CC = new ChamCong();
             //CC.MdiParent = this;
             //CC.Show();
@@ -91,7 +91,7 @@ namespace QuanLyNhanVien3
 
         private void HopDongToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new HopDong());
+            OpenChildForm(new F_HopDong());
             //HopDong HD = new HopDong();
             //HD.MdiParent = this;
             //HD.Show();
@@ -99,10 +99,11 @@ namespace QuanLyNhanVien3
 
         private void TaiKoanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new TaiKhoan());
+            OpenChildForm(new F_TaiKhoan());
             //TaiKhoan TK = new TaiKhoan();
             //TK.MdiParent = this;
             //TK.Show();
         }
+
     }
 }

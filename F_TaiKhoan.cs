@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class TaiKhoan: Form
+    public partial class F_TaiKhoan: Form
     {
-        public TaiKhoan()
+        public F_TaiKhoan()
         {
             InitializeComponent();
         }

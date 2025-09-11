@@ -46,86 +46,86 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChamCong.cs">
+    <Compile Include="F_ChamCong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChamCong.Designer.cs">
-      <DependentUpon>ChamCong.cs</DependentUpon>
+    <Compile Include="F_ChamCong.Designer.cs">
+      <DependentUpon>F_ChamCong.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChiTietDuAn.cs">
+    <Compile Include="F_ChiTietDuAn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChiTietDuAn.Designer.cs">
-      <DependentUpon>ChiTietDuAn.cs</DependentUpon>
+    <Compile Include="F_ChiTietDuAn.Designer.cs">
+      <DependentUpon>F_ChiTietDuAn.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChucVu.cs">
+    <Compile Include="F_ChucVu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChucVu.Designer.cs">
-      <DependentUpon>ChucVu.cs</DependentUpon>
+    <Compile Include="F_ChucVu.Designer.cs">
+      <DependentUpon>F_ChucVu.cs</DependentUpon>
     </Compile>
     <Compile Include="connectData.cs" />
-    <Compile Include="DangNhap.cs">
+    <Compile Include="F_DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DangNhap.Designer.cs">
-      <DependentUpon>DangNhap.cs</DependentUpon>
+    <Compile Include="F_DangNhap.Designer.cs">
+      <DependentUpon>F_DangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="DuAn.cs">
+    <Compile Include="F_DuAn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DuAn.Designer.cs">
-      <DependentUpon>DuAn.cs</DependentUpon>
+    <Compile Include="F_DuAn.Designer.cs">
+      <DependentUpon>F_DuAn.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
+    <Compile Include="F_FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="F_FormMain.Designer.cs">
+      <DependentUpon>F_FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="HopDong.cs">
+    <Compile Include="F_HopDong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HopDong.Designer.cs">
-      <DependentUpon>HopDong.cs</DependentUpon>
+    <Compile Include="F_HopDong.Designer.cs">
+      <DependentUpon>F_HopDong.cs</DependentUpon>
     </Compile>
-    <Compile Include="Luong.cs">
+    <Compile Include="F_Luong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Luong.Designer.cs">
-      <DependentUpon>Luong.cs</DependentUpon>
+    <Compile Include="F_Luong.Designer.cs">
+      <DependentUpon>F_Luong.cs</DependentUpon>
     </Compile>
-    <Compile Include="NhanVien.cs">
+    <Compile Include="F_NhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NhanVien.Designer.cs">
-      <DependentUpon>NhanVien.cs</DependentUpon>
+    <Compile Include="F_NhanVien.Designer.cs">
+      <DependentUpon>F_NhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="PhongBan.cs">
+    <Compile Include="F_PhongBan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PhongBan.Designer.cs">
-      <DependentUpon>PhongBan.cs</DependentUpon>
+    <Compile Include="F_PhongBan.Designer.cs">
+      <DependentUpon>F_PhongBan.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaiKhoan.cs">
+    <Compile Include="F_TaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TaiKhoan.Designer.cs">
-      <DependentUpon>TaiKhoan.cs</DependentUpon>
+    <Compile Include="F_TaiKhoan.Designer.cs">
+      <DependentUpon>F_TaiKhoan.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DangNhap.resx">
-      <DependentUpon>DangNhap.cs</DependentUpon>
+    <EmbeddedResource Include="F_DangNhap.resx">
+      <DependentUpon>F_DangNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <EmbeddedResource Include="F_FormMain.resx">
+      <DependentUpon>F_FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhanVien.resx">
-      <DependentUpon>NhanVien.cs</DependentUpon>
+    <EmbeddedResource Include="F_NhanVien.resx">
+      <DependentUpon>F_NhanVien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PhongBan.resx">
-      <DependentUpon>PhongBan.cs</DependentUpon>
+    <EmbeddedResource Include="F_PhongBan.resx">
+      <DependentUpon>F_PhongBan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

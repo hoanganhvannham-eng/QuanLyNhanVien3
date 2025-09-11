@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien3
 {
-    public partial class DuAn: Form
+    public partial class F_DuAn: Form
     {
-        public DuAn()
+        public F_DuAn()
         {
             InitializeComponent();
         }
