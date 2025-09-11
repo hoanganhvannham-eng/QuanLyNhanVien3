@@ -135,6 +135,7 @@
             this.dtGridViewNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridViewNhanVien.Location = new System.Drawing.Point(68, 380);
             this.dtGridViewNhanVien.Name = "dtGridViewNhanVien";
+            this.dtGridViewNhanVien.ReadOnly = true;
             this.dtGridViewNhanVien.RowHeadersWidth = 51;
             this.dtGridViewNhanVien.RowTemplate.Height = 24;
             this.dtGridViewNhanVien.Size = new System.Drawing.Size(1452, 485);
