@@ -1,0 +1,13 @@
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\bin\Debug\QuanLyNhanVien3.exe.config
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\bin\Debug\QuanLyNhanVien3.exe
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\bin\Debug\QuanLyNhanVien3.pdb
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.csproj.AssemblyReference.cache
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.DangNhap.resources
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.FormMain.resources
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.Properties.Resources.resources
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.csproj.GenerateResource.cache
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.csproj.CoreCompileInputs.cache
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.exe
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.pdb
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.NhanVien.resources
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.PhongBan.resources
