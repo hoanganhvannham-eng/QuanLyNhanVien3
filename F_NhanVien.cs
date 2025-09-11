@@ -446,6 +446,14 @@ namespace QuanLyNhanVien3
                     return;
                 }
 
+                if (!tbEmail.Text.Trim().ToLower().EndsWith("@gmail.com"))
+                {
+                    MessageBox.Show("Email phải có đuôi @gmail.com!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cn.disconnect();
+                    return;
+                }
+
                 string checkMaNVSql = "SELECT COUNT(*) FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
                 using (SqlCommand cmd = new SqlCommand(checkMaNVSql, cn.conn))
                 {
