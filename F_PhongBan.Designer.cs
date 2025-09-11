@@ -75,7 +75,7 @@
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(108, 31);
             this.btnTimKiem.TabIndex = 73;
-            this.btnTimKiem.Text = "Tim Kiem";
+            this.btnTimKiem.Text = "Tìm Kiếm ";
             this.btnTimKiem.UseVisualStyleBackColor = true;
             this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
@@ -86,7 +86,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(108, 31);
             this.btnSua.TabIndex = 72;
-            this.btnSua.Text = "Sua";
+            this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
@@ -97,7 +97,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(108, 31);
             this.btnXoa.TabIndex = 71;
-            this.btnXoa.Text = "Xoa";
+            this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
@@ -108,7 +108,7 @@
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(108, 31);
             this.btnThem.TabIndex = 70;
-            this.btnThem.Text = "Them";
+            this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
@@ -160,7 +160,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 19);
             this.label9.TabIndex = 64;
-            this.label9.Text = "Ghi Chu";
+            this.label9.Text = "Ghi Chú";
             // 
             // label5
             // 
@@ -170,7 +170,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 19);
             this.label5.TabIndex = 63;
-            this.label5.Text = "So Dien Thoai";
+            this.label5.Text = "Số Điện Thoại";
             // 
             // label6
             // 
@@ -180,7 +180,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 19);
             this.label6.TabIndex = 62;
-            this.label6.Text = "Dia Chi";
+            this.label6.Text = "Địa Chỉ";
             // 
             // label2
             // 
@@ -188,9 +188,9 @@
             this.label2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(49, 149);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 19);
+            this.label2.Size = new System.Drawing.Size(111, 19);
             this.label2.TabIndex = 61;
-            this.label2.Text = "TenPB";
+            this.label2.Text = "Tên Phòng Ban";
             // 
             // label7
             // 
@@ -198,9 +198,9 @@
             this.label7.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(49, 113);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 19);
+            this.label7.Size = new System.Drawing.Size(108, 19);
             this.label7.TabIndex = 60;
-            this.label7.Text = "Ma PB";
+            this.label7.Text = "Mã Phòng Ban";
             // 
             // label1
             // 
@@ -208,9 +208,9 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(478, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 46);
+            this.label1.Size = new System.Drawing.Size(196, 46);
             this.label1.TabIndex = 59;
-            this.label1.Text = "Phong Ban";
+            this.label1.Text = "Phòng Ban";
             // 
             // checkshowpassword
             // 
@@ -232,7 +232,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(112, 19);
             this.label8.TabIndex = 100;
-            this.label8.Text = "MK Khoi Phuc";
+            this.label8.Text = "MK Khôi Phục";
             // 
             // tbMKkhoiphuc
             // 
@@ -270,7 +270,7 @@
             this.btnKhoiPhucPhongBan.Name = "btnKhoiPhucPhongBan";
             this.btnKhoiPhucPhongBan.Size = new System.Drawing.Size(193, 33);
             this.btnKhoiPhucPhongBan.TabIndex = 96;
-            this.btnKhoiPhucPhongBan.Text = "Khoi Phuc Phong Ban Cu";
+            this.btnKhoiPhucPhongBan.Text = "Khôi Phục Phòng Ban Cũ";
             this.btnKhoiPhucPhongBan.UseVisualStyleBackColor = true;
             this.btnKhoiPhucPhongBan.Click += new System.EventHandler(this.btnKhoiPhucPhongBan_Click);
             // 
@@ -281,7 +281,7 @@
             this.btnHienThiPhongBanCu.Name = "btnHienThiPhongBanCu";
             this.btnHienThiPhongBanCu.Size = new System.Drawing.Size(177, 33);
             this.btnHienThiPhongBanCu.TabIndex = 95;
-            this.btnHienThiPhongBanCu.Text = "Hien Thi Phong Ban Cu";
+            this.btnHienThiPhongBanCu.Text = "Hiển Thị Phòng Ban Cũ";
             this.btnHienThiPhongBanCu.UseVisualStyleBackColor = true;
             this.btnHienThiPhongBanCu.Click += new System.EventHandler(this.btnHienThiPhongBanCu_Click);
             // 
