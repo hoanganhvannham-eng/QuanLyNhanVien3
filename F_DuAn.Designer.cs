@@ -189,7 +189,7 @@
             this.btnThem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.Location = new System.Drawing.Point(145, 296);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(98, 33);
+            this.btnThem.Size = new System.Drawing.Size(125, 33);
             this.btnThem.TabIndex = 17;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
@@ -200,7 +200,7 @@
             this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoa.Location = new System.Drawing.Point(287, 296);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(98, 33);
+            this.btnXoa.Size = new System.Drawing.Size(125, 33);
             this.btnXoa.TabIndex = 18;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
@@ -210,7 +210,7 @@
             this.btnSua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSua.Location = new System.Drawing.Point(438, 296);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(98, 33);
+            this.btnSua.Size = new System.Drawing.Size(125, 33);
             this.btnSua.TabIndex = 19;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
@@ -218,9 +218,9 @@
             // btnTimKiem
             // 
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(584, 296);
+            this.btnTimKiem.Location = new System.Drawing.Point(594, 296);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(98, 33);
+            this.btnTimKiem.Size = new System.Drawing.Size(125, 33);
             this.btnTimKiem.TabIndex = 20;
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@
             this.btnRefresh.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.Location = new System.Drawing.Point(744, 296);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(98, 33);
+            this.btnRefresh.Size = new System.Drawing.Size(125, 33);
             this.btnRefresh.TabIndex = 21;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -240,7 +240,7 @@
             this.btnXuatExcel.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXuatExcel.Location = new System.Drawing.Point(893, 296);
             this.btnXuatExcel.Name = "btnXuatExcel";
-            this.btnXuatExcel.Size = new System.Drawing.Size(98, 33);
+            this.btnXuatExcel.Size = new System.Drawing.Size(125, 33);
             this.btnXuatExcel.TabIndex = 22;
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.UseVisualStyleBackColor = true;
@@ -248,9 +248,9 @@
             // btnXemDAdaKetThuc
             // 
             this.btnXemDAdaKetThuc.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXemDAdaKetThuc.Location = new System.Drawing.Point(584, 182);
+            this.btnXemDAdaKetThuc.Location = new System.Drawing.Point(567, 182);
             this.btnXemDAdaKetThuc.Name = "btnXemDAdaKetThuc";
-            this.btnXemDAdaKetThuc.Size = new System.Drawing.Size(258, 27);
+            this.btnXemDAdaKetThuc.Size = new System.Drawing.Size(275, 35);
             this.btnXemDAdaKetThuc.TabIndex = 23;
             this.btnXemDAdaKetThuc.Text = "Hiển Thị Dự Án Đã Kết Thúc\r\n";
             this.btnXemDAdaKetThuc.UseVisualStyleBackColor = true;
@@ -258,9 +258,9 @@
             // btnKhoiPhucDA
             // 
             this.btnKhoiPhucDA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKhoiPhucDA.Location = new System.Drawing.Point(584, 235);
+            this.btnKhoiPhucDA.Location = new System.Drawing.Point(567, 235);
             this.btnKhoiPhucDA.Name = "btnKhoiPhucDA";
-            this.btnKhoiPhucDA.Size = new System.Drawing.Size(258, 27);
+            this.btnKhoiPhucDA.Size = new System.Drawing.Size(275, 35);
             this.btnKhoiPhucDA.TabIndex = 24;
             this.btnKhoiPhucDA.Text = "Khôi Phục Dự Án Đã Kết Thúc";
             this.btnKhoiPhucDA.UseVisualStyleBackColor = true;
