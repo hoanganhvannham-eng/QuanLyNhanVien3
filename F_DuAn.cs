@@ -78,7 +78,12 @@ namespace QuanLyNhanVien3
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-              
+                //kiem tra dieu kien hop li cua ngay bat dau voi ngay ket thuc
+                string checkstartdateandendate = "SELECT COUNT(*) FROM tblDuAn  WHERE NgayBatDau  = @NgayBD AND NgayKetThuc = @NgayKT";
+                using (SqlCommand cmdcheckstartdateandendate = new SqlCommand(checkstartdateandendate, cn.conn ))
+                {
+                    cmdcheckstartdateandendate.Parameters
+                }
 
                 // check ma du an
                 string checkMaDASql = "SELECT COUNT(*) FROM tblDuAn  WHERE MaDA  = @MaDA  AND DeletedAt = 0";
