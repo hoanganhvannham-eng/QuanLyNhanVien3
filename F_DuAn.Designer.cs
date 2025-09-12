@@ -285,9 +285,10 @@
             // 
             // tbMKKhoiPhuc
             // 
+            this.tbMKKhoiPhuc.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbMKKhoiPhuc.Location = new System.Drawing.Point(868, 208);
             this.tbMKKhoiPhuc.Name = "tbMKKhoiPhuc";
-            this.tbMKKhoiPhuc.Size = new System.Drawing.Size(174, 22);
+            this.tbMKKhoiPhuc.Size = new System.Drawing.Size(174, 27);
             this.tbMKKhoiPhuc.TabIndex = 26;
             // 
             // checkHienMK

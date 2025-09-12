@@ -12,9 +12,6 @@ namespace QuanLyNhanVien3
 {
     public partial class F_ChiTietDuAn: Form
     {
-        public F_ChiTietDuAn()
-        {
-            InitializeComponent();
-        }
+       
     }
 }

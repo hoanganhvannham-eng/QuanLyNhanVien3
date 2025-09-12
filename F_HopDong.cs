@@ -16,5 +16,7 @@ namespace QuanLyNhanVien3
         {
             InitializeComponent();
         }
+
+        
     }
 }

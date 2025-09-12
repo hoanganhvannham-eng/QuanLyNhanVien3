@@ -28,3 +28,4 @@ C:\Users\Admin\Desktop\Baitaptt\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.csproj
 C:\Users\Admin\Desktop\Baitaptt\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.exe
 C:\Users\Admin\Desktop\Baitaptt\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.pdb
 C:\Users\Admin\Desktop\Baitaptt\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_DuAn.resources
+C:\Users\Admin\Desktop\Baitaptt\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_ChiTietDuAn.resources
