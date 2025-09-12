@@ -127,6 +127,9 @@
     <EmbeddedResource Include="F_PhongBan.resx">
       <DependentUpon>F_PhongBan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F_TaiKhoan.resx">
+      <DependentUpon>F_TaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

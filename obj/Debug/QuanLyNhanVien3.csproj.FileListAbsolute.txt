@@ -11,3 +11,4 @@ D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_DangNhap
 D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_FormMain.resources
 D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_NhanVien.resources
 D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_PhongBan.resources
+D:\Documents\ThucTapHN\Tops\QuanLyNhanVien3\obj\Debug\QuanLyNhanVien3.F_TaiKhoan.resources

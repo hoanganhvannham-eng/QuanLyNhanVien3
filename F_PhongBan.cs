@@ -431,8 +431,8 @@ namespace QuanLyNhanVien3
             catch (Exception ex)
             {
                 MessageBox.Show("loi " + ex.Message);
-                MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -459,6 +459,11 @@ namespace QuanLyNhanVien3
                 tbSoDienThoai.Text = dataGridViewPhongBan.Rows[i].Cells[3].Value.ToString();
                 tbGhiChu.Text = dataGridViewPhongBan.Rows[i].Cells[4].Value.ToString();
             }
+        }
+
+        private void btnxuatExcel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
