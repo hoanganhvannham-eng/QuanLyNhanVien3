@@ -250,7 +250,7 @@
             this.btnXemDAdaKetThuc.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXemDAdaKetThuc.Location = new System.Drawing.Point(584, 182);
             this.btnXemDAdaKetThuc.Name = "btnXemDAdaKetThuc";
-            this.btnXemDAdaKetThuc.Size = new System.Drawing.Size(237, 27);
+            this.btnXemDAdaKetThuc.Size = new System.Drawing.Size(258, 27);
             this.btnXemDAdaKetThuc.TabIndex = 23;
             this.btnXemDAdaKetThuc.Text = "Hiển Thị Dự Án Đã Kết Thúc\r\n";
             this.btnXemDAdaKetThuc.UseVisualStyleBackColor = true;
@@ -260,7 +260,7 @@
             this.btnKhoiPhucDA.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKhoiPhucDA.Location = new System.Drawing.Point(584, 235);
             this.btnKhoiPhucDA.Name = "btnKhoiPhucDA";
-            this.btnKhoiPhucDA.Size = new System.Drawing.Size(237, 27);
+            this.btnKhoiPhucDA.Size = new System.Drawing.Size(258, 27);
             this.btnKhoiPhucDA.TabIndex = 24;
             this.btnKhoiPhucDA.Text = "Khôi Phục Dự Án Đã Kết Thúc";
             this.btnKhoiPhucDA.UseVisualStyleBackColor = true;
