@@ -138,7 +138,7 @@
             // tbDiaChi
             // 
             this.tbDiaChi.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDiaChi.Location = new System.Drawing.Point(173, 231);
+            this.tbDiaChi.Location = new System.Drawing.Point(187, 231);
             this.tbDiaChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbDiaChi.Name = "tbDiaChi";
             this.tbDiaChi.Size = new System.Drawing.Size(248, 27);
@@ -147,7 +147,7 @@
             // tbTenPB
             // 
             this.tbTenPB.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTenPB.Location = new System.Drawing.Point(172, 180);
+            this.tbTenPB.Location = new System.Drawing.Point(186, 180);
             this.tbTenPB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbTenPB.Name = "tbTenPB";
             this.tbTenPB.Size = new System.Drawing.Size(248, 27);
@@ -156,7 +156,7 @@
             // tbmaPB
             // 
             this.tbmaPB.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbmaPB.Location = new System.Drawing.Point(172, 135);
+            this.tbmaPB.Location = new System.Drawing.Point(186, 135);
             this.tbmaPB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbmaPB.Name = "tbmaPB";
             this.tbmaPB.Size = new System.Drawing.Size(248, 27);
