@@ -149,11 +149,12 @@
             this.dataGridViewTaiKhoan.Size = new System.Drawing.Size(1085, 354);
             this.dataGridViewTaiKhoan.TabIndex = 117;
             this.dataGridViewTaiKhoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTaiKhoan_CellClick);
+
             // 
             // btnTimKiem
             // 
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(677, 239);
+            this.btnTimKiem.Location = new System.Drawing.Point(685, 240);
             this.btnTimKiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(108, 31);
@@ -165,7 +166,7 @@
             // btnSua
             // 
             this.btnSua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSua.Location = new System.Drawing.Point(538, 239);
+            this.btnSua.Location = new System.Drawing.Point(546, 240);
             this.btnSua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(108, 31);
@@ -177,7 +178,7 @@
             // btnXoa
             // 
             this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoa.Location = new System.Drawing.Point(329, 239);
+            this.btnXoa.Location = new System.Drawing.Point(343, 236);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(108, 31);
@@ -189,7 +190,7 @@
             // btnThem
             // 
             this.btnThem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThem.Location = new System.Drawing.Point(190, 239);
+            this.btnThem.Location = new System.Drawing.Point(204, 236);
             this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(108, 31);
@@ -201,7 +202,7 @@
             // tbMatKhau
             // 
             this.tbMatKhau.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbMatKhau.Location = new System.Drawing.Point(537, 114);
+            this.tbMatKhau.Location = new System.Drawing.Point(545, 115);
             this.tbMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMatKhau.Name = "tbMatKhau";
             this.tbMatKhau.Size = new System.Drawing.Size(248, 27);
@@ -210,7 +211,7 @@
             // tbTenDangNhap
             // 
             this.tbTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTenDangNhap.Location = new System.Drawing.Point(190, 192);
+            this.tbTenDangNhap.Location = new System.Drawing.Point(204, 189);
             this.tbTenDangNhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbTenDangNhap.Name = "tbTenDangNhap";
             this.tbTenDangNhap.Size = new System.Drawing.Size(248, 27);
@@ -219,7 +220,7 @@
             // tbmaTK
             // 
             this.tbmaTK.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbmaTK.Location = new System.Drawing.Point(189, 114);
+            this.tbmaTK.Location = new System.Drawing.Point(203, 111);
             this.tbmaTK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbmaTK.Name = "tbmaTK";
             this.tbmaTK.Size = new System.Drawing.Size(248, 27);
@@ -229,7 +230,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(450, 158);
+            this.label9.Location = new System.Drawing.Point(458, 159);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 19);
             this.label9.TabIndex = 107;
@@ -239,7 +240,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(450, 119);
+            this.label5.Location = new System.Drawing.Point(458, 120);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 19);
             this.label5.TabIndex = 106;
@@ -249,7 +250,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(70, 200);
+            this.label6.Location = new System.Drawing.Point(70, 191);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 19);
             this.label6.TabIndex = 105;
@@ -262,7 +263,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 19);
             this.label2.TabIndex = 104;
-            this.label2.Text = "Ma NV";
+            this.label2.Text = "Ten NV";
             // 
             // label7
             // 
@@ -288,7 +289,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(450, 196);
+            this.label3.Location = new System.Drawing.Point(458, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 19);
             this.label3.TabIndex = 125;
@@ -297,7 +298,7 @@
             // tbGhiChu
             // 
             this.tbGhiChu.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGhiChu.Location = new System.Drawing.Point(537, 192);
+            this.tbGhiChu.Location = new System.Drawing.Point(545, 193);
             this.tbGhiChu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbGhiChu.Name = "tbGhiChu";
             this.tbGhiChu.Size = new System.Drawing.Size(248, 27);
@@ -306,7 +307,7 @@
             // cbBoxMaNV
             // 
             this.cbBoxMaNV.FormattingEnabled = true;
-            this.cbBoxMaNV.Location = new System.Drawing.Point(190, 156);
+            this.cbBoxMaNV.Location = new System.Drawing.Point(204, 153);
             this.cbBoxMaNV.Name = "cbBoxMaNV";
             this.cbBoxMaNV.Size = new System.Drawing.Size(248, 24);
             this.cbBoxMaNV.TabIndex = 127;
@@ -317,7 +318,7 @@
             this.cbBoxQuyen.Items.AddRange(new object[] {
             "User",
             "Manager"});
-            this.cbBoxQuyen.Location = new System.Drawing.Point(538, 158);
+            this.cbBoxQuyen.Location = new System.Drawing.Point(546, 159);
             this.cbBoxQuyen.Name = "cbBoxQuyen";
             this.cbBoxQuyen.Size = new System.Drawing.Size(248, 24);
             this.cbBoxQuyen.TabIndex = 128;

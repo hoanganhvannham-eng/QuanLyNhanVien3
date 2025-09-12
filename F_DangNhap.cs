@@ -29,7 +29,7 @@ namespace QuanLyNhanVien3
             cn.connect();
             string username = tbusename.Text.Trim();
             string password = tbpassword.Text.Trim();
-            string query = "select * from tblTaiKhoan where TenDangNhap = '" + username + "' " + "and MatKhau = '" + password + "'";
+            string query = "select * from tblTaiKhoan where DeletedAt = 3 AND TenDangNhap = '" + username + "' " + "and MatKhau = '" + password + "'";
             SqlCommand cmd = new SqlCommand(query, cn.conn);
             SqlDataReader reader = cmd.ExecuteReader();
 

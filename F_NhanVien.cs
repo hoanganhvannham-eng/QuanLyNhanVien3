@@ -41,7 +41,7 @@ namespace QuanLyNhanVien3
             {
                 double a;
 
-                // 1. Kiểm tra số điện thoại
+                // check sdt
                 if (!double.TryParse(tbSoDienThoai.Text.Trim(), out a))
                 {
                     MessageBox.Show("Số điện thoại phải là số!", "Thông báo",
@@ -55,7 +55,7 @@ namespace QuanLyNhanVien3
                     return false;
                 }
 
-                 //2. Kiểm tra mã nhân viên(không trùng)
+                 // check ma nv
                 string checkMaNVSql = "SELECT COUNT(*) FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
                 using (SqlCommand cmd = new SqlCommand(checkMaNVSql, cn.conn))
                 {
@@ -69,7 +69,7 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                // 3. Kiểm tra email
+                // check mail
                 string checkEmailSql = "SELECT COUNT(*) FROM tblNhanVien WHERE Email = @Email AND DeletedAt = 0";
                 using (SqlCommand cmd = new SqlCommand(checkEmailSql, cn.conn))
                 {
@@ -90,7 +90,7 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                // 4. Kiểm tra mã phòng ban
+                // check ma pb
                 string checkMaPBSql = "SELECT COUNT(*) FROM tblPhongBan WHERE MaPB = @MaPB AND DeletedAt = 0";
                 using (SqlCommand cmd = new SqlCommand(checkMaPBSql, cn.conn))
                 {
@@ -104,7 +104,7 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                // 5. Kiểm tra mã chức vụ
+                // chech macv
                 string checkMaCVSql = "SELECT COUNT(*) FROM tblChucVu WHERE MaCV = @MaCV AND DeletedAt = 0";
                 using (SqlCommand cmd = new SqlCommand(checkMaCVSql, cn.conn))
                 {
@@ -118,7 +118,7 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                return true; // Tất cả đều hợp lệ
+                return true; //ok
             }
             catch (Exception ex)
             {
@@ -171,7 +171,7 @@ namespace QuanLyNhanVien3
                     da.Fill(ds);
 
                     cbBoxMaPB.DataSource = ds.Tables[0];
-                    cbBoxMaPB.DisplayMember = "MaPB";//Xác định cột nào của bảng dữ liệu sẽ được hiển thị lên ComboBox
+                    cbBoxMaPB.DisplayMember = "MaPB";// hien thi
                     cbBoxMaPB.ValueMember = "MaPB"; // cot gia tri
                 }
                 cn.disconnect();
@@ -191,7 +191,7 @@ namespace QuanLyNhanVien3
                     da.Fill(ds);
 
                     cbBoxChucVu.DataSource = ds.Tables[0];
-                    cbBoxChucVu.DisplayMember = "TenCV";//Xác định cột nào của bảng dữ liệu sẽ được hiển thị lên ComboBox
+                    cbBoxChucVu.DisplayMember = "TenCV"; // cot hien thi
                     cbBoxChucVu.ValueMember = "MaCV"; // cot gia tri
                 }
             }
@@ -347,16 +347,17 @@ namespace QuanLyNhanVien3
                     {
                         MessageBox.Show("Thêm nhân viên thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClearAllInputs(this); // Xóa dữ liệu trên form
-                        LoadDataNhanVien(); // Hàm load lại dữ liệu DataGridView
+                        cn.disconnect();
+                        ClearAllInputs(this); 
+                        LoadDataNhanVien(); 
                     }
                     else
                     {
                         MessageBox.Show("Thêm nhân viên thất bại!", "Lỗi",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cn.disconnect();
                     }
                 }
-                cn.disconnect();
             }
             catch (Exception ex)
             {
@@ -387,14 +388,12 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                // 1. Kiểm tra xem đã chọn nhân viên nào chưa
                 if (string.IsNullOrEmpty(tbmaNV.Text))
                 {
                     MessageBox.Show("Vui lòng chọn hoặc nhập mã nhân viên cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // 2. Xác nhận người dùng trước khi xóa
                 DialogResult confirm = MessageBox.Show(
                     "Bạn có chắc chắn muốn xóa nhân viên này không?",
                     "Xác nhận xóa",
@@ -465,8 +464,6 @@ namespace QuanLyNhanVien3
                         return;
                     }
                 }
-
-                // Kiểm tra dữ liệu nhập vào    string.IsNullOrWhiteSpace(tbmaNV.Text) ||
                 if (
                     string.IsNullOrWhiteSpace(tbHoTen.Text) ||
                     cbBoxGioiTinh.SelectedIndex == -1 ||
@@ -495,7 +492,6 @@ namespace QuanLyNhanVien3
                              Email = @Email, MaPB = @MaPB, MaCV = @MaCV, GhiChu= @GhiChu, DeletedAt = 0 WHERE MaNV = @MaNV";
                     using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                     {
-                        // Gán giá trị từ các ô nhập liệu vào tham số SQL
                         cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
                         cmd.Parameters.AddWithValue("@HoTen", tbHoTen.Text.Trim());
                         cmd.Parameters.AddWithValue("@NgaySinh", dateTimePickerNgaySinh.Value);
@@ -535,22 +531,20 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                if (string.IsNullOrEmpty(tbHoTen.Text) && string.IsNullOrEmpty(tbmaNV.Text))
+                if (string.IsNullOrEmpty(tbHoTen.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập tên hoac ma nhân viên để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập tên nhân viên để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 string sql = @"SELECT MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, GhiChu
                                 FROM tblNhanVien
                                 WHERE DeletedAt = 0
                                   AND(@TenTimKiem IS NULL OR HoTen LIKE '%' + @TenTimKiem + '%')
-                                  OR(@MaNVTimKiem IS NULL OR MaNV LIKE '%' + @MaNVTimKiem + '%')
                                 ORDER BY MaNV";
                 
                 using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                 {
                     cmd.Parameters.AddWithValue("@TenTimKiem", "%" + tbHoTen.Text + "%");
-                    cmd.Parameters.AddWithValue("@MaNVTimKiem", "%" + tbmaNV.Text + "%");
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -592,7 +586,6 @@ namespace QuanLyNhanVien3
 
         private void btnKhoiPhucNhanVien_Click(object sender, EventArgs e)
         {
-
             try
             {
                 if (string.IsNullOrEmpty(tbmaNV.Text))
@@ -625,9 +618,9 @@ namespace QuanLyNhanVien3
                     return;
                 }
 
-                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau";
+                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
                 SqlCommand cmdkhoiphuc = new SqlCommand(sqMKkhoiphuc, cn.conn);
-                cmdkhoiphuc.Parameters.AddWithValue("@TenDangNhap", "admin");
+                cmdkhoiphuc.Parameters.AddWithValue("@Quyen", "Admin");
                 cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
                 SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
 
@@ -681,7 +674,6 @@ namespace QuanLyNhanVien3
 
         private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
         {
-
             if (checkshowpassword.Checked)
             {
                 tbMKkhoiphuc.UseSystemPasswordChar = false;

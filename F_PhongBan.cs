@@ -69,7 +69,6 @@ namespace QuanLyNhanVien3
             try
             {
                 cn.connect();
-                // Kiểm tra dữ liệu nhập vào    string.IsNullOrWhiteSpace(tbmaNV.Text) ||
                 if (
                     string.IsNullOrWhiteSpace(tbmaPB.Text) ||
                     string.IsNullOrWhiteSpace(tbTenPB.Text) ||
@@ -131,14 +130,12 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                // Câu lệnh SQL chèn dữ liệu vào bảng tblNhanVien TenPB, DiaChi, SoDienThoai, Ghichu
                 string sqltblNhanVien = @"INSERT INTO tblPhongBan 
                            (MaPB, TenPB,  DiaChi, SoDienThoai, Ghichu, DeletedAt)
                            VALUES ( @MaPB, @TenPB, @DiaChi, @SoDienThoai, @GhiChu, 0)";
 
                 using (SqlCommand cmd = new SqlCommand(sqltblNhanVien, cn.conn))
                 {
-                    // Gán giá trị từ các ô nhập liệu vào tham số SQL
                     cmd.Parameters.AddWithValue("@MaPB", tbmaPB.Text.Trim());
                     cmd.Parameters.AddWithValue("@TenPB", tbTenPB.Text.Trim());
                     cmd.Parameters.AddWithValue("@DiaChi", tbDiaChi.Text.Trim());
@@ -228,7 +225,6 @@ namespace QuanLyNhanVien3
                     MessageBox.Show("Vui lòng chọn phòng ban cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                // Kiểm tra dữ liệu nhập vào    
                 if (
                     string.IsNullOrWhiteSpace(tbTenPB.Text) ||
                     string.IsNullOrWhiteSpace(tbDiaChi.Text) ||
@@ -253,7 +249,6 @@ namespace QuanLyNhanVien3
                     string sql = @"UPDATE tblPhongBan SET TenPB = @TenPB, DiaChi = @DiaChi, SoDienThoai = @SoDienThoai, GhiChu= @GhiChu, DeletedAt = 0 WHERE MaPB = @MaPB";
                     using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                     {
-                        // Gán giá trị từ các ô nhập liệu vào tham số SQL
                         cmd.Parameters.AddWithValue("@MaPB", tbmaPB.Text.Trim());
                         cmd.Parameters.AddWithValue("@TenPB", tbTenPB.Text.Trim());
                         cmd.Parameters.AddWithValue("@DiaChi", tbDiaChi.Text.Trim());
@@ -288,24 +283,20 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                if (string.IsNullOrEmpty(tbTenPB.Text) && string.IsNullOrEmpty(tbmaPB.Text)) 
+                if (string.IsNullOrEmpty(tbmaPB.Text)) 
                 {
-                    MessageBox.Show("Vui lòng nhập tên hoặc mã phòng ban để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); // hoặc mã
+                    MessageBox.Show("Vui lòng nhập mã phòng ban để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); // hoặc mã
                     return;
                 }
                 cn.connect();
                 string MaPBtimkiem = tbmaPB.Text.Trim();
-                string TenTimKiem = tbTenPB.Text.Trim();
-                string sql = @"SELECT MaPB, TenPB, DiaChi, SoDienThoai, Ghichu
-                                    FROM tblPhongBan
-                                    WHERE DeletedAt = 0
-                                    AND (TenPB LIKE @TenTimKiem OR MaPB LIKE @MaPBtimkiem)
-                                    ORDER BY MaPB"; //(TenPB LIKE @TenTimKiem OR MaPB LIKE @MaPBtimkiem)
+                string sql = @" SELECT MaPB, TenPB, DiaChi, SoDienThoai, Ghichu
+                                FROM tblPhongBan
+                                WHERE DeletedAt = 0 AND MaPB LIKE @MaPB
+                                ORDER BY MaPB";
                 using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                 {
-                    cmd.Parameters.AddWithValue("@MaPBtimkiem", "%" + MaPBtimkiem + "%");
-                    cmd.Parameters.AddWithValue("@TenTimKiem", "%" + TenTimKiem + "%");
-
+                    cmd.Parameters.AddWithValue("@MaPB", "%" + MaPBtimkiem + "%");
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -379,9 +370,9 @@ namespace QuanLyNhanVien3
                     return;
                 }
 
-                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau";
+                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
                 SqlCommand cmdkhoiphuc = new SqlCommand(sqMKkhoiphuc, cn.conn);
-                cmdkhoiphuc.Parameters.AddWithValue("@TenDangNhap", "admin");
+                cmdkhoiphuc.Parameters.AddWithValue("@Quyen", "Admin");
                 cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
                 SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
 
