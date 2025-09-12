@@ -404,7 +404,8 @@ namespace QuanLyNhanVien3
 
                 if (confirm == DialogResult.Yes)
                 {
-                    cn.connect(); string query = "UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV";
+                    cn.connect(); 
+                    string query = "UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV";
                     using (SqlCommand cmd = new SqlCommand(query, cn.conn))
                     {
                         cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text);
@@ -413,19 +414,16 @@ namespace QuanLyNhanVien3
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Xóa nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            // 3. Load lại danh sách sau khi xóa
+                            cn.disconnect();
                             LoadDataNhanVien();
-
-                            // 4. Xóa trắng các ô nhập liệu
                             ClearAllInputs(this);
                         }
                         else
                         {
                             MessageBox.Show("Không tìm thấy nhân viên để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            cn.disconnect();
                         }
                     }
-                    cn.disconnect();
                 }
             }
             catch (Exception ex)
