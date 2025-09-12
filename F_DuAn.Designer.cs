@@ -167,6 +167,7 @@
             this.dtGridViewDA.RowTemplate.Height = 24;
             this.dtGridViewDA.Size = new System.Drawing.Size(1080, 317);
             this.dtGridViewDA.TabIndex = 14;
+            this.dtGridViewDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewDA_CellClick);
             // 
             // DatePickerNgayBatDau
             // 
@@ -204,6 +205,7 @@
             this.btnXoa.TabIndex = 18;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
@@ -214,6 +216,7 @@
             this.btnSua.TabIndex = 19;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnTimKiem
             // 
@@ -224,6 +227,7 @@
             this.btnTimKiem.TabIndex = 20;
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // btnRefresh
             // 
@@ -234,6 +238,7 @@
             this.btnRefresh.TabIndex = 21;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnXuatExcel
             // 
@@ -244,6 +249,7 @@
             this.btnXuatExcel.TabIndex = 22;
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.UseVisualStyleBackColor = true;
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // btnXemDAdaKetThuc
             // 
@@ -254,6 +260,7 @@
             this.btnXemDAdaKetThuc.TabIndex = 23;
             this.btnXemDAdaKetThuc.Text = "Hiển Thị Dự Án Đã Kết Thúc\r\n";
             this.btnXemDAdaKetThuc.UseVisualStyleBackColor = true;
+            this.btnXemDAdaKetThuc.Click += new System.EventHandler(this.btnXemDAdaKetThuc_Click);
             // 
             // btnKhoiPhucDA
             // 
@@ -264,6 +271,7 @@
             this.btnKhoiPhucDA.TabIndex = 24;
             this.btnKhoiPhucDA.Text = "Khôi Phục Dự Án Đã Kết Thúc";
             this.btnKhoiPhucDA.UseVisualStyleBackColor = true;
+            this.btnKhoiPhucDA.Click += new System.EventHandler(this.btnKhoiPhucDA_Click);
             // 
             // label8
             // 
@@ -292,6 +300,7 @@
             this.checkHienMK.TabIndex = 27;
             this.checkHienMK.Text = "Hiển thị mật khẩu";
             this.checkHienMK.UseVisualStyleBackColor = true;
+            this.checkHienMK.CheckedChanged += new System.EventHandler(this.checkHienMK_CheckedChanged);
             // 
             // F_DuAn
             // 

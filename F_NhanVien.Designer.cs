@@ -141,6 +141,7 @@
             this.dtGridViewNhanVien.Size = new System.Drawing.Size(1452, 485);
             this.dtGridViewNhanVien.TabIndex = 84;
             this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick);
+            
             // 
             // btnTimKiem
             // 
