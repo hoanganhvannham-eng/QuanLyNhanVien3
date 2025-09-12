@@ -359,7 +359,7 @@
             this.btnxuatExcel.Name = "btnxuatExcel";
             this.btnxuatExcel.Size = new System.Drawing.Size(108, 31);
             this.btnxuatExcel.TabIndex = 91;
-            this.btnxuatExcel.Text = "XuatExcel";
+            this.btnxuatExcel.Text = "Xuất Excel";
             this.btnxuatExcel.UseVisualStyleBackColor = true;
             // 
             // tbMKkhoiphuc
