@@ -79,11 +79,19 @@ namespace QuanLyNhanVien3
                     return;
                 }
                 //kiem tra dieu kien hop li cua ngay bat dau voi ngay ket thuc
-                string checkstartdateandendate = "SELECT COUNT(*) FROM tblDuAn  WHERE NgayBatDau  = @NgayBD AND NgayKetThuc = @NgayKT";
-                using (SqlCommand cmdcheckstartdateandendate = new SqlCommand(checkstartdateandendate, cn.conn ))
+                string checkDateSql = "SELECT COUNT(*) FROM tblDuAn WHERE NgayBatDau > NgayKetThuc AND DeletedAt = 0";
+                using (SqlCommand cmd = new SqlCommand(checkDateSql, cn.conn))
                 {
-                    cmdcheckstartdateandendate.Parameters
+                    int invalidDateCount = (int)cmd.ExecuteScalar();
+                    if (invalidDateCount > 0)
+                    {
+                        MessageBox.Show("Tồn tại dự án có ngày bắt đầu lớn hơn ngày kết thúc!", "Cảnh báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
                 }
+
 
                 // check ma du an
                 string checkMaDASql = "SELECT COUNT(*) FROM tblDuAn  WHERE MaDA  = @MaDA  AND DeletedAt = 0";
@@ -125,8 +133,8 @@ namespace QuanLyNhanVien3
                     cmd.Parameters.AddWithValue("@MaDA", tbmaDA.Text.Trim());
                     cmd.Parameters.AddWithValue("@TenDA", tbTenDA.Text.Trim());
                     cmd.Parameters.AddWithValue("@MoTa", tbMota.Text.Trim());
-                    cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Text.Trim());
-                    cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
+                    cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
                     cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
 
                     int rows = cmd.ExecuteNonQuery();
