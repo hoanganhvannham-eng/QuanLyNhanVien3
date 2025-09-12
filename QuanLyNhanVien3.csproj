@@ -118,6 +118,9 @@
     <EmbeddedResource Include="F_DangNhap.resx">
       <DependentUpon>F_DangNhap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F_DuAn.resx">
+      <DependentUpon>F_DuAn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_FormMain.resx">
       <DependentUpon>F_FormMain.cs</DependentUpon>
     </EmbeddedResource>
