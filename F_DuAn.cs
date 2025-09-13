@@ -71,23 +71,12 @@ namespace QuanLyNhanVien3
                     string.IsNullOrWhiteSpace(tbTenDA.Text) ||
                     string.IsNullOrWhiteSpace(tbMota.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin cc!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                //kiem tra dieu kien hop li cua ngay bat dau voi ngay ket thuc
-                string checkDateSql = "SELECT COUNT(*) FROM tblDuAn WHERE NgayBatDau > NgayKetThuc AND DeletedAt = 0";
-                using (SqlCommand cmdcheckDate = new SqlCommand(checkDateSql, cn.conn))
-                {
-                    int invalidDateCount = (int)cmdcheckDate.ExecuteScalar();
-                    if (invalidDateCount > 0)
-                    {
-                        MessageBox.Show("Tồn tại dự án có ngày bắt đầu lớn hơn ngày kết thúc!", "Cảnh báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        cn.disconnect();
-                        return;
-                    }
-                }
+                
+                
 
 
                 // check ma du an
@@ -120,6 +109,14 @@ namespace QuanLyNhanVien3
                         return;
                     }
                 }
+                // Kiểm tra ngày bắt đầu và ngày kết thúc
+                if (DatePickerNgayBatDau.Value > DatePickerNgayKetThuc.Value)
+                {
+                    MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!", "Cảnh báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // end check
 
                 string sqltblDuAn = @"INSERT INTO tblDuAn 
                            (MaDA, TenDA,  MoTa, NgayBatDau, NgayKetThuc, Ghichu, DeletedAt)
@@ -156,8 +153,12 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //MessageBox.Show("Lỗi kiểm tra ngày bắt đầu/kết thúc: " + ex.Message, "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    cn.disconnect();
             }
         }
 
@@ -469,6 +470,20 @@ namespace QuanLyNhanVien3
         private void F_DuAn_Load_1(object sender, EventArgs e)
         {
             LoadDataDuAn();
+        }
+
+        private void dtGridViewDA_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbmaDA.Text = dtGridViewDA.Rows[i].Cells[0].Value.ToString();
+                tbTenDA.Text = dtGridViewDA.Rows[i].Cells[1].Value.ToString();
+                tbMota.Text = dtGridViewDA.Rows[i].Cells[2].Value.ToString();
+                DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[3].Value);
+                DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[4].Value);
+                tbGhiChu.Text = dtGridViewDA.Rows[i].Cells[5].Value.ToString();
+            }
         }
     }
 }

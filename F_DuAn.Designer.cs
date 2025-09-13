@@ -304,6 +304,7 @@
             this.dtGridViewDA.RowTemplate.Height = 24;
             this.dtGridViewDA.Size = new System.Drawing.Size(1090, 315);
             this.dtGridViewDA.TabIndex = 85;
+            this.dtGridViewDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewDA_CellClick_1);
             // 
             // F_DuAn
             // 
