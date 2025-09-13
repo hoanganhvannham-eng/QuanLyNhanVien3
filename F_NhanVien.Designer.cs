@@ -391,6 +391,7 @@
             this.dtGridViewNhanVien.RowTemplate.Height = 24;
             this.dtGridViewNhanVien.Size = new System.Drawing.Size(1383, 391);
             this.dtGridViewNhanVien.TabIndex = 119;
+            this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick_1);
             // 
             // F_NhanVien
             // 

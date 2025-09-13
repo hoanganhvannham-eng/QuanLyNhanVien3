@@ -368,20 +368,7 @@ namespace QuanLyNhanVien3
 
         private void dtGridViewNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int i = e.RowIndex;
-            if (i >= 0)
-            {
-                tbmaNV.Text = dtGridViewNhanVien.Rows[i].Cells[0].Value.ToString();
-                tbHoTen.Text = dtGridViewNhanVien.Rows[i].Cells[1].Value.ToString();
-                dateTimePickerNgaySinh.Value = Convert.ToDateTime(dtGridViewNhanVien.Rows[i].Cells[2].Value);
-                cbBoxGioiTinh.Text = dtGridViewNhanVien.Rows[i].Cells[3].Value.ToString();
-                tbDiaChi.Text = dtGridViewNhanVien.Rows[i].Cells[4].Value.ToString();
-                tbSoDienThoai.Text = dtGridViewNhanVien.Rows[i].Cells[5].Value.ToString();
-                tbEmail.Text = dtGridViewNhanVien.Rows[i].Cells[6].Value.ToString();
-                cbBoxMaPB.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[7].Value.ToString();
-                cbBoxChucVu.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[8].Value.ToString();
-                tbGhiChu.Text = dtGridViewNhanVien.Rows[i].Cells[9].Value.ToString();
-            }
+            
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -681,6 +668,24 @@ namespace QuanLyNhanVien3
             else
             {
                 tbMKkhoiphuc.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void dtGridViewNhanVien_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbmaNV.Text = dtGridViewNhanVien.Rows[i].Cells[0].Value.ToString();
+                tbHoTen.Text = dtGridViewNhanVien.Rows[i].Cells[1].Value.ToString();
+                dateTimePickerNgaySinh.Value = Convert.ToDateTime(dtGridViewNhanVien.Rows[i].Cells[2].Value);
+                cbBoxGioiTinh.Text = dtGridViewNhanVien.Rows[i].Cells[3].Value.ToString();
+                tbDiaChi.Text = dtGridViewNhanVien.Rows[i].Cells[4].Value.ToString();
+                tbSoDienThoai.Text = dtGridViewNhanVien.Rows[i].Cells[5].Value.ToString();
+                tbEmail.Text = dtGridViewNhanVien.Rows[i].Cells[6].Value.ToString();
+                cbBoxMaPB.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[7].Value.ToString();
+                cbBoxChucVu.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[8].Value.ToString();
+                tbGhiChu.Text = dtGridViewNhanVien.Rows[i].Cells[9].Value.ToString();
             }
         }
     }
