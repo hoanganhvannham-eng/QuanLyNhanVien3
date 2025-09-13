@@ -448,19 +448,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void dtGridViewDA_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = e.RowIndex;
-            if (i >= 0)
-            {
-                tbmaDA.Text = dtGridViewDA.Rows[i].Cells[0].Value.ToString();
-                tbTenDA.Text = dtGridViewDA.Rows[i].Cells[1].Value.ToString();
-                tbMota.Text = dtGridViewDA.Rows[i].Cells[2].Value.ToString();
-                DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[3].Value); 
-                DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[4].Value);
-                tbGhiChu.Text = dtGridViewDA.Rows[i].Cells[5].Value.ToString();
-            }
-        }
+   
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
