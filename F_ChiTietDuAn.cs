@@ -12,7 +12,12 @@ namespace QuanLyNhanVien3
 {
     public partial class F_ChiTietDuAn: Form
     {
-        private void F_ChiTietDuAn_Load(object sender, EventArgs e)
+        public F_ChiTietDuAn()
+        {
+            InitializeComponent();
+        }
+
+        private void F_ChiTietDA_Load(object sender, EventArgs e)
         {
 
         }

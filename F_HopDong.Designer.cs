@@ -288,13 +288,15 @@
             // dtGridViewHD
             // 
             this.dtGridViewHD.AllowUserToAddRows = false;
+            this.dtGridViewHD.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtGridViewHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGridViewHD.Location = new System.Drawing.Point(33, 390);
+            this.dtGridViewHD.Location = new System.Drawing.Point(28, 389);
             this.dtGridViewHD.Name = "dtGridViewHD";
+            this.dtGridViewHD.ReadOnly = true;
             this.dtGridViewHD.RowHeadersWidth = 51;
             this.dtGridViewHD.RowTemplate.Height = 24;
-            this.dtGridViewHD.Size = new System.Drawing.Size(943, 343);
-            this.dtGridViewHD.TabIndex = 40;
+            this.dtGridViewHD.Size = new System.Drawing.Size(948, 355);
+            this.dtGridViewHD.TabIndex = 86;
             // 
             // F_HopDong
             // 

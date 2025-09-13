@@ -68,19 +68,18 @@
             this.thongTinDuAnToolStripMenuItem.Name = "thongTinDuAnToolStripMenuItem";
             this.thongTinDuAnToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.thongTinDuAnToolStripMenuItem.Text = "Du An";
-
             // 
             // ThongTinDuAnToolStripMenuItem1
             // 
             this.ThongTinDuAnToolStripMenuItem1.Name = "ThongTinDuAnToolStripMenuItem1";
-            this.ThongTinDuAnToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.ThongTinDuAnToolStripMenuItem1.Size = new System.Drawing.Size(203, 26);
             this.ThongTinDuAnToolStripMenuItem1.Text = "Thong Tin Du An";
             this.ThongTinDuAnToolStripMenuItem1.Click += new System.EventHandler(this.ThongTinDuAnToolStripMenuItem1_Click);
             // 
             // chiTietDuAnToolStripMenuItem1
             // 
             this.chiTietDuAnToolStripMenuItem1.Name = "chiTietDuAnToolStripMenuItem1";
-            this.chiTietDuAnToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.chiTietDuAnToolStripMenuItem1.Size = new System.Drawing.Size(203, 26);
             this.chiTietDuAnToolStripMenuItem1.Text = "Chi Tiet Du An";
             this.chiTietDuAnToolStripMenuItem1.Click += new System.EventHandler(this.chiTietDuAnToolStripMenuItem1_Click);
             // 
@@ -144,6 +143,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormMain";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.F_FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

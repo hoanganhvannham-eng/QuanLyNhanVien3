@@ -34,7 +34,6 @@
             this.btnKhoiPhucNhanVien = new System.Windows.Forms.Button();
             this.btnNVDaNghiViec = new System.Windows.Forms.Button();
             this.cbBoxGioiTinh = new System.Windows.Forms.ComboBox();
-            this.dtGridViewNhanVien = new System.Windows.Forms.DataGridView();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
@@ -61,6 +60,7 @@
             this.tbMKkhoiphuc = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkshowpassword = new System.Windows.Forms.CheckBox();
+            this.dtGridViewNhanVien = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewNhanVien)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,21 +127,6 @@
             this.cbBoxGioiTinh.Name = "cbBoxGioiTinh";
             this.cbBoxGioiTinh.Size = new System.Drawing.Size(283, 27);
             this.cbBoxGioiTinh.TabIndex = 85;
-            // 
-            // dtGridViewNhanVien
-            // 
-            this.dtGridViewNhanVien.AllowUserToAddRows = false;
-            this.dtGridViewNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dtGridViewNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGridViewNhanVien.Location = new System.Drawing.Point(68, 380);
-            this.dtGridViewNhanVien.Name = "dtGridViewNhanVien";
-            this.dtGridViewNhanVien.ReadOnly = true;
-            this.dtGridViewNhanVien.RowHeadersWidth = 51;
-            this.dtGridViewNhanVien.RowTemplate.Height = 24;
-            this.dtGridViewNhanVien.Size = new System.Drawing.Size(1452, 485);
-            this.dtGridViewNhanVien.TabIndex = 84;
-            this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick);
-            
             // 
             // btnTimKiem
             // 
@@ -393,11 +378,26 @@
             this.checkshowpassword.UseVisualStyleBackColor = true;
             this.checkshowpassword.CheckedChanged += new System.EventHandler(this.checkshowpassword_CheckedChanged);
             // 
+            // dtGridViewNhanVien
+            // 
+            this.dtGridViewNhanVien.AllowUserToAddRows = false;
+            this.dtGridViewNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtGridViewNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGridViewNhanVien.Location = new System.Drawing.Point(95, 421);
+            this.dtGridViewNhanVien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dtGridViewNhanVien.Name = "dtGridViewNhanVien";
+            this.dtGridViewNhanVien.ReadOnly = true;
+            this.dtGridViewNhanVien.RowHeadersWidth = 51;
+            this.dtGridViewNhanVien.RowTemplate.Height = 24;
+            this.dtGridViewNhanVien.Size = new System.Drawing.Size(1383, 391);
+            this.dtGridViewNhanVien.TabIndex = 119;
+            // 
             // F_NhanVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1593, 914);
+            this.ClientSize = new System.Drawing.Size(1598, 923);
+            this.Controls.Add(this.dtGridViewNhanVien);
             this.Controls.Add(this.checkshowpassword);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tbMKkhoiphuc);
@@ -408,7 +408,6 @@
             this.Controls.Add(this.btnKhoiPhucNhanVien);
             this.Controls.Add(this.btnNVDaNghiViec);
             this.Controls.Add(this.cbBoxGioiTinh);
-            this.Controls.Add(this.dtGridViewNhanVien);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnXoa);
@@ -448,7 +447,6 @@
         private System.Windows.Forms.Button btnKhoiPhucNhanVien;
         private System.Windows.Forms.Button btnNVDaNghiViec;
         private System.Windows.Forms.ComboBox cbBoxGioiTinh;
-        private System.Windows.Forms.DataGridView dtGridViewNhanVien;
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;
@@ -475,5 +473,6 @@
         private System.Windows.Forms.TextBox tbMKkhoiphuc;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkshowpassword;
+        private System.Windows.Forms.DataGridView dtGridViewNhanVien;
     }
 }

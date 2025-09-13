@@ -39,7 +39,6 @@
             this.tbmaDA = new System.Windows.Forms.TextBox();
             this.tbMota = new System.Windows.Forms.TextBox();
             this.tbGhiChu = new System.Windows.Forms.TextBox();
-            this.dtGridViewDA = new System.Windows.Forms.DataGridView();
             this.DatePickerNgayBatDau = new System.Windows.Forms.DateTimePicker();
             this.DatePickerNgayKetThuc = new System.Windows.Forms.DateTimePicker();
             this.btnThem = new System.Windows.Forms.Button();
@@ -53,6 +52,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbMKKhoiPhuc = new System.Windows.Forms.TextBox();
             this.checkHienMK = new System.Windows.Forms.CheckBox();
+            this.dtGridViewDA = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewDA)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,18 +157,6 @@
             this.tbGhiChu.Name = "tbGhiChu";
             this.tbGhiChu.Size = new System.Drawing.Size(372, 27);
             this.tbGhiChu.TabIndex = 13;
-            // 
-            // dtGridViewDA
-            // 
-            this.dtGridViewDA.AllowUserToAddRows = false;
-            this.dtGridViewDA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGridViewDA.Location = new System.Drawing.Point(31, 351);
-            this.dtGridViewDA.Name = "dtGridViewDA";
-            this.dtGridViewDA.RowHeadersWidth = 51;
-            this.dtGridViewDA.RowTemplate.Height = 24;
-            this.dtGridViewDA.Size = new System.Drawing.Size(1080, 317);
-            this.dtGridViewDA.TabIndex = 14;
-            this.dtGridViewDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewDA_CellClick);
             // 
             // DatePickerNgayBatDau
             // 
@@ -304,11 +292,25 @@
             this.checkHienMK.UseVisualStyleBackColor = true;
             this.checkHienMK.CheckedChanged += new System.EventHandler(this.checkHienMK_CheckedChanged);
             // 
+            // dtGridViewDA
+            // 
+            this.dtGridViewDA.AllowUserToAddRows = false;
+            this.dtGridViewDA.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtGridViewDA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGridViewDA.Location = new System.Drawing.Point(25, 369);
+            this.dtGridViewDA.Name = "dtGridViewDA";
+            this.dtGridViewDA.ReadOnly = true;
+            this.dtGridViewDA.RowHeadersWidth = 51;
+            this.dtGridViewDA.RowTemplate.Height = 24;
+            this.dtGridViewDA.Size = new System.Drawing.Size(1090, 315);
+            this.dtGridViewDA.TabIndex = 85;
+            // 
             // F_DuAn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1142, 696);
+            this.Controls.Add(this.dtGridViewDA);
             this.Controls.Add(this.checkHienMK);
             this.Controls.Add(this.tbMKKhoiPhuc);
             this.Controls.Add(this.label8);
@@ -322,7 +324,6 @@
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.DatePickerNgayKetThuc);
             this.Controls.Add(this.DatePickerNgayBatDau);
-            this.Controls.Add(this.dtGridViewDA);
             this.Controls.Add(this.tbGhiChu);
             this.Controls.Add(this.tbMota);
             this.Controls.Add(this.tbmaDA);
@@ -356,7 +357,6 @@
         private System.Windows.Forms.TextBox tbmaDA;
         private System.Windows.Forms.TextBox tbMota;
         private System.Windows.Forms.TextBox tbGhiChu;
-        private System.Windows.Forms.DataGridView dtGridViewDA;
         private System.Windows.Forms.DateTimePicker DatePickerNgayBatDau;
         private System.Windows.Forms.DateTimePicker DatePickerNgayKetThuc;
         private System.Windows.Forms.Button btnThem;
@@ -370,5 +370,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbMKKhoiPhuc;
         private System.Windows.Forms.CheckBox checkHienMK;
+        private System.Windows.Forms.DataGridView dtGridViewDA;
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewPhongBan = new System.Windows.Forms.DataGridView();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
@@ -51,23 +50,9 @@
             this.btnrestar = new System.Windows.Forms.Button();
             this.btnKhoiPhucPhongBan = new System.Windows.Forms.Button();
             this.btnHienThiPhongBanCu = new System.Windows.Forms.Button();
+            this.dataGridViewPhongBan = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhongBan)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridViewPhongBan
-            // 
-            this.dataGridViewPhongBan.AllowUserToAddRows = false;
-            this.dataGridViewPhongBan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewPhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPhongBan.Location = new System.Drawing.Point(47, 340);
-            this.dataGridViewPhongBan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGridViewPhongBan.Name = "dataGridViewPhongBan";
-            this.dataGridViewPhongBan.ReadOnly = true;
-            this.dataGridViewPhongBan.RowHeadersWidth = 51;
-            this.dataGridViewPhongBan.RowTemplate.Height = 24;
-            this.dataGridViewPhongBan.Size = new System.Drawing.Size(1224, 354);
-            this.dataGridViewPhongBan.TabIndex = 76;
-            this.dataGridViewPhongBan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPhongBan_CellClick);
             // 
             // btnTimKiem
             // 
@@ -302,11 +287,26 @@
             this.btnHienThiPhongBanCu.UseVisualStyleBackColor = true;
             this.btnHienThiPhongBanCu.Click += new System.EventHandler(this.btnHienThiPhongBanCu_Click);
             // 
+            // dataGridViewPhongBan
+            // 
+            this.dataGridViewPhongBan.AllowUserToAddRows = false;
+            this.dataGridViewPhongBan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewPhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPhongBan.Location = new System.Drawing.Point(56, 350);
+            this.dataGridViewPhongBan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridViewPhongBan.Name = "dataGridViewPhongBan";
+            this.dataGridViewPhongBan.ReadOnly = true;
+            this.dataGridViewPhongBan.RowHeadersWidth = 51;
+            this.dataGridViewPhongBan.RowTemplate.Height = 24;
+            this.dataGridViewPhongBan.Size = new System.Drawing.Size(1215, 327);
+            this.dataGridViewPhongBan.TabIndex = 118;
+            // 
             // F_PhongBan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1327, 688);
+            this.Controls.Add(this.dataGridViewPhongBan);
             this.Controls.Add(this.checkshowpassword);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.tbMKkhoiphuc);
@@ -314,7 +314,6 @@
             this.Controls.Add(this.btnrestar);
             this.Controls.Add(this.btnKhoiPhucPhongBan);
             this.Controls.Add(this.btnHienThiPhongBanCu);
-            this.Controls.Add(this.dataGridViewPhongBan);
             this.Controls.Add(this.btnTimKiem);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnXoa);
@@ -341,7 +340,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridViewPhongBan;
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;
@@ -364,5 +362,6 @@
         private System.Windows.Forms.Button btnrestar;
         private System.Windows.Forms.Button btnKhoiPhucPhongBan;
         private System.Windows.Forms.Button btnHienThiPhongBanCu;
+        private System.Windows.Forms.DataGridView dataGridViewPhongBan;
     }
 }

@@ -44,7 +44,7 @@ namespace QuanLyNhanVien3
         private void chiTietDuAnToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OpenChildForm(new F_ChiTietDuAn());
-            //ChiTietDuAn CTDA = new ChiTietDuAn();
+            //F_ChiTietDuAn CTDA = new F_ChiTietDuAn();
             //CTDA.MdiParent = this;
             //CTDA.Show();
         }
@@ -105,5 +105,9 @@ namespace QuanLyNhanVien3
             //TK.Show();
         }
 
+        private void F_FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
