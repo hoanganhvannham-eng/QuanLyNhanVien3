@@ -71,7 +71,7 @@ namespace QuanLyNhanVien3
                     string.IsNullOrWhiteSpace(tbTenDA.Text) ||
                     string.IsNullOrWhiteSpace(tbMota.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin cc!", "Thông báo",
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin !", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -84,9 +84,9 @@ namespace QuanLyNhanVien3
                 using (SqlCommand cmdcheckMaDASql = new SqlCommand(checkMaDASql, cn.conn))
                 {
                     cmdcheckMaDASql.Parameters.AddWithValue("@MaDA", tbmaDA.Text);
-                    int MaPBCount = (int)cmdcheckMaDASql.ExecuteScalar();
+                    int MaDACount = (int)cmdcheckMaDASql.ExecuteScalar();
 
-                    if (MaPBCount != 0)
+                    if (MaDACount != 0)
                     {
                         MessageBox.Show("Mã dự án đã tồn tại trong hệ thống!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);

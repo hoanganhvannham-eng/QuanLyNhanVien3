@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,356 @@ namespace QuanLyNhanVien3
         {
             LoadDataHopDong();
 
+        }
+
+        private void dtGridViewHD_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbMaHD.Text = dtGridViewHD.Rows[i].Cells[0].Value.ToString();
+                tbmaNV.Text = dtGridViewHD.Rows[i].Cells[1].Value.ToString();
+                DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[2].Value);
+                DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[3].Value);
+                tbLoaiHD.Text = dtGridViewHD.Rows[i].Cells[4].Value.ToString();
+                tbLuongCoBan.Text = dtGridViewHD.Rows[i].Cells[5].Value.ToString();
+                tbGhiChu.Text = dtGridViewHD.Rows[i].Cells[6].Value.ToString();
+            }
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cn.connect();
+                if (
+                    string.IsNullOrWhiteSpace(tbMaHD.Text) ||
+                    string.IsNullOrWhiteSpace(tbmaNV.Text) ||
+                    string.IsNullOrWhiteSpace(tbLoaiHD.Text) ||
+                    string.IsNullOrWhiteSpace(tbLuongCoBan.Text) ||
+                    string.IsNullOrWhiteSpace(tbLoaiHD.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin !", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+
+
+                // check ma Hop Dong
+                string checkMaDASql = "SELECT COUNT(*) FROM tblHopDong  WHERE MaHopDong  = @MaHopDong  AND DeletedAt = 0";
+                using (SqlCommand cmdcheckMaDASql = new SqlCommand(checkMaDASql, cn.conn))
+                {
+                    cmdcheckMaDASql.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text);
+                    int MaHDCount = (int)cmdcheckMaDASql.ExecuteScalar();
+
+                    if (MaHDCount != 0)
+                    {
+                        MessageBox.Show("Mã Hợp Đồng đã tồn tại trong hệ thống!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+
+                // check ma nv
+                string checkMaNVSql = "SELECT COUNT(*) FROM tblHopDong WHERE MaNV = @MaNV AND DeletedAt = 0";
+                using (SqlCommand cmd = new SqlCommand(checkMaNVSql, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
+                    int count = (int)cmd.ExecuteScalar();
+                    if (count == 0)
+                    {
+                        MessageBox.Show("Mã nhân viên này không có trong hệ thống!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+
+                //Kiểm Tra trong lương cơ bản 
+                string input = tbLuongCoBan.Text.Trim();
+                // 1. Kiểm tra không để trống
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    MessageBox.Show("Vui lòng nhập lương cơ bản!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // 2. Kiểm tra có phải số hay không (cho phép dấu . hoặc , theo hệ thống)
+                if (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double luong))
+                {
+                    MessageBox.Show("Lương cơ bản phải là số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // 3. Kiểm tra phải > 0
+                if (luong <= 0)
+                {
+                    MessageBox.Show("Lương cơ bản phải lớn hơn 0!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Kiểm tra ngày bắt đầu và ngày kết thúc
+                if (DatePickerNgayBatDau.Value > DatePickerNgayKetThuc.Value)
+                {
+                    MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!", "Cảnh báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // end check
+
+                string sqltblDuAn = @"INSERT INTO tblHopDong 
+                           (MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu, DeletedAt)
+                           VALUES ( @MaHopDong, @MaNV, @NgayBatDau, @NgayKetThuc, @LoaiHopDong, @LuongCoBan, @GhiChu, 0)";
+
+                using (SqlCommand cmd = new SqlCommand(sqltblDuAn, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
+                    cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
+                    cmd.Parameters.AddWithValue("@LoaiHopDong", tbLoaiHD.Text.Trim());
+                    cmd.Parameters.AddWithValue("@LuongCoBan", tbLuongCoBan.Text.Trim());
+                    cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                    {
+                        MessageBox.Show("Thêm hợp đồng thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cn.disconnect();
+                        ClearAllInputs(this);
+                        LoadDataHopDong();
+                    }
+                    else
+                    {
+                        cn.disconnect();
+                        MessageBox.Show("Thêm hợp đồng thất bại!", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbMaHD.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Hợp Đồng cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa Hợp Đồng này không?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirm == DialogResult.Yes)
+                {
+                    cn.connect();
+                    string query = "UPDATE tblHopDong SET DeletedAt = 1 WHERE MaHopDong = @MaHopDong";
+                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xóa Hợp Đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cn.disconnect();
+                            LoadDataHopDong();
+                            ClearAllInputs(this);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy Hợp Đồng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            cn.disconnect();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbMaHD.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập mã Hợp Đồng để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); // hoặc mã
+                    return;
+                }
+                cn.connect();
+                string MaHDtimkiem = tbMaHD.Text.Trim();
+                string sql = @" SELECT MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu
+                                FROM tblHopDong
+                                WHERE DeletedAt = 0 AND MaHopDong LIKE @MaHopDong
+                                ORDER BY MaHopDong";
+                using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaHopDong", "%" + MaHDtimkiem + "%");
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dtGridViewHD.DataSource = dt;
+                }
+                cn.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi " + ex.Message);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadDataHopDong();
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkHienMK_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkHienMK.Checked)
+            {
+                tbMKKhoiPhuc.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbMKKhoiPhuc.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnXemHDCu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cn.connect();
+                string query = @" SELECT MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu FROM tblHopDong WHERE DeletedAt =1 ORDER BY MaHopDong";
+                using (SqlDataAdapter da = new SqlDataAdapter(query, cn.conn))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dtGridViewHD.DataSource = dt;
+                }
+                cn.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void btnKhoiPhucHDCu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbMaHD.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Hợp Đồng cần khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                cn.connect();
+                string query = "SELECT COUNT(*) FROM tblHopDong WHERE MaHopDong = @MaHopDong AND DeletedAt = 1";
+                using (SqlCommand cmdcheckPB = new SqlCommand(query, cn.conn))
+                {
+                    cmdcheckPB.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
+                    int emailCount = (int)cmdcheckPB.ExecuteScalar();
+
+                    if (emailCount == 0)
+                    {
+                        MessageBox.Show("Mã Hợp Đồng này đã tồn tại trong hệ thống!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+
+                //
+                if (tbMKKhoiPhuc.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập mật khẩu để khôi phục", "Thông báo", MessageBoxButtons.OK,
+                    MessageBoxIcon.Question);
+                    return;
+                }
+
+                string sqMKKhoiPhuc = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
+                SqlCommand cmdkhoiphuc = new SqlCommand(sqMKKhoiPhuc, cn.conn);
+                cmdkhoiphuc.Parameters.AddWithValue("@Quyen", "Admin");
+                cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKKhoiPhuc.Text);
+                SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
+
+                if (reader.Read() == false)
+                {
+                    MessageBox.Show("mật khẩu không đúng? Vui lòng nhập lại mật khẩu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    tbMKKhoiPhuc.Text = "";
+                    reader.Close();
+                    cn.disconnect();
+                    return;
+                }
+                reader.Close();
+
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn khôi phục Hợp Đồng này không?",
+                    "Xác nhận khôi phục",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+
+                if (confirm == DialogResult.Yes)
+                {
+                    tbMKKhoiPhuc.Text = "";
+                    string querytblPhongBan = "UPDATE tblHopDong SET DeletedAt = 0 WHERE MaHopDong = @MaHopDong";
+                    using (SqlCommand cmd = new SqlCommand(querytblPhongBan, cn.conn))
+                    {
+                        // DELETE FROM tblNhanVien WHERE MaNV = @MaNV / UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV
+                        cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("khôi phục Hợp Đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cn.disconnect();
+                            ClearAllInputs(this);
+                            LoadDataHopDong();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy Hợp Đồng để khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            cn.disconnect();
+                        }
+                    }
+                    //cn.disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi " + ex.Message);
+                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
