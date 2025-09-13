@@ -59,10 +59,6 @@ namespace QuanLyNhanVien3
 
         }
 
-        private void F_DuAn_Load(object sender, EventArgs e)
-        {
-            LoadDataDuAn();
-        }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
@@ -466,6 +462,9 @@ namespace QuanLyNhanVien3
 
         }
 
-     
+        private void F_DuAn_Load_1(object sender, EventArgs e)
+        {
+            LoadDataDuAn();
+        }
     }
 }

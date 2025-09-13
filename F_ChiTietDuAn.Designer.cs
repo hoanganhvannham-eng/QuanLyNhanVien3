@@ -211,6 +211,7 @@
             // 
             // dtGridViewChiTietDA
             // 
+            this.dtGridViewChiTietDA.AllowUserToAddRows = false;
             this.dtGridViewChiTietDA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridViewChiTietDA.Location = new System.Drawing.Point(44, 423);
             this.dtGridViewChiTietDA.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -342,6 +343,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "F_ChiTietDuAn";
             this.Text = "ChiTietDuAn";
+            this.Load += new System.EventHandler(this.F_ChiTietDuAn_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewChiTietDA)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

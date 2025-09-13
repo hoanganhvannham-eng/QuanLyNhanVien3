@@ -160,6 +160,7 @@
             // 
             // dtGridViewDA
             // 
+            this.dtGridViewDA.AllowUserToAddRows = false;
             this.dtGridViewDA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridViewDA.Location = new System.Drawing.Point(31, 351);
             this.dtGridViewDA.Name = "dtGridViewDA";
@@ -335,6 +336,7 @@
             this.Controls.Add(this.label1);
             this.Name = "F_DuAn";
             this.Text = "DuAn";
+            this.Load += new System.EventHandler(this.F_DuAn_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewDA)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

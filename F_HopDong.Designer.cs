@@ -287,6 +287,7 @@
             // 
             // dtGridViewHD
             // 
+            this.dtGridViewHD.AllowUserToAddRows = false;
             this.dtGridViewHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridViewHD.Location = new System.Drawing.Point(33, 390);
             this.dtGridViewHD.Name = "dtGridViewHD";
