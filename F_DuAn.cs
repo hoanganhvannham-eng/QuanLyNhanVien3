@@ -62,6 +62,7 @@ namespace QuanLyNhanVien3
 
         private void btnThem_Click(object sender, EventArgs e)
         {
+
             try
             {
                 cn.connect();
@@ -93,7 +94,7 @@ namespace QuanLyNhanVien3
                 string checkMaDASql = "SELECT COUNT(*) FROM tblDuAn  WHERE MaDA  = @MaDA  AND DeletedAt = 0";
                 using (SqlCommand cmdcheckMaDASql = new SqlCommand(checkMaDASql, cn.conn))
                 {
-                    cmdcheckMaDASql.Parameters.AddWithValue("@MaPB", tbmaDA.Text);
+                    cmdcheckMaDASql.Parameters.AddWithValue("@MaDA", tbmaDA.Text);
                     int MaPBCount = (int)cmdcheckMaDASql.ExecuteScalar();
 
                     if (MaPBCount != 0)
@@ -155,8 +156,8 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -280,6 +281,9 @@ namespace QuanLyNhanVien3
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi" + ex.Message);
+
+                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
