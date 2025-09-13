@@ -688,5 +688,7 @@ namespace QuanLyNhanVien3
                 tbGhiChu.Text = dtGridViewNhanVien.Rows[i].Cells[9].Value.ToString();
             }
         }
+
+      
     }
 }

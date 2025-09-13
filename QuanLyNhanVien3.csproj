@@ -130,6 +130,9 @@
     <EmbeddedResource Include="F_HopDong.resx">
       <DependentUpon>F_HopDong.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="F_Luong.resx">
+      <DependentUpon>F_Luong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_NhanVien.resx">
       <DependentUpon>F_NhanVien.cs</DependentUpon>
     </EmbeddedResource>
