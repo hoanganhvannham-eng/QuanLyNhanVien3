@@ -327,6 +327,7 @@
             this.Controls.Add(this.label1);
             this.Name = "F_HopDong";
             this.Text = "HopDong";
+            this.Load += new System.EventHandler(this.F_HopDong_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewHD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
