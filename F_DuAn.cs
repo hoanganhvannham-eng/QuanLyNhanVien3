@@ -226,20 +226,15 @@ namespace QuanLyNhanVien3
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                //kiem tra dieu kien hop li cua ngay bat dau voi ngay ket thuc
-                string checkDateSql = "SELECT COUNT(*) FROM tblDuAn WHERE NgayBatDau > NgayKetThuc AND DeletedAt = 0";
-                using (SqlCommand cmdcheckDate = new SqlCommand(checkDateSql, cn.conn))
+                // Kiểm tra ngày bắt đầu và ngày kết thúc
+                if (DatePickerNgayBatDau.Value > DatePickerNgayKetThuc.Value)
                 {
-                    int invalidDateCount = (int)cmdcheckDate.ExecuteScalar();
-                    if (invalidDateCount > 0)
-                    {
-                        MessageBox.Show("Tồn tại dự án có ngày bắt đầu lớn hơn ngày kết thúc!", "Cảnh báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        cn.disconnect();
-                        return;
-                    }
+                    MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!", "Cảnh báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                    DialogResult confirm = MessageBox.Show(
+                DialogResult confirm = MessageBox.Show(
                     "Bạn có chắc chắn muốn sửa dự án này không?",
                     "Xác nhận sửa",
                     MessageBoxButtons.YesNo,
@@ -252,8 +247,8 @@ namespace QuanLyNhanVien3
                         string sql = @"UPDATE tblDuAn SET TenDA = @TenDA, MoTa = @MoTa, NgayBatDau = @NgayBatDau, NgayKetThuc = @NgayKetThuc, GhiChu = @GhiChu, DeletedAt = 0 WHERE MaDA = @MaDA";
                         using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                         {
-                            cmd.Parameters.AddWithValue("@MaPB", tbmaDA.Text.Trim());
-                            cmd.Parameters.AddWithValue("@TenPB", tbTenDA.Text.Trim());
+                            cmd.Parameters.AddWithValue("@MaDA", tbmaDA.Text.Trim());
+                            cmd.Parameters.AddWithValue("@TenDA", tbTenDA.Text.Trim());
                             cmd.Parameters.AddWithValue("@MoTa", tbMota.Text.Trim());
                             cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
                             cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
@@ -276,7 +271,7 @@ namespace QuanLyNhanVien3
                             }
                         }
                     }
-                }
+                
             }
 
             catch (Exception ex)
