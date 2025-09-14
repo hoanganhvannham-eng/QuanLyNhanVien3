@@ -165,11 +165,11 @@ namespace QuanLyNhanVien3
                 }
                 // end check
 
-                string sqltblDuAn = @"INSERT INTO tblHopDong 
+                string sqltblHopDong = @"INSERT INTO tblHopDong 
                            (MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu, DeletedAt)
                            VALUES ( @MaHopDong, @MaNV, @NgayBatDau, @NgayKetThuc, @LoaiHopDong, @LuongCoBan, @GhiChu, 0)";
 
-                using (SqlCommand cmd = new SqlCommand(sqltblDuAn, cn.conn))
+                using (SqlCommand cmd = new SqlCommand(sqltblHopDong, cn.conn))
                 {
                     cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
                     cmd.Parameters.AddWithValue("@MaNV", cbMaNV.SelectedValue);
@@ -252,7 +252,109 @@ namespace QuanLyNhanVien3
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            try
+            {
+                cn.connect();
+                if (string.IsNullOrEmpty(tbMaHD.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã hợp đồng cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cn.disconnect();
+                    return;
+                }
 
+                //Kiểm Tra trong lương cơ bản 
+                string input = tbLuongCoBan.Text.Trim();
+                // 2. Kiểm tra có phải số hay không (cho phép dấu . hoặc , theo hệ thống)
+                if (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double luong))
+                {
+                    MessageBox.Show("Lương cơ bản phải là số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // 3. Kiểm tra phải > 0
+                if (luong <= 0)
+                {
+                    MessageBox.Show("Lương cơ bản phải lớn hơn 0!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Kiểm tra ngày bắt đầu và ngày kết thúc
+                if (DatePickerNgayBatDau.Value > DatePickerNgayKetThuc.Value)
+                {
+                    MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!", "Cảnh báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // end check
+
+                string checkMaHDSql = "SELECT COUNT(*) FROM tblHopDong WHERE MaHopDong = @MaHopDong AND DeletedAt = 0";
+                using (SqlCommand cmd = new SqlCommand(checkMaHDSql, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
+                    int count = (int)cmd.ExecuteScalar();
+                    if (count == 0)
+                    {
+                        MessageBox.Show("Mã hợp đồng này không tồn tại trong hệ thống!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+                if (
+                    string.IsNullOrWhiteSpace(tbMaHD.Text) ||
+                    cbMaNV.SelectedIndex == -1 ||
+                    string.IsNullOrWhiteSpace(tbLoaiHD.Text) ||
+                    string.IsNullOrWhiteSpace(tbLuongCoBan.Text) ||
+                    string.IsNullOrWhiteSpace(tbLoaiHD.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin !", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;    
+                }
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn sửa Hợp Đồng này không?",
+                    "Xác nhận sửa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+                // NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu, DeletedAt)
+                // @NgayBatDau, @NgayKetThuc, @LoaiHopDong, @LuongCoBan, @GhiChu, 0)"
+
+                if (confirm == DialogResult.Yes)
+                {
+                    string sql = @"UPDATE tblHopDong SET  MaHopDong = @MaHopDong, MaNV = @MaNV, NgayBatDau = @NgayBatDau, NgayKetThuc = @NgayKetThuc,
+                              LoaiHopDong = @LoaiHopDong, LuongCoBan = @LuongCoBan, GhiChu= @GhiChu, DeletedAt = 0 WHERE MaHopDong = @MaHopDong";
+                    using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
+                        cmd.Parameters.AddWithValue("@MaNV", cbMaNV.SelectedValue);
+                        cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
+                        cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
+                        cmd.Parameters.AddWithValue("@LoaiHopDong", tbLoaiHD.Text.Trim());
+                        cmd.Parameters.AddWithValue("@LuongCoBan", tbLuongCoBan.Text.Trim());
+                        cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
+
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Cập nhật thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            LoadDataHopDong();
+                            ClearAllInputs(this);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa hợp đông thất bại!", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                cn.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("lỗi" + ex.Message);
+            }
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
