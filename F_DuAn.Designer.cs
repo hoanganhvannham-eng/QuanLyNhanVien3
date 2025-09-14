@@ -372,7 +372,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 484);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1142, 527);
+            this.panel3.Size = new System.Drawing.Size(1142, 406);
             this.panel3.TabIndex = 88;
             // 
             // dtGridViewDA
@@ -386,7 +386,7 @@
             this.dtGridViewDA.ReadOnly = true;
             this.dtGridViewDA.RowHeadersWidth = 51;
             this.dtGridViewDA.RowTemplate.Height = 24;
-            this.dtGridViewDA.Size = new System.Drawing.Size(1142, 527);
+            this.dtGridViewDA.Size = new System.Drawing.Size(1142, 406);
             this.dtGridViewDA.TabIndex = 86;
             this.dtGridViewDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewDA_CellClick);
             // 
@@ -394,7 +394,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1142, 1011);
+            this.ClientSize = new System.Drawing.Size(1142, 890);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
