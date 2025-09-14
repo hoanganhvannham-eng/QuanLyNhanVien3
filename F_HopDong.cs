@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -96,7 +97,7 @@ namespace QuanLyNhanVien3
             if (i >= 0)
             {
                 tbMaHD.Text = dtGridViewHD.Rows[i].Cells[0].Value.ToString();
-                cbMaNV.SelectedValue = dtGridViewHD.Rows[i].Cells[8].Value.ToString();
+                cbMaNV.SelectedValue = dtGridViewHD.Rows[i].Cells[1].Value.ToString();
                 DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[2].Value);
                 DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[3].Value);
                 tbLoaiHD.Text = dtGridViewHD.Rows[i].Cells[4].Value.ToString();
@@ -104,8 +105,7 @@ namespace QuanLyNhanVien3
                 tbGhiChu.Text = dtGridViewHD.Rows[i].Cells[6].Value.ToString();
             }
         }
-
-        private void btnThem_Click(object sender, EventArgs e)
+   private void btnThem_Click_2(object sender, EventArgs e)
         {
             try
             {
@@ -203,54 +203,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(tbMaHD.Text))
-                {
-                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Hợp Đồng cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DialogResult confirm = MessageBox.Show(
-                    "Bạn có chắc chắn muốn xóa Hợp Đồng này không?",
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (confirm == DialogResult.Yes)
-                {
-                    cn.connect();
-                    string query = "UPDATE tblHopDong SET DeletedAt = 1 WHERE MaHopDong = @MaHopDong";
-                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text);
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Xóa Hợp Đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            cn.disconnect();
-                            LoadDataHopDong();
-                            ClearAllInputs(this);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy Hợp Đồng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            cn.disconnect();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -307,7 +260,7 @@ namespace QuanLyNhanVien3
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin !", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;    
+                    return;
                 }
 
                 DialogResult confirm = MessageBox.Show(
@@ -357,7 +310,59 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbMaHD.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Hợp Đồng cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa Hợp Đồng này không?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirm == DialogResult.Yes)
+                {
+                    cn.connect();
+                    string query = "UPDATE tblHopDong SET DeletedAt = 1 WHERE MaHopDong = @MaHopDong";
+                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xóa Hợp Đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cn.disconnect();
+                            LoadDataHopDong();
+                            ClearAllInputs(this);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy Hợp Đồng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            cn.disconnect();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRefresh_Click_1(object sender, EventArgs e)
+        {
+            LoadDataHopDong();
+        }
+
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -388,29 +393,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadDataHopDong();
-        }
-
-        private void btnXuatExcel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkHienMK_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkHienMK.Checked)
-            {
-                tbMKKhoiPhuc.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                tbMKKhoiPhuc.UseSystemPasswordChar = true;
-            }
-        }
-
-        private void btnXemHDCu_Click(object sender, EventArgs e)
+        private void btnXemHDCu_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -430,7 +413,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnKhoiPhucHDCu_Click(object sender, EventArgs e)
+        private void btnKhoiPhucHDCu_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -519,6 +502,74 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("Lỗi " + ex.Message);
                 //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
                 //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkHienMK_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkHienMK.Checked)
+            {
+                tbMKKhoiPhuc.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbMKKhoiPhuc.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnXuatExcel_Click_1(object sender, EventArgs e)
+        {
+            if (dtGridViewHD.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("HopDong");
+
+                                // Ghi header
+                                for (int i = 0; i < dtGridViewHD.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dtGridViewHD.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dtGridViewHD.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dtGridViewHD.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dtGridViewHD.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dtGridViewHD.Rows.Count + 1, dtGridViewHD.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
