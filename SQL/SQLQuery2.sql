@@ -47,9 +47,9 @@ CREATE TABLE tblNhanVien (
 
 -- ===== Bảng Hợp Đồng =====
 CREATE TABLE tblHopDong (
-    Id INT PRIMARY KEY IDENTITY(1,1),
-    MaHopDong VARCHAR(10) UNIQUE NOT NULL,
-    MaNV VARCHAR(10) UNIQUE NOT NULL,           -- Mỗi nhân viên chỉ có 1 hợp đồng
+    Id INT PRIMARY KEY IDENTITY(1,1),   
+	MaHopDong VARCHAR(10) UNIQUE NOT NULL,   -- Mã hợp đồng duy nhất
+    MaNV VARCHAR(10) NOT NULL, 
     NgayBatDau DATE NOT NULL,
     NgayKetThuc DATE,
     LoaiHopDong NVARCHAR(50),
@@ -198,4 +198,6 @@ VALUES
 ('TK001', 'NV001', 'admin', '123456', N'Admin', N'Tài khoản quản trị'),
 ('TK002', 'NV002', 'thib', '123456', N'Manager', N'Tài khoản trưởng phòng'),
 ('TK003', 'NV003', 'vanc', '123456', N'User', N'Tài khoản nhân viên KD'),
-('TK004', 'NV004', 'thid', '123456', N'User', N'Tài khoản nhân viên KT');
+('TK004', 'NV004', 'a', '1', N'Admin', N'Tài khoản nhân viên KT');
+('TK005', 'NV004', 'k', '1', N'Admin', N'Tài khoản nhân viên KT');
+('TK006', 'NV004', 't', '1', N'Admin', N'Tài khoản nhân viên KT');

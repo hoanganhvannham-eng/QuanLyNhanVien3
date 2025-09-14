@@ -35,7 +35,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbMaHD = new System.Windows.Forms.TextBox();
-            this.tbmaNV = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbGhiChu = new System.Windows.Forms.TextBox();
             this.tbLuongCoBan = new System.Windows.Forms.TextBox();
@@ -55,6 +54,7 @@
             this.dtGridViewHD = new System.Windows.Forms.DataGridView();
             this.tbLoaiHD = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.cbMaNV = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewHD)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,15 +121,6 @@
             this.tbMaHD.Name = "tbMaHD";
             this.tbMaHD.Size = new System.Drawing.Size(281, 27);
             this.tbMaHD.TabIndex = 22;
-            // 
-            // tbmaNV
-            // 
-            this.tbmaNV.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbmaNV.Location = new System.Drawing.Point(174, 128);
-            this.tbmaNV.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tbmaNV.Name = "tbmaNV";
-            this.tbmaNV.Size = new System.Drawing.Size(281, 27);
-            this.tbmaNV.TabIndex = 24;
             // 
             // label3
             // 
@@ -328,11 +319,21 @@
             this.label9.TabIndex = 88;
             this.label9.Text = "Loại Hợp Đồng";
             // 
+            // cbMaNV
+            // 
+            this.cbMaNV.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMaNV.FormattingEnabled = true;
+            this.cbMaNV.Location = new System.Drawing.Point(172, 128);
+            this.cbMaNV.Name = "cbMaNV";
+            this.cbMaNV.Size = new System.Drawing.Size(283, 27);
+            this.cbMaNV.TabIndex = 91;
+            // 
             // F_HopDong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1011, 774);
+            this.Controls.Add(this.cbMaNV);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.tbLoaiHD);
             this.Controls.Add(this.dtGridViewHD);
@@ -351,7 +352,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tbGhiChu);
             this.Controls.Add(this.tbLuongCoBan);
-            this.Controls.Add(this.tbmaNV);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbMaHD);
             this.Controls.Add(this.label2);
@@ -378,7 +378,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbMaHD;
-        private System.Windows.Forms.TextBox tbmaNV;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbGhiChu;
         private System.Windows.Forms.TextBox tbLuongCoBan;
@@ -398,5 +397,6 @@
         private System.Windows.Forms.DataGridView dtGridViewHD;
         private System.Windows.Forms.TextBox tbLoaiHD;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cbMaNV;
     }
 }

@@ -35,6 +35,29 @@ namespace QuanLyNhanVien3
             }
         }
 
+
+        private void LoadcomboBox()
+        {
+            // load chuc vu combobox
+            try
+            {
+                cn.connect();
+                string sqsqlLoadcomboBoxttblChucVu = "SELECT * FROM tblNhanVien WHERE DeletedAt = 0";
+                using (SqlDataAdapter da = new SqlDataAdapter(sqsqlLoadcomboBoxttblChucVu, cn.conn))
+                {
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    cbMaNV.DataSource = ds.Tables[0];
+                    cbMaNV.DisplayMember = "MaNV"; // cot hien thi
+                    cbMaNV.ValueMember = "MaNV"; // cot gia tri
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load ma NV: " + ex.Message);
+            }
+        }
         private void LoadDataHopDong()
         {
             try
@@ -52,6 +75,7 @@ namespace QuanLyNhanVien3
                 cn.disconnect();
                 ClearAllInputs(this);
                 tbMKKhoiPhuc.UseSystemPasswordChar = true;
+                LoadcomboBox();
             }
             catch (Exception ex)
             {
@@ -72,7 +96,7 @@ namespace QuanLyNhanVien3
             if (i >= 0)
             {
                 tbMaHD.Text = dtGridViewHD.Rows[i].Cells[0].Value.ToString();
-                tbmaNV.Text = dtGridViewHD.Rows[i].Cells[1].Value.ToString();
+                cbMaNV.SelectedValue = dtGridViewHD.Rows[i].Cells[8].Value.ToString();
                 DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[2].Value);
                 DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewHD.Rows[i].Cells[3].Value);
                 tbLoaiHD.Text = dtGridViewHD.Rows[i].Cells[4].Value.ToString();
@@ -88,7 +112,7 @@ namespace QuanLyNhanVien3
                 cn.connect();
                 if (
                     string.IsNullOrWhiteSpace(tbMaHD.Text) ||
-                    string.IsNullOrWhiteSpace(tbmaNV.Text) ||
+                    cbMaNV.SelectedIndex == -1 ||
                     string.IsNullOrWhiteSpace(tbLoaiHD.Text) ||
                     string.IsNullOrWhiteSpace(tbLuongCoBan.Text) ||
                     string.IsNullOrWhiteSpace(tbLoaiHD.Text))
@@ -117,20 +141,6 @@ namespace QuanLyNhanVien3
                     }
                 }
 
-                // check ma nv
-                string checkMaNVSql = "SELECT COUNT(*) FROM tblHopDong WHERE MaNV = @MaNV AND DeletedAt = 0";
-                using (SqlCommand cmd = new SqlCommand(checkMaNVSql, cn.conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
-                    int count = (int)cmd.ExecuteScalar();
-                    if (count == 0)
-                    {
-                        MessageBox.Show("Mã nhân viên này không có trong hệ thống!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        cn.disconnect();
-                        return;
-                    }
-                }
 
                 //Kiểm Tra trong lương cơ bản 
                 string input = tbLuongCoBan.Text.Trim();
@@ -162,7 +172,7 @@ namespace QuanLyNhanVien3
                 using (SqlCommand cmd = new SqlCommand(sqltblDuAn, cn.conn))
                 {
                     cmd.Parameters.AddWithValue("@MaHopDong", tbMaHD.Text.Trim());
-                    cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MaNV", cbMaNV.SelectedValue);
                     cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
                     cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
                     cmd.Parameters.AddWithValue("@LoaiHopDong", tbLoaiHD.Text.Trim());
