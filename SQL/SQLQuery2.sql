@@ -198,6 +198,10 @@ VALUES
 ('TK001', 'NV001', 'admin', '123456', N'Admin', N'Tài khoản quản trị'),
 ('TK002', 'NV002', 'thib', '123456', N'Manager', N'Tài khoản trưởng phòng'),
 ('TK003', 'NV003', 'vanc', '123456', N'User', N'Tài khoản nhân viên KD'),
-('TK004', 'NV004', 'a', '1', N'Admin', N'Tài khoản nhân viên KT');
-('TK005', 'NV004', 'k', '1', N'Admin', N'Tài khoản nhân viên KT');
-('TK006', 'NV004', 't', '1', N'Admin', N'Tài khoản nhân viên KT');
+('TK004', 'NV004', 'a', '1', N'Admin', N'Tài khoản nhân viên KT'),
+('TK005', 'NV005', 'k', '1', N'Admin', N'Tài khoản nhân viên KT'),
+('TK006', 'NV006', 't', '1', N'Admin', N'Tài khoản nhân viên KT'),
+('TK007', 'NV007', 'a', '1', N'Admin', N'Tài khoản nhân viên KT');
+
+
+
