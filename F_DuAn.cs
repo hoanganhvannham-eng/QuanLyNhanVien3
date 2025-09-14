@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,10 +60,27 @@ namespace QuanLyNhanVien3
 
         }
 
-
-        private void btnThem_Click(object sender, EventArgs e)
+        private void F_DuAn_Load_1(object sender, EventArgs e)
         {
+            LoadDataDuAn();
+        }
 
+        private void dtGridViewDA_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbmaDA.Text = dtGridViewDA.Rows[i].Cells[0].Value.ToString();
+                tbTenDA.Text = dtGridViewDA.Rows[i].Cells[1].Value.ToString();
+                tbMota.Text = dtGridViewDA.Rows[i].Cells[2].Value.ToString();
+                DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[3].Value);
+                DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[4].Value);
+                tbGhiChu.Text = dtGridViewDA.Rows[i].Cells[5].Value.ToString();
+            }
+        }
+
+        private void btnThem_Click_1(object sender, EventArgs e)
+        {
             try
             {
                 cn.connect();
@@ -75,8 +93,8 @@ namespace QuanLyNhanVien3
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                
-                
+
+
 
 
                 // check ma du an
@@ -152,17 +170,10 @@ namespace QuanLyNhanVien3
             {
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                //MessageBox.Show("Lỗi kiểm tra ngày bắt đầu/kết thúc: " + ex.Message, "Lỗi hệ thống",
-                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    cn.disconnect();
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -209,7 +220,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -241,49 +252,46 @@ namespace QuanLyNhanVien3
                     MessageBoxIcon.Question
                 );
 
-                    if (confirm == DialogResult.Yes)
+                if (confirm == DialogResult.Yes)
+                {
+                    cn.connect();
+                    string sql = @"UPDATE tblDuAn SET TenDA = @TenDA, MoTa = @MoTa, NgayBatDau = @NgayBatDau, NgayKetThuc = @NgayKetThuc, GhiChu = @GhiChu, DeletedAt = 0 WHERE MaDA = @MaDA";
+                    using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                     {
-                        cn.connect();
-                        string sql = @"UPDATE tblDuAn SET TenDA = @TenDA, MoTa = @MoTa, NgayBatDau = @NgayBatDau, NgayKetThuc = @NgayKetThuc, GhiChu = @GhiChu, DeletedAt = 0 WHERE MaDA = @MaDA";
-                        using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
-                        {
-                            cmd.Parameters.AddWithValue("@MaDA", tbmaDA.Text.Trim());
-                            cmd.Parameters.AddWithValue("@TenDA", tbTenDA.Text.Trim());
-                            cmd.Parameters.AddWithValue("@MoTa", tbMota.Text.Trim());
-                            cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
-                            cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
-                            cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
+                        cmd.Parameters.AddWithValue("@MaDA", tbmaDA.Text.Trim());
+                        cmd.Parameters.AddWithValue("@TenDA", tbTenDA.Text.Trim());
+                        cmd.Parameters.AddWithValue("@MoTa", tbMota.Text.Trim());
+                        cmd.Parameters.AddWithValue("@NgayBatDau", DatePickerNgayBatDau.Value);
+                        cmd.Parameters.AddWithValue("@NgayKetThuc", DatePickerNgayKetThuc.Value);
+                        cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
 
-                            int rows = cmd.ExecuteNonQuery();
-                            if (rows > 0)
-                            {
-                                MessageBox.Show("Cập nhật thành công!", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                cn.disconnect();
-                                LoadDataDuAn();
-                                ClearAllInputs(this);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Sửa dự án thất bại!", "Lỗi",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                cn.disconnect();
-                            }
+                        int rows = cmd.ExecuteNonQuery();
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Cập nhật thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cn.disconnect();
+                            LoadDataDuAn();
+                            ClearAllInputs(this);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa dự án thất bại!", "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cn.disconnect();
                         }
                     }
-                
+                }
+
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi" + ex.Message);
-
-                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -314,12 +322,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadDataDuAn();
-        }
-
-        private void btnXemDAdaKetThuc_Click(object sender, EventArgs e)
+        private void btnXemDAdaKetThuc_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -339,7 +342,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnKhoiPhucDA_Click(object sender, EventArgs e)
+        private void btnKhoiPhucDA_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -404,7 +407,6 @@ namespace QuanLyNhanVien3
                     string querytblPhongBan = "UPDATE tblDuAn SET DeletedAt = 0 WHERE MaDA = @MaDA";
                     using (SqlCommand cmd = new SqlCommand(querytblPhongBan, cn.conn))
                     {
-                        // DELETE FROM tblNhanVien WHERE MaNV = @MaNV / UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV
                         cmd.Parameters.AddWithValue("@MaDA", tbmaDA.Text);
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
@@ -420,18 +422,15 @@ namespace QuanLyNhanVien3
                             cn.disconnect();
                         }
                     }
-                    //cn.disconnect();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi " + ex.Message);
-                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
-                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void checkHienMK_CheckedChanged(object sender, EventArgs e)
+        private void checkHienMK_CheckedChanged_1(object sender, EventArgs e)
         {
             if (checkHienMK.Checked)
             {
@@ -443,30 +442,65 @@ namespace QuanLyNhanVien3
             }
         }
 
-   
-
-        private void btnXuatExcel_Click(object sender, EventArgs e)
+        private void btnXuatExcel_Click_1(object sender, EventArgs e)
         {
+            if (dtGridViewDA.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("DuAn");
 
+                                // Ghi header
+                                for (int i = 0; i < dtGridViewDA.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dtGridViewDA.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dtGridViewDA.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dtGridViewDA.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dtGridViewDA.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dtGridViewDA.Rows.Count + 1, dtGridViewDA.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        private void F_DuAn_Load_1(object sender, EventArgs e)
+        private void btnRefresh_Click_1(object sender, EventArgs e)
         {
             LoadDataDuAn();
-        }
-
-        private void dtGridViewDA_CellClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = e.RowIndex;
-            if (i >= 0)
-            {
-                tbmaDA.Text = dtGridViewDA.Rows[i].Cells[0].Value.ToString();
-                tbTenDA.Text = dtGridViewDA.Rows[i].Cells[1].Value.ToString();
-                tbMota.Text = dtGridViewDA.Rows[i].Cells[2].Value.ToString();
-                DatePickerNgayBatDau.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[3].Value);
-                DatePickerNgayKetThuc.Value = Convert.ToDateTime(dtGridViewDA.Rows[i].Cells[4].Value);
-                tbGhiChu.Text = dtGridViewDA.Rows[i].Cells[5].Value.ToString();
-            }
         }
     }
 }
