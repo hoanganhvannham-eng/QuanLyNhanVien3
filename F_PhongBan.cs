@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using ClosedXML.Excel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -59,12 +61,7 @@ namespace QuanLyNhanVien3
 
         }
 
-        private void PhongBan_Load(object sender, EventArgs e)
-        {
-            LoadDataPhongBan();
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -169,7 +166,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -216,7 +213,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -229,7 +226,7 @@ namespace QuanLyNhanVien3
                     string.IsNullOrWhiteSpace(tbTenPB.Text) ||
                     string.IsNullOrWhiteSpace(tbDiaChi.Text) ||
                     string.IsNullOrWhiteSpace(tbSoDienThoai.Text))
-                    //string.IsNullOrWhiteSpace(tbGhiChu.Text))
+                //string.IsNullOrWhiteSpace(tbGhiChu.Text))
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -279,11 +276,11 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(tbmaPB.Text)) 
+                if (string.IsNullOrEmpty(tbmaPB.Text))
                 {
                     MessageBox.Show("Vui lòng nhập mã phòng ban để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); // hoặc mã
                     return;
@@ -310,12 +307,68 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnrestar_Click(object sender, EventArgs e)
+        private void btnrestar_Click_1(object sender, EventArgs e)
         {
             LoadDataPhongBan();
         }
 
-        private void btnHienThiPhongBanCu_Click(object sender, EventArgs e)
+        private void btnxuatExcel_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridViewPhongBan.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("NhanVien");
+
+                                // Ghi header
+                                for (int i = 0; i < dataGridViewPhongBan.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dataGridViewPhongBan.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dataGridViewPhongBan.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dataGridViewPhongBan.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dataGridViewPhongBan.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dataGridViewPhongBan.Rows.Count + 1, dataGridViewPhongBan.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnHienThiPhongBanCu_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -335,9 +388,8 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnKhoiPhucPhongBan_Click(object sender, EventArgs e)
+        private void btnKhoiPhucPhongBan_Click_1(object sender, EventArgs e)
         {
-
             try
             {
                 if (string.IsNullOrEmpty(tbmaPB.Text))
@@ -409,7 +461,8 @@ namespace QuanLyNhanVien3
                             MessageBox.Show("khôi phục phong ban thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             cn.disconnect();
                             ClearAllInputs(this);
-                            LoadDataPhongBan();                        }
+                            LoadDataPhongBan();
+                        }
                         else
                         {
                             MessageBox.Show("Không tìm thấy nhân viên để khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -427,7 +480,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
+        private void checkshowpassword_CheckedChanged_1(object sender, EventArgs e)
         {
             if (checkshowpassword.Checked)
             {
@@ -439,7 +492,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void dataGridViewPhongBan_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewPhongBan_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             int i = e.RowIndex;
             if (i >= 0)
@@ -452,9 +505,9 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnxuatExcel_Click(object sender, EventArgs e)
+        private void F_PhongBan_Load(object sender, EventArgs e)
         {
-
+            LoadDataPhongBan();
         }
     }
 }

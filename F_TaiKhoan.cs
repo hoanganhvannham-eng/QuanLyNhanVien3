@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using ClosedXML.Excel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -91,7 +93,7 @@ namespace QuanLyNhanVien3
             LoadDataTaiKhoan();
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -118,7 +120,7 @@ namespace QuanLyNhanVien3
                 cn.connect();
 
                 // chceck matk
-                string checkMaTKNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE MaTK = @MaTK AND DeletedAt = 0";
+                string checkMaTKNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE MaTK = @MaTK AND DeletedAt != 1";
                 using (SqlCommand cmdCheckMaTK = new SqlCommand(checkMaTKNVSql, cn.conn))
                 {
                     cmdCheckMaTK.Parameters.AddWithValue("@MaTK", tbmaTK.Text.Trim());
@@ -134,7 +136,7 @@ namespace QuanLyNhanVien3
                 }
 
                 //check ten dang nhap
-                string checkTenDNNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND DeletedAt = 0";
+                string checkTenDNNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE TenDangNhap = @TenDangNhap AND DeletedAt != 1";
                 using (SqlCommand cmdCheckTenDN = new SqlCommand(checkTenDNNVSql, cn.conn))
                 {
                     cmdCheckTenDN.Parameters.AddWithValue("@TenDangNhap", tbTenDangNhap.Text.Trim());
@@ -150,7 +152,7 @@ namespace QuanLyNhanVien3
                 }
 
                 // check TK NV 3
-                string checkNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE MaNV = @MaNV AND DeletedAt = 0";
+                string checkNVSql = "SELECT COUNT(*) FROM tblTaiKhoan WHERE MaNV = @MaNV AND DeletedAt != 1";
                 using (SqlCommand cmdCheckNV = new SqlCommand(checkNVSql, cn.conn))
                 {
                     cmdCheckNV.Parameters.AddWithValue("@MaNV", cbBoxMaNV.SelectedValue);
@@ -174,10 +176,10 @@ namespace QuanLyNhanVien3
                 using (SqlCommand cmd = new SqlCommand(sqltblTaiKhoan, cn.conn))
                 {
                     cmd.Parameters.AddWithValue("@MaTK", tbmaTK.Text.Trim());
-                    cmd.Parameters.AddWithValue("@MaNV", cbBoxMaNV.SelectedValue);  
+                    cmd.Parameters.AddWithValue("@MaNV", cbBoxMaNV.SelectedValue);
                     cmd.Parameters.AddWithValue("@TenDangNhap", tbTenDangNhap.Text.Trim());
                     cmd.Parameters.AddWithValue("@MatKhau", tbMatKhau.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Quyen", cbBoxQuyen.SelectedItem.ToString());   
+                    cmd.Parameters.AddWithValue("@Quyen", cbBoxQuyen.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
 
                     int rows = cmd.ExecuteNonQuery();
@@ -186,8 +188,8 @@ namespace QuanLyNhanVien3
                         MessageBox.Show("Thêm tài khoản thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cn.disconnect();
-                        ClearAllInputs(this);  
-                        LoadDataTaiKhoan();   
+                        ClearAllInputs(this);
+                        LoadDataTaiKhoan();
                     }
                     else
                     {
@@ -203,10 +205,9 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi hệ thống",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -253,28 +254,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void dataGridViewTaiKhoan_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = e.RowIndex;
-            if (i >= 0)
-            {
-                tbmaTK.Text = dataGridViewTaiKhoan.Rows[i].Cells[0].Value.ToString();
-                cbBoxMaNV.SelectedValue = dataGridViewTaiKhoan.Rows[i].Cells[1].Value.ToString();
-                tbTenDangNhap.Text = dataGridViewTaiKhoan.Rows[i].Cells[2].Value.ToString(); ;
-                tbMatKhau.Text = dataGridViewTaiKhoan.Rows[i].Cells[3].Value.ToString();
-                cbBoxQuyen.Text = dataGridViewTaiKhoan.Rows[i].Cells[4].Value.ToString();
-                tbGhiChu.Text = dataGridViewTaiKhoan.Rows[i].Cells[5].Value.ToString();
-
-                DataGridViewRow row = dataGridViewTaiKhoan.Rows[e.RowIndex];
-                oldMaNV = row.Cells["MaNV"].Value.ToString();
-                oldTenDangNhap = row.Cells["TenDangNhap"].Value.ToString();
-            }
-        }
-
-        private string oldMaNV = "";
-        private string oldTenDangNhap = "";
-
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -360,7 +340,7 @@ namespace QuanLyNhanVien3
                         cmdUpdate.Parameters.AddWithValue("@Quyen", cbBoxQuyen.SelectedItem.ToString());
                         cmdUpdate.Parameters.AddWithValue("@GhiChu", tbGhiChu.Text.Trim());
 
-                        int rows = cmdUpdate.ExecuteNonQuery(); 
+                        int rows = cmdUpdate.ExecuteNonQuery();
 
                         if (rows > 0)
                         {
@@ -377,7 +357,8 @@ namespace QuanLyNhanVien3
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                }else if (confirm == DialogResult.No)
+                }
+                else if (confirm == DialogResult.No)
                 {
                     cn.disconnect();
                 }
@@ -391,7 +372,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -428,15 +409,70 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("Lỗi khi tìm kiếm: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private void btnrestar_Click(object sender, EventArgs e)
+        private void btnrestar_Click_1(object sender, EventArgs e)
         {
             LoadDataTaiKhoan();
         }
 
-        private void btnHienThiPhongBanCu_Click(object sender, EventArgs e)
+        private void btnxuatExcel_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTaiKhoan.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("NhanVien");
+
+                                // Ghi header
+                                for (int i = 0; i < dataGridViewTaiKhoan.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dataGridViewTaiKhoan.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dataGridViewTaiKhoan.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dataGridViewTaiKhoan.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dataGridViewTaiKhoan.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dataGridViewTaiKhoan.Rows.Count + 1, dataGridViewTaiKhoan.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnHienThiPhongBanCu_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -459,7 +495,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnKhoiPhucPhongBan_Click(object sender, EventArgs e)
+        private void btnKhoiPhucPhongBan_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -551,7 +587,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
+        private void checkshowpassword_CheckedChanged_1(object sender, EventArgs e)
         {
             if (checkshowpassword.Checked)
             {
@@ -560,6 +596,26 @@ namespace QuanLyNhanVien3
             else
             {
                 tbMKkhoiphuc.UseSystemPasswordChar = true;
+            }
+        }
+
+        //private string oldMaNV = "";
+        //private string oldTenDangNhap = "";
+        private void dataGridViewTaiKhoan_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbmaTK.Text = dataGridViewTaiKhoan.Rows[i].Cells[0].Value.ToString();
+                cbBoxMaNV.SelectedValue = dataGridViewTaiKhoan.Rows[i].Cells[1].Value.ToString();
+                tbTenDangNhap.Text = dataGridViewTaiKhoan.Rows[i].Cells[2].Value.ToString(); ;
+                tbMatKhau.Text = dataGridViewTaiKhoan.Rows[i].Cells[3].Value.ToString();
+                cbBoxQuyen.Text = dataGridViewTaiKhoan.Rows[i].Cells[4].Value.ToString();
+                tbGhiChu.Text = dataGridViewTaiKhoan.Rows[i].Cells[5].Value.ToString();
+
+                //DataGridViewRow row = dataGridViewTaiKhoan.Rows[e.RowIndex];
+                //oldMaNV = row.Cells["MaNV"].Value.ToString();
+                //oldTenDangNhap = row.Cells["TenDangNhap"].Value.ToString();
             }
         }
     }

@@ -207,11 +207,29 @@ namespace QuanLyNhanVien3
             LoadDataNhanVien();
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void dtGridViewNhanVien_CellClick_2(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = e.RowIndex;
+            if (i >= 0)
+            {
+                tbmaNV.Text = dtGridViewNhanVien.Rows[i].Cells[0].Value.ToString();
+                tbHoTen.Text = dtGridViewNhanVien.Rows[i].Cells[1].Value.ToString();
+                dateTimePickerNgaySinh.Value = Convert.ToDateTime(dtGridViewNhanVien.Rows[i].Cells[2].Value);
+                cbBoxGioiTinh.Text = dtGridViewNhanVien.Rows[i].Cells[3].Value.ToString();
+                tbDiaChi.Text = dtGridViewNhanVien.Rows[i].Cells[4].Value.ToString();
+                tbSoDienThoai.Text = dtGridViewNhanVien.Rows[i].Cells[5].Value.ToString();
+                tbEmail.Text = dtGridViewNhanVien.Rows[i].Cells[6].Value.ToString();
+                cbBoxMaPB.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[7].Value.ToString();
+                cbBoxChucVu.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[8].Value.ToString();
+                tbGhiChu.Text = dtGridViewNhanVien.Rows[i].Cells[9].Value.ToString();
+            }
+        }
+
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
             try
             {
-                
+
                 // Kiểm tra dữ liệu nhập vào    string.IsNullOrWhiteSpace(tbmaNV.Text) ||
                 if (
                     string.IsNullOrWhiteSpace(tbmaNV.Text) ||
@@ -321,7 +339,7 @@ namespace QuanLyNhanVien3
                 if (!checknhanvien())
                 {
                     cn.disconnect();
-                    return; 
+                    return;
                 }
                 // Câu lệnh SQL chèn dữ liệu vào bảng tblNhanVien
                 string sqltblNhanVien = @"INSERT INTO tblNhanVien 
@@ -348,8 +366,8 @@ namespace QuanLyNhanVien3
                         MessageBox.Show("Thêm nhân viên thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cn.disconnect();
-                        ClearAllInputs(this); 
-                        LoadDataNhanVien(); 
+                        ClearAllInputs(this);
+                        LoadDataNhanVien();
                     }
                     else
                     {
@@ -366,12 +384,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void dtGridViewNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -390,7 +403,7 @@ namespace QuanLyNhanVien3
 
                 if (confirm == DialogResult.Yes)
                 {
-                    cn.connect(); 
+                    cn.connect();
                     string query = "UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV";
                     using (SqlCommand cmd = new SqlCommand(query, cn.conn))
                     {
@@ -418,7 +431,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -514,7 +527,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -528,7 +541,7 @@ namespace QuanLyNhanVien3
                                 WHERE DeletedAt = 0
                                   AND(@TenTimKiem IS NULL OR HoTen LIKE '%' + @TenTimKiem + '%')
                                 ORDER BY MaNV";
-                
+
                 using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                 {
                     cmd.Parameters.AddWithValue("@TenTimKiem", "%" + tbHoTen.Text + "%");
@@ -544,154 +557,13 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnrestar_Click(object sender, EventArgs e)
+        private void btnrestar_Click_1(object sender, EventArgs e)
         {
             LoadDataNhanVien();
         }
 
-        private void btnNVDaNghiViec_Click(object sender, EventArgs e)
+        private void btnxuatExcel_Click_1(object sender, EventArgs e)
         {
-            try
-            {
-                cn.connect();
-                string query = @"SELECT  MaNV ,HoTen, NgaySinh, GioiTinh, DiaChi,  SoDienThoai,  Email, MaPB, MaCV,  GhiChu
-                                FROM tblNhanVien
-                                WHERE DeletedAt != 0 ORDER BY MaNV";
-                using (SqlDataAdapter da = new SqlDataAdapter(query, cn.conn))
-                {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dtGridViewNhanVien.DataSource = dt;
-                }
-                cn.disconnect();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message);
-            }
-        }
-
-        private void btnKhoiPhucNhanVien_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(tbmaNV.Text))
-                {
-                    MessageBox.Show("Vui lòng chọn hoặc nhập mã nhân viên cần khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                cn.connect();
-                string checkMaNVSql = "SELECT COUNT(*) FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 1";
-                using (SqlCommand cmdcheckcheckMaNVSql = new SqlCommand(checkMaNVSql, cn.conn))
-                {
-                    cmdcheckcheckMaNVSql.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
-                    int emailCount = (int)cmdcheckcheckMaNVSql.ExecuteScalar();
-
-                    if (emailCount == 0)
-                    {
-                        MessageBox.Show("Ma NV này đã tồn tại trong hệ thống!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        cn.disconnect();
-                        return; 
-                    }
-                }
-
-                //
-                if (tbMKkhoiphuc.Text == "")
-                {
-                    MessageBox.Show("Vui lòng mật khẩu để khoi phuc", "Thông báo", MessageBoxButtons.OK,
-                    MessageBoxIcon.Question);
-                    return;
-                }
-
-                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
-                SqlCommand cmdkhoiphuc = new SqlCommand(sqMKkhoiphuc, cn.conn);
-                cmdkhoiphuc.Parameters.AddWithValue("@Quyen", "Admin");
-                cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
-                SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
-
-                if (reader.Read() == false)
-                {
-                    MessageBox.Show("mật khẩu không đúng? Vui lòng nhập lại mật khẩu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                    tbMKkhoiphuc.Text = "";
-                    reader.Close(); 
-                    cn.disconnect();
-                    return;
-                }
-                reader.Close();
-
-
-                DialogResult confirm = MessageBox.Show(
-                    "Bạn có chắc chắn muốn khôi phục nhân viên này không?",
-                    "Xác nhận khôi phục",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-
-                if (confirm == DialogResult.Yes)
-                {
-                    tbMKkhoiphuc.Text = "";
-                    string query = "UPDATE tblNhanVien SET DeletedAt = 0 WHERE MaNV = @MaNV";
-                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
-                    {
-                        // DELETE FROM tblNhanVien WHERE MaNV = @MaNV / UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV
-                        cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text);
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("khôi phục nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ClearAllInputs(this);
-                            LoadDataNhanVien();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy nhân viên để khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    cn.disconnect();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("loi " + ex.Message);
-            }
-        }
-
-        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkshowpassword.Checked)
-            {
-                tbMKkhoiphuc.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                tbMKkhoiphuc.UseSystemPasswordChar = true;
-            }
-        }
-
-        private void dtGridViewNhanVien_CellClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = e.RowIndex;
-            if (i >= 0)
-            {
-                tbmaNV.Text = dtGridViewNhanVien.Rows[i].Cells[0].Value.ToString();
-                tbHoTen.Text = dtGridViewNhanVien.Rows[i].Cells[1].Value.ToString();
-                dateTimePickerNgaySinh.Value = Convert.ToDateTime(dtGridViewNhanVien.Rows[i].Cells[2].Value);
-                cbBoxGioiTinh.Text = dtGridViewNhanVien.Rows[i].Cells[3].Value.ToString();
-                tbDiaChi.Text = dtGridViewNhanVien.Rows[i].Cells[4].Value.ToString();
-                tbSoDienThoai.Text = dtGridViewNhanVien.Rows[i].Cells[5].Value.ToString();
-                tbEmail.Text = dtGridViewNhanVien.Rows[i].Cells[6].Value.ToString();
-                cbBoxMaPB.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[7].Value.ToString();
-                cbBoxChucVu.SelectedValue = dtGridViewNhanVien.Rows[i].Cells[8].Value.ToString();
-                tbGhiChu.Text = dtGridViewNhanVien.Rows[i].Cells[9].Value.ToString();
-            }
-        }
-
-        private void btnxuatExcel_Click(object sender, EventArgs e)
-        {
-
             if (dtGridViewNhanVien.Rows.Count > 0)
             {
                 using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
@@ -743,6 +615,128 @@ namespace QuanLyNhanVien3
             else
             {
                 MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnNVDaNghiViec_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                cn.connect();
+                string query = @"SELECT  MaNV ,HoTen, NgaySinh, GioiTinh, DiaChi,  SoDienThoai,  Email, MaPB, MaCV,  GhiChu
+                                FROM tblNhanVien
+                                WHERE DeletedAt != 0 ORDER BY MaNV";
+                using (SqlDataAdapter da = new SqlDataAdapter(query, cn.conn))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dtGridViewNhanVien.DataSource = dt;
+                }
+                cn.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void btnKhoiPhucNhanVien_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbmaNV.Text))
+                {
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã nhân viên cần khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                cn.connect();
+                string checkMaNVSql = "SELECT COUNT(*) FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 1";
+                using (SqlCommand cmdcheckcheckMaNVSql = new SqlCommand(checkMaNVSql, cn.conn))
+                {
+                    cmdcheckcheckMaNVSql.Parameters.AddWithValue("@MaNV", tbmaNV.Text.Trim());
+                    int emailCount = (int)cmdcheckcheckMaNVSql.ExecuteScalar();
+
+                    if (emailCount == 0)
+                    {
+                        MessageBox.Show("Ma NV này đã tồn tại trong hệ thống!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+
+                //
+                if (tbMKkhoiphuc.Text == "")
+                {
+                    MessageBox.Show("Vui lòng mật khẩu để khoi phuc", "Thông báo", MessageBoxButtons.OK,
+                    MessageBoxIcon.Question);
+                    return;
+                }
+
+                string sqMKkhoiphuc = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
+                SqlCommand cmdkhoiphuc = new SqlCommand(sqMKkhoiphuc, cn.conn);
+                cmdkhoiphuc.Parameters.AddWithValue("@Quyen", "Admin");
+                cmdkhoiphuc.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
+                SqlDataReader reader = cmdkhoiphuc.ExecuteReader();
+
+                if (reader.Read() == false)
+                {
+                    MessageBox.Show("mật khẩu không đúng? Vui lòng nhập lại mật khẩu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    tbMKkhoiphuc.Text = "";
+                    reader.Close();
+                    cn.disconnect();
+                    return;
+                }
+                reader.Close();
+
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn khôi phục nhân viên này không?",
+                    "Xác nhận khôi phục",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+
+                if (confirm == DialogResult.Yes)
+                {
+                    tbMKkhoiphuc.Text = "";
+                    string query = "UPDATE tblNhanVien SET DeletedAt = 0 WHERE MaNV = @MaNV";
+                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                    {
+                        // DELETE FROM tblNhanVien WHERE MaNV = @MaNV / UPDATE tblNhanVien SET DeletedAt = 1 WHERE MaNV = @MaNV
+                        cmd.Parameters.AddWithValue("@MaNV", tbmaNV.Text);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("khôi phục nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ClearAllInputs(this);
+                            LoadDataNhanVien();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy nhân viên để khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    cn.disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("loi " + ex.Message);
+            }
+        }
+
+        private void checkshowpassword_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkshowpassword.Checked)
+            {
+                tbMKkhoiphuc.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbMKkhoiphuc.UseSystemPasswordChar = true;
             }
         }
 
