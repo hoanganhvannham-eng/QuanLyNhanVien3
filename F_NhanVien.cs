@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyNhanVien3
@@ -688,6 +689,61 @@ namespace QuanLyNhanVien3
             }
         }
 
-      
+        private void btnxuatExcel_Click(object sender, EventArgs e)
+        {
+
+            if (dtGridViewNhanVien.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("NhanVien");
+
+                                // Ghi header
+                                for (int i = 0; i < dtGridViewNhanVien.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dtGridViewNhanVien.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dtGridViewNhanVien.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dtGridViewNhanVien.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dtGridViewNhanVien.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dtGridViewNhanVien.Rows.Count + 1, dtGridViewNhanVien.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
