@@ -126,7 +126,7 @@ namespace QuanLyNhanVien3
                     if (count == 0)
                     {
                         MessageBox.Show("Mã nhân viên này không có trong hệ thống!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         cn.disconnect();
                         return;
                     }
@@ -134,12 +134,6 @@ namespace QuanLyNhanVien3
 
                 //Kiểm Tra trong lương cơ bản 
                 string input = tbLuongCoBan.Text.Trim();
-                // 1. Kiểm tra không để trống
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    MessageBox.Show("Vui lòng nhập lương cơ bản!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
                 // 2. Kiểm tra có phải số hay không (cho phép dấu . hoặc , theo hệ thống)
                 if (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double luong))
                 {

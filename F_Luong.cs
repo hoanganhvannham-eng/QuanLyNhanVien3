@@ -32,7 +32,11 @@ namespace QuanLyNhanVien3
             try
             {
                 db.connect();
-                string sql = "SELECT * FROM tblLuong";
+                string sql = @" SELECT  L.MaLuong, L.MaNV,   L.Thang,  L.Nam, HD.LuongCoBan, L.SoNgayCong,    L.PhuCap,L.KhauTru, L.Ghichu,
+                                    (HD.LuongCoBan + L.PhuCap - L.KhauTru) AS TongLuong
+                                FROM tblLuong AS L
+                                INNER JOIN tblHopDong AS HD ON L.MaNV = HD.MaNV
+                                WHERE L.DeletedAt = 0 AND HD.DeletedAt = 0";
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -161,6 +165,5 @@ namespace QuanLyNhanVien3
             }
         }
 
-       
     }
 }
