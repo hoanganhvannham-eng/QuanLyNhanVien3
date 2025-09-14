@@ -160,7 +160,9 @@
             // 
             // DatePickerNgayBatDau
             // 
+            this.DatePickerNgayBatDau.CustomFormat = "dd/MM/yyyy";
             this.DatePickerNgayBatDau.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DatePickerNgayBatDau.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.DatePickerNgayBatDau.Location = new System.Drawing.Point(252, 183);
             this.DatePickerNgayBatDau.Name = "DatePickerNgayBatDau";
             this.DatePickerNgayBatDau.Size = new System.Drawing.Size(282, 27);
@@ -168,7 +170,9 @@
             // 
             // DatePickerNgayKetThuc
             // 
+            this.DatePickerNgayKetThuc.CustomFormat = "dd/MM/yyyy";
             this.DatePickerNgayKetThuc.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DatePickerNgayKetThuc.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.DatePickerNgayKetThuc.Location = new System.Drawing.Point(253, 235);
             this.DatePickerNgayKetThuc.Name = "DatePickerNgayKetThuc";
             this.DatePickerNgayKetThuc.Size = new System.Drawing.Size(281, 27);

@@ -174,7 +174,9 @@
             // 
             // dateTimePickerNgaySinh
             // 
+            this.dateTimePickerNgaySinh.CustomFormat = "dd/MM/yyyy";
             this.dateTimePickerNgaySinh.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerNgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerNgaySinh.Location = new System.Drawing.Point(269, 165);
             this.dateTimePickerNgaySinh.Name = "dateTimePickerNgaySinh";
             this.dateTimePickerNgaySinh.Size = new System.Drawing.Size(283, 27);

@@ -322,7 +322,6 @@ namespace QuanLyNhanVien3
                     cn.disconnect();
                     return; 
                 }
-
                 // Câu lệnh SQL chèn dữ liệu vào bảng tblNhanVien
                 string sqltblNhanVien = @"INSERT INTO tblNhanVien 
                            (MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, GhiChu, DeletedAt)
