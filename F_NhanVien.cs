@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using ZXing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyNhanVien3
@@ -755,5 +756,65 @@ namespace QuanLyNhanVien3
                 MessageBox.Show("loi " + ex.Message);
             }
         }
+
+        private void btnTaoQR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra xem đã nhập Mã nhân viên chưa
+                if (string.IsNullOrWhiteSpace(tbmaNV.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập Mã Nhân Viên trước khi tạo QR!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Tạo đối tượng BarcodeWriter
+                BarcodeWriter writer = new BarcodeWriter
+                {
+                    Format = BarcodeFormat.QR_CODE, // Chọn kiểu QR
+                    Options = new ZXing.Common.EncodingOptions
+                    {
+                        Width = 200, // Chiều rộng QR
+                        Height = 200, // Chiều cao QR
+                        Margin = 1
+                    }
+                };
+
+                // Sinh QR dựa trên MaNV
+                string data = tbmaNV.Text.Trim(); // Dùng mã nhân viên
+                Bitmap qrBitmap = writer.Write(data);
+
+                // Hiển thị lên PictureBox
+                pictureBoxQRNV.Image = qrBitmap;
+
+                // Hỏi có muốn lưu QR không
+                DialogResult result = MessageBox.Show("Bạn có muốn lưu QR Code này không?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    using (SaveFileDialog saveFile = new SaveFileDialog())
+                    {
+                        saveFile.Filter = "PNG Image|*.png";
+                        saveFile.FileName = $"QR_{data}.png";
+
+                        if (saveFile.ShowDialog() == DialogResult.OK)
+                        {
+                            qrBitmap.Save(saveFile.FileName);
+                            MessageBox.Show("Lưu QR Code thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tạo QR Code: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
     }
 }

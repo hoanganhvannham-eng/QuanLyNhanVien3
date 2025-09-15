@@ -32,6 +32,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBoxQRNV = new System.Windows.Forms.PictureBox();
+            this.btnTaoQR = new System.Windows.Forms.Button();
             this.cbBoxChucVu = new System.Windows.Forms.ComboBox();
             this.cbBoxMaPB = new System.Windows.Forms.ComboBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
@@ -70,6 +72,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRNV)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -93,7 +96,7 @@
             this.label7.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(685, 19);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(207, 51);
+            this.label7.Size = new System.Drawing.Size(204, 49);
             this.label7.TabIndex = 105;
             this.label7.Text = "Nhân Viên";
             // 
@@ -110,6 +113,8 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.pictureBoxQRNV);
+            this.panel4.Controls.Add(this.btnTaoQR);
             this.panel4.Controls.Add(this.cbBoxChucVu);
             this.panel4.Controls.Add(this.cbBoxMaPB);
             this.panel4.Controls.Add(this.btnTimKiem);
@@ -128,12 +133,32 @@
             this.panel4.Size = new System.Drawing.Size(596, 299);
             this.panel4.TabIndex = 161;
             // 
+            // pictureBoxQRNV
+            // 
+            this.pictureBoxQRNV.Location = new System.Drawing.Point(446, 37);
+            this.pictureBoxQRNV.Name = "pictureBoxQRNV";
+            this.pictureBoxQRNV.Size = new System.Drawing.Size(131, 129);
+            this.pictureBoxQRNV.TabIndex = 192;
+            this.pictureBoxQRNV.TabStop = false;
+            // 
+            // btnTaoQR
+            // 
+            this.btnTaoQR.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnTaoQR.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTaoQR.Location = new System.Drawing.Point(348, 228);
+            this.btnTaoQR.Name = "btnTaoQR";
+            this.btnTaoQR.Size = new System.Drawing.Size(124, 47);
+            this.btnTaoQR.TabIndex = 190;
+            this.btnTaoQR.Text = "Tạo QR";
+            this.btnTaoQR.UseVisualStyleBackColor = true;
+            this.btnTaoQR.Click += new System.EventHandler(this.btnTaoQR_Click);
+            // 
             // cbBoxChucVu
             // 
             this.cbBoxChucVu.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbBoxChucVu.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbBoxChucVu.FormattingEnabled = true;
-            this.cbBoxChucVu.Location = new System.Drawing.Point(218, 142);
+            this.cbBoxChucVu.Location = new System.Drawing.Point(141, 139);
             this.cbBoxChucVu.Name = "cbBoxChucVu";
             this.cbBoxChucVu.Size = new System.Drawing.Size(283, 27);
             this.cbBoxChucVu.TabIndex = 189;
@@ -143,7 +168,7 @@
             this.cbBoxMaPB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbBoxMaPB.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbBoxMaPB.FormattingEnabled = true;
-            this.cbBoxMaPB.Location = new System.Drawing.Point(218, 104);
+            this.cbBoxMaPB.Location = new System.Drawing.Point(141, 101);
             this.cbBoxMaPB.Name = "cbBoxMaPB";
             this.cbBoxMaPB.Size = new System.Drawing.Size(283, 27);
             this.cbBoxMaPB.TabIndex = 188;
@@ -152,7 +177,7 @@
             // 
             this.btnTimKiem.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(377, 233);
+            this.btnTimKiem.Location = new System.Drawing.Point(182, 228);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(124, 47);
             this.btnTimKiem.TabIndex = 187;
@@ -164,7 +189,7 @@
             // 
             this.btnSua.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnSua.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSua.Location = new System.Drawing.Point(218, 233);
+            this.btnSua.Location = new System.Drawing.Point(23, 228);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(124, 47);
             this.btnSua.TabIndex = 186;
@@ -176,7 +201,7 @@
             // 
             this.tbGhiChu.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tbGhiChu.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGhiChu.Location = new System.Drawing.Point(218, 181);
+            this.tbGhiChu.Location = new System.Drawing.Point(141, 178);
             this.tbGhiChu.Name = "tbGhiChu";
             this.tbGhiChu.Size = new System.Drawing.Size(283, 27);
             this.tbGhiChu.TabIndex = 185;
@@ -185,7 +210,7 @@
             // 
             this.tbEmail.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tbEmail.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEmail.Location = new System.Drawing.Point(218, 67);
+            this.tbEmail.Location = new System.Drawing.Point(141, 64);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(283, 27);
             this.tbEmail.TabIndex = 184;
@@ -194,7 +219,7 @@
             // 
             this.tbSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tbSoDienThoai.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSoDienThoai.Location = new System.Drawing.Point(218, 19);
+            this.tbSoDienThoai.Location = new System.Drawing.Point(141, 22);
             this.tbSoDienThoai.Name = "tbSoDienThoai";
             this.tbSoDienThoai.Size = new System.Drawing.Size(283, 27);
             this.tbSoDienThoai.TabIndex = 183;
@@ -204,7 +229,7 @@
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(96, 184);
+            this.label9.Location = new System.Drawing.Point(19, 181);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 19);
             this.label9.TabIndex = 182;
@@ -215,7 +240,7 @@
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(96, 144);
+            this.label10.Location = new System.Drawing.Point(19, 141);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(68, 19);
             this.label10.TabIndex = 181;
@@ -226,7 +251,7 @@
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(96, 105);
+            this.label11.Location = new System.Drawing.Point(19, 102);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(108, 19);
             this.label11.TabIndex = 180;
@@ -237,7 +262,7 @@
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(96, 70);
+            this.label12.Location = new System.Drawing.Point(19, 67);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(49, 19);
             this.label12.TabIndex = 179;
@@ -248,7 +273,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(95, 27);
+            this.label5.Location = new System.Drawing.Point(18, 30);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 19);
             this.label5.TabIndex = 178;
@@ -525,6 +550,7 @@
             this.dtGridViewNhanVien.Size = new System.Drawing.Size(1598, 459);
             this.dtGridViewNhanVien.TabIndex = 120;
             this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick_2);
+
             // 
             // F_NhanVien
             // 
@@ -543,6 +569,7 @@
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRNV)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -571,13 +598,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkshowpassword;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox tbMKkhoiphuc;
-        private System.Windows.Forms.Button btnxuatExcel;
-        private System.Windows.Forms.Button btnrestar;
-        private System.Windows.Forms.Button btnKhoiPhucNhanVien;
-        private System.Windows.Forms.Button btnNVDaNghiViec;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.DataGridView dtGridViewNhanVien;
         private System.Windows.Forms.Panel panel4;
@@ -593,5 +613,14 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkshowpassword;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbMKkhoiphuc;
+        private System.Windows.Forms.Button btnxuatExcel;
+        private System.Windows.Forms.Button btnrestar;
+        private System.Windows.Forms.Button btnKhoiPhucNhanVien;
+        private System.Windows.Forms.Button btnNVDaNghiViec;
+        private System.Windows.Forms.Button btnTaoQR;
+        private System.Windows.Forms.PictureBox pictureBoxQRNV;
     }
 }
