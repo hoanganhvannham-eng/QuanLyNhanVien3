@@ -158,6 +158,7 @@
             this.btnTimKiem.TabIndex = 187;
             this.btnTimKiem.Text = "Tìm Kiếm ";
             this.btnTimKiem.UseVisualStyleBackColor = true;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // btnSua
             // 
@@ -169,6 +170,7 @@
             this.btnSua.TabIndex = 186;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // tbGhiChu
             // 
