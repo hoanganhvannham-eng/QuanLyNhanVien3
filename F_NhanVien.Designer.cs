@@ -90,10 +90,10 @@
             this.label7.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(693, 9);
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(685, 19);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(192, 46);
+            this.label7.Size = new System.Drawing.Size(207, 51);
             this.label7.TabIndex = 105;
             this.label7.Text = "Nhân Viên";
             // 
