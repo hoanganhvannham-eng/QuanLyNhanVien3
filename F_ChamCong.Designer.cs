@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_ChamCong));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnChonAnh = new System.Windows.Forms.Button();
             this.btnQuetma = new System.Windows.Forms.Button();
             this.btnChamCong = new System.Windows.Forms.Button();
             this.pictureBoxChamCong = new System.Windows.Forms.PictureBox();
@@ -64,7 +65,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dtGridViewChamCong = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnChonAnh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChamCong)).BeginInit();
             this.panel2.SuspendLayout();
@@ -86,6 +86,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1406, 366);
             this.panel1.TabIndex = 0;
+            // 
+            // btnChonAnh
+            // 
+            this.btnChonAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChonAnh.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChonAnh.Location = new System.Drawing.Point(976, 303);
+            this.btnChonAnh.Name = "btnChonAnh";
+            this.btnChonAnh.Size = new System.Drawing.Size(230, 42);
+            this.btnChonAnh.TabIndex = 165;
+            this.btnChonAnh.Text = "Chon tu thu vien";
+            this.btnChonAnh.UseVisualStyleBackColor = true;
+            this.btnChonAnh.Click += new System.EventHandler(this.btnChonAnh_Click);
             // 
             // btnQuetma
             // 
@@ -112,7 +124,7 @@
             // pictureBoxChamCong
             // 
             this.pictureBoxChamCong.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxChamCong.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.ảnh_phông_nền;
+            this.pictureBoxChamCong.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.pictureBoxChamCong.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxChamCong.ErrorImage")));
             this.pictureBoxChamCong.Location = new System.Drawing.Point(485, 12);
             this.pictureBoxChamCong.Name = "pictureBoxChamCong";
@@ -428,18 +440,6 @@
             // timer1
             // 
             this.timer1.Interval = 500;
-            // 
-            // btnChonAnh
-            // 
-            this.btnChonAnh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChonAnh.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChonAnh.Location = new System.Drawing.Point(976, 303);
-            this.btnChonAnh.Name = "btnChonAnh";
-            this.btnChonAnh.Size = new System.Drawing.Size(230, 42);
-            this.btnChonAnh.TabIndex = 165;
-            this.btnChonAnh.Text = "Chon tu thu vien";
-            this.btnChonAnh.UseVisualStyleBackColor = true;
-            this.btnChonAnh.Click += new System.EventHandler(this.btnChonAnh_Click);
             // 
             // F_ChamCong
             // 
