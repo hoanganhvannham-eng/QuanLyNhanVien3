@@ -135,9 +135,10 @@
             // 
             // pictureBoxQRNV
             // 
-            this.pictureBoxQRNV.Location = new System.Drawing.Point(446, 37);
+            this.pictureBoxQRNV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxQRNV.Location = new System.Drawing.Point(373, 37);
             this.pictureBoxQRNV.Name = "pictureBoxQRNV";
-            this.pictureBoxQRNV.Size = new System.Drawing.Size(131, 129);
+            this.pictureBoxQRNV.Size = new System.Drawing.Size(204, 185);
             this.pictureBoxQRNV.TabIndex = 192;
             this.pictureBoxQRNV.TabStop = false;
             // 
@@ -550,7 +551,6 @@
             this.dtGridViewNhanVien.Size = new System.Drawing.Size(1598, 459);
             this.dtGridViewNhanVien.TabIndex = 120;
             this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick_2);
-
             // 
             // F_NhanVien
             // 

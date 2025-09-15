@@ -775,8 +775,8 @@ namespace QuanLyNhanVien3
                     Format = BarcodeFormat.QR_CODE, // Chọn kiểu QR
                     Options = new ZXing.Common.EncodingOptions
                     {
-                        Width = 200, // Chiều rộng QR
-                        Height = 200, // Chiều cao QR
+                        Width = 150, // Chiều rộng QR
+                        Height = 150, // Chiều cao QR
                         Margin = 1
                     }
                 };

@@ -130,20 +130,20 @@ namespace QuanLyNhanVien3
 
 
                 // check ma Nhan vien
-                string checkMaDASql = "SELECT COUNT(*) FROM tblChiTietDuAn  WHERE MaNV  = @MaNV  AND DeletedAt = 0";
-                using (SqlCommand cmdcheckMaDASql = new SqlCommand(checkMaDASql, cn.conn))
-                {
-                    cmdcheckMaDASql.Parameters.AddWithValue("@MaNV", cbMaNV.Text);
-                    int MaHDCount = (int)cmdcheckMaDASql.ExecuteScalar();
+                //string checkMaDASql = "SELECT COUNT(*) FROM tblChiTietDuAn  WHERE MaNV  = @MaNV  AND DeletedAt = 0";
+                //using (SqlCommand cmdcheckMaDASql = new SqlCommand(checkMaDASql, cn.conn))
+                //{
+                //    cmdcheckMaDASql.Parameters.AddWithValue("@MaNV", cbMaNV.Text);
+                //    int MaHDCount = (int)cmdcheckMaDASql.ExecuteScalar();
 
-                    if (MaHDCount != 0)
-                    {
-                        MessageBox.Show("Mã Nhân Viên đã tồn tại trong hệ thống!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        cn.disconnect();
-                        return;
-                    }
-                }
+                //    if (MaHDCount != 0)
+                //    {
+                //        MessageBox.Show("Mã Nhân Viên đã tồn tại trong hệ thống!", "Thông báo",
+                //        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        cn.disconnect();
+                //        return;
+                //    }
+                //}
 
 
                 

@@ -32,8 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_ChamCong));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnQuetma = new System.Windows.Forms.Button();
-            this.btncheckout = new System.Windows.Forms.Button();
-            this.btncheckin = new System.Windows.Forms.Button();
+            this.btnChamCong = new System.Windows.Forms.Button();
             this.pictureBoxChamCong = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -80,8 +79,7 @@
             // 
             this.panel1.Controls.Add(this.btnChonAnh);
             this.panel1.Controls.Add(this.btnQuetma);
-            this.panel1.Controls.Add(this.btncheckout);
-            this.panel1.Controls.Add(this.btncheckin);
+            this.panel1.Controls.Add(this.btnChamCong);
             this.panel1.Controls.Add(this.pictureBoxChamCong);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -99,31 +97,22 @@
             this.btnQuetma.TabIndex = 164;
             this.btnQuetma.Text = "Quet ma";
             this.btnQuetma.UseVisualStyleBackColor = true;
-            this.btnQuetma.Click += new System.EventHandler(this.btnQuetma_Click);
             // 
-            // btncheckout
+            // btnChamCong
             // 
-            this.btncheckout.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncheckout.Location = new System.Drawing.Point(200, 303);
-            this.btncheckout.Name = "btncheckout";
-            this.btncheckout.Size = new System.Drawing.Size(230, 42);
-            this.btncheckout.TabIndex = 163;
-            this.btncheckout.Text = "Checkout";
-            this.btncheckout.UseVisualStyleBackColor = true;
-            // 
-            // btncheckin
-            // 
-            this.btncheckin.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncheckin.Location = new System.Drawing.Point(200, 243);
-            this.btncheckin.Name = "btncheckin";
-            this.btncheckin.Size = new System.Drawing.Size(230, 42);
-            this.btncheckin.TabIndex = 162;
-            this.btncheckin.Text = "Checkin";
-            this.btncheckin.UseVisualStyleBackColor = true;
+            this.btnChamCong.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChamCong.Location = new System.Drawing.Point(200, 243);
+            this.btnChamCong.Name = "btnChamCong";
+            this.btnChamCong.Size = new System.Drawing.Size(230, 42);
+            this.btnChamCong.TabIndex = 162;
+            this.btnChamCong.Text = "Cham Cong";
+            this.btnChamCong.UseVisualStyleBackColor = true;
+            this.btnChamCong.Click += new System.EventHandler(this.btnChamCong_Click);
             // 
             // pictureBoxChamCong
             // 
             this.pictureBoxChamCong.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxChamCong.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.ảnh_phông_nền;
             this.pictureBoxChamCong.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxChamCong.ErrorImage")));
             this.pictureBoxChamCong.Location = new System.Drawing.Point(485, 12);
             this.pictureBoxChamCong.Name = "pictureBoxChamCong";
@@ -511,8 +500,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btncheckout;
-        private System.Windows.Forms.Button btncheckin;
+        private System.Windows.Forms.Button btnChamCong;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnQuetma;
         private System.Windows.Forms.DataGridView dtGridViewChamCong;
