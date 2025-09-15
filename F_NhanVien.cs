@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using ZXing;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyNhanVien3
 {
@@ -775,13 +769,31 @@ namespace QuanLyNhanVien3
                     Format = BarcodeFormat.QR_CODE, // Chọn kiểu QR
                     Options = new ZXing.Common.EncodingOptions
                     {
-                        Width = 150, // Chiều rộng QR
-                        Height = 150, // Chiều cao QR
-                        Margin = 1
+                        Width = 200, // Chiều rộng QR
+                        Height = 200, // Chiều cao QR
+                        Margin = 1,
+                        //CharacterSet = "UTF-8" // <-- BẮT BUỘC để hỗ trợ tiếng Việt
                     }
                 };
 
+                // Ghép nhiều thông tin vào chuỗi
+                string maNV = tbmaNV.Text.Trim();
+                //string hoTen = tbHoTen.Text.Trim();
+                //string gioitinh = cbBoxGioiTinh.Text.Trim();
+                //string diachi = tbDiaChi.Text.Trim();
+                //string sodienthoai = tbSoDienThoai.Text.Trim();
+                //string email = tbEmail.Text.Trim();
+                //string ghichu = tbGhiChu.Text.Trim();
+                //string phongBan = cbBoxMaPB.Text.Trim();
+                //string chucVu = cbBoxChucVu.Text.Trim();
+                //string ngaySinh = dateTimePickerNgaySinh.Value.ToString("yyyy-MM-dd");
+
+                // Gộp các thông tin lại với dấu phân cách |
+                //string data = $"{maNV}||{hoTen}||{gioitinh}||{diachi}||{sodienthoai}||{email}||{ghichu}||{phongBan}||{chucVu}||{ngaySinh}";
+
+
                 // Sinh QR dựa trên MaNV
+
                 string data = tbmaNV.Text.Trim(); // Dùng mã nhân viên
                 Bitmap qrBitmap = writer.Write(data);
 
