@@ -420,5 +420,10 @@ namespace QuanLyNhanVien3
         {
             StopCamera();
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
