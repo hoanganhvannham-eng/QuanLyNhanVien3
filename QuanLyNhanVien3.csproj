@@ -216,5 +216,23 @@
   <ItemGroup>
     <None Include="Resources\ảnh phông nền.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 090411.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 090548.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 091151.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 091423.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 091547.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 091735.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

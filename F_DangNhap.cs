@@ -81,5 +81,35 @@ namespace QuanLyNhanVien3
                 tbpassword.UseSystemPasswordChar = true;
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbpassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbusename_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

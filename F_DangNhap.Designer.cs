@@ -42,63 +42,70 @@
             // checkshowpassword
             // 
             this.checkshowpassword.AutoSize = true;
+            this.checkshowpassword.BackColor = System.Drawing.Color.Transparent;
             this.checkshowpassword.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkshowpassword.Location = new System.Drawing.Point(259, 255);
+            this.checkshowpassword.Location = new System.Drawing.Point(524, 374);
             this.checkshowpassword.Name = "checkshowpassword";
             this.checkshowpassword.Size = new System.Drawing.Size(169, 26);
             this.checkshowpassword.TabIndex = 25;
             this.checkshowpassword.Text = "Hiển thị mật khẩu";
-            this.checkshowpassword.UseVisualStyleBackColor = true;
+            this.checkshowpassword.UseVisualStyleBackColor = false;
             this.checkshowpassword.CheckedChanged += new System.EventHandler(this.checkshowpassword_CheckedChanged);
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(524, 259);
+            this.linkLabel1.Location = new System.Drawing.Point(789, 374);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(125, 22);
             this.linkLabel1.TabIndex = 24;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Quên mật khẩu";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(118, 206);
+            this.label3.Location = new System.Drawing.Point(383, 325);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 22);
             this.label3.TabIndex = 23;
             this.label3.Text = "Mật khẩu :";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(118, 156);
+            this.label2.Location = new System.Drawing.Point(383, 275);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(135, 22);
             this.label2.TabIndex = 22;
             this.label2.Text = "Tên đăng nhập :";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label1.Location = new System.Drawing.Point(228, 58);
+            this.label1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(493, 177);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(345, 42);
             this.label1.TabIndex = 21;
             this.label1.Text = "FORM ĐĂNG NHẬP";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnthoat
             // 
             this.btnthoat.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnthoat.Location = new System.Drawing.Point(503, 316);
+            this.btnthoat.Location = new System.Drawing.Point(768, 435);
             this.btnthoat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnthoat.Name = "btnthoat";
             this.btnthoat.Size = new System.Drawing.Size(98, 38);
@@ -109,9 +116,9 @@
             // 
             // btndangnhap
             // 
-            this.btndangnhap.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btndangnhap.BackColor = System.Drawing.Color.Transparent;
             this.btndangnhap.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btndangnhap.Location = new System.Drawing.Point(259, 316);
+            this.btndangnhap.Location = new System.Drawing.Point(524, 435);
             this.btndangnhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btndangnhap.Name = "btndangnhap";
             this.btndangnhap.Size = new System.Drawing.Size(121, 38);
@@ -124,27 +131,29 @@
             // 
             this.tbpassword.AccessibleName = "";
             this.tbpassword.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbpassword.Location = new System.Drawing.Point(259, 206);
+            this.tbpassword.Location = new System.Drawing.Point(524, 325);
             this.tbpassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbpassword.Name = "tbpassword";
-            this.tbpassword.PasswordChar = '*';
             this.tbpassword.Size = new System.Drawing.Size(390, 30);
             this.tbpassword.TabIndex = 18;
+            this.tbpassword.TextChanged += new System.EventHandler(this.tbpassword_TextChanged);
             // 
             // tbusename
             // 
             this.tbusename.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbusename.Location = new System.Drawing.Point(259, 156);
+            this.tbusename.Location = new System.Drawing.Point(524, 275);
             this.tbusename.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbusename.Name = "tbusename";
             this.tbusename.Size = new System.Drawing.Size(390, 30);
             this.tbusename.TabIndex = 17;
+            this.tbusename.TextChanged += new System.EventHandler(this.tbusename_TextChanged);
             // 
             // F_DangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_15_091735;
+            this.ClientSize = new System.Drawing.Size(1263, 678);
             this.Controls.Add(this.checkshowpassword);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
