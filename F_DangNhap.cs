@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AForge.Video.DirectShow;
+using AForge.Video;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using ZXing;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace QuanLyNhanVien3
 {
@@ -18,9 +24,12 @@ namespace QuanLyNhanVien3
             InitializeComponent();
         }
         connectData cn = new connectData();
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
         private void DangNhap_Load(object sender, EventArgs e)
         {
             tbpassword.UseSystemPasswordChar = true;
+            StartCamera();
         }
 
         private void btndangnhap_Click(object sender, EventArgs e)
@@ -64,7 +73,13 @@ namespace QuanLyNhanVien3
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (rs == DialogResult.Yes)
             {
-                this.Close();
+                this.Close(); 
+                if (videoSource != null && videoSource.IsRunning)
+                {
+                    videoSource.SignalToStop();
+                    videoSource.WaitForStop();
+                    videoSource = null;
+                }
             }
         }
 
@@ -81,35 +96,198 @@ namespace QuanLyNhanVien3
                 tbpassword.UseSystemPasswordChar = true;
             }
         }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        //chekc cam 
+        private void StartCamera()
         {
+            try
+            {
+                videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if (videoDevices.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy camera!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                // Chọn camera đầu tiên
+                videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
+                videoSource.NewFrame += VideoSource_NewFrame;
+                videoSource.Start();
+
+                timer1.Start(); // Timer quét QR liên tục
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi bật camera: " + ex.Message);
+            }
+        }
+        // ===== Hiển thị video từ camera lên PictureBox =====
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
+            pictureBoxQR.Image = bitmap;
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        // ===== Quét QR mỗi giây =====
+        private void timer1_Tick(object sender, EventArgs e)
         {
-
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        // ===== Đăng nhập bằng mã QR =====
+        private void DangNhapBangQR(string maNV)
         {
+            try
+            {
+                cn.connect();
+                string sql = @"SELECT TenDangNhap, Quyen 
+                               FROM tblTaiKhoan 
+                               WHERE MaNV = @MaNV AND DeletedAt = 3";
+                SqlCommand cmd = new SqlCommand(sql, cn.conn);
+                cmd.Parameters.AddWithValue("@MaNV", maNV);
 
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    string tenDangNhap = reader["TenDangNhap"].ToString();
+                    string quyen = reader["Quyen"].ToString();
+
+                    MessageBox.Show($"Đăng nhập thành công!\nNgười dùng: {tenDangNhap}\nQuyền: {quyen}",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Mở form chính
+                    this.Hide();
+                    F_FormMain frm = new F_FormMain();
+                    frm.Show();
+                    if (timer1.Enabled)
+                        timer1.Stop();
+
+                    if (videoSource != null && videoSource.IsRunning)
+                    {
+                        videoSource.SignalToStop();
+                        videoSource.WaitForStop();
+                        videoSource = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy tài khoản cho mã QR này!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi đăng nhập: " + ex.Message);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
+        private void btnTaiAnhQR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Filter = "Ảnh QR|*.jpg;*.jpeg;*.png;*.bmp";
+
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        pictureBoxQR.Image = Image.FromFile(ofd.FileName);
+
+                        BarcodeReader reader = new BarcodeReader
+                        {
+                            Options = new ZXing.Common.DecodingOptions
+                            {
+                                CharacterSet = "UTF-8"
+                            }
+                        };
+
+                        var result = reader.Decode((Bitmap)pictureBoxQR.Image);
+                        if (result != null)
+                        {
+                            string maNV = result.Text.Trim();
+                            //tbMaNV.Text = maNV;
+
+                            // Thực hiện đăng nhập
+                            DangNhapBangQR(maNV);
+                            //frm.ShowDialog();
+                            //frm = null;
+                            //this.Show();
+                            //this.Close();
+                            if (timer1.Enabled)
+                                timer1.Stop();
+
+                            if (videoSource != null && videoSource.IsRunning)
+                            {
+                                videoSource.SignalToStop();
+                                videoSource.WaitForStop();
+                                videoSource = null;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không nhận diện được mã QR!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi quét QR từ ảnh: " + ex.Message);
+            }
         }
 
-        private void tbpassword_TextChanged(object sender, EventArgs e)
+        //tat cam 
+        private void F_DangNhapQR_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (timer1.Enabled)
+                timer1.Stop();
 
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                videoSource.SignalToStop();
+                videoSource.WaitForStop();
+                videoSource = null;
+            }
         }
 
-        private void tbusename_TextChanged(object sender, EventArgs e)
+        private void timer1_Tick_1(object sender, EventArgs e)
         {
+            if (pictureBoxQR.Image == null) return;
 
+            try
+            {
+                BarcodeReader reader = new BarcodeReader
+                {
+                    Options = new ZXing.Common.DecodingOptions
+                    {
+                        CharacterSet = "UTF-8"
+                    }
+                };
+
+                var result = reader.Decode((Bitmap)pictureBoxQR.Image);
+
+                if (result != null)
+                {
+                    timer1.Stop();
+                    videoSource.SignalToStop();
+
+                    string maNV = result.Text.Trim();
+                    //cb.Text = maNV;
+
+                    // Đăng nhập luôn
+                    DangNhapBangQR(maNV);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi quét QR: " + ex.Message);
+            }
         }
     }
 }
