@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -26,10 +27,14 @@ namespace QuanLyNhanVien3
         }
         public void disconnect()
         {
-            conn.Close();
-            conn.Dispose();
-            conn = null;
+            if (conn != null && conn.State == ConnectionState.Open)
+            {
+                conn.Close();
+                conn.Dispose();
+                conn = null;
+            }
         }
+
         public Boolean exeSQL(string cmd)
         {
             try
