@@ -40,7 +40,7 @@
             this.tbusename = new System.Windows.Forms.TextBox();
             this.pictureBoxQR = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnTaiAnhQR = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQR)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,18 +161,18 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
-            // btnTaiAnhQR
+            // btnRefresh
             // 
-            this.btnTaiAnhQR.BackColor = System.Drawing.Color.Transparent;
-            this.btnTaiAnhQR.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaiAnhQR.Location = new System.Drawing.Point(904, 387);
-            this.btnTaiAnhQR.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTaiAnhQR.Name = "btnTaiAnhQR";
-            this.btnTaiAnhQR.Size = new System.Drawing.Size(121, 38);
-            this.btnTaiAnhQR.TabIndex = 27;
-            this.btnTaiAnhQR.Text = "Đăng Nhập";
-            this.btnTaiAnhQR.UseVisualStyleBackColor = false;
-            this.btnTaiAnhQR.Click += new System.EventHandler(this.btnTaiAnhQR_Click);
+            this.btnRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.Location = new System.Drawing.Point(911, 361);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(121, 38);
+            this.btnRefresh.TabIndex = 27;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnTaiAnhQR_Click);
             // 
             // F_DangNhap
             // 
@@ -180,7 +180,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_15_091735;
             this.ClientSize = new System.Drawing.Size(1263, 678);
-            this.Controls.Add(this.btnTaiAnhQR);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.pictureBoxQR);
             this.Controls.Add(this.checkshowpassword);
             this.Controls.Add(this.linkLabel1);
@@ -213,7 +213,7 @@
         private System.Windows.Forms.TextBox tbusename;
         private System.Windows.Forms.PictureBox pictureBoxQR;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnTaiAnhQR;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

@@ -53,6 +53,7 @@ namespace QuanLyNhanVien3
                 F_FormMain f_Main = new F_FormMain();
                 //MessageBox.Show("Đăng nhập thành công!",
                 //                            "Thông báo");
+                StopCamera();
                 f_Main.ShowDialog();
                 f_Main = null;
                 tbpassword.Text = "";
@@ -97,10 +98,56 @@ namespace QuanLyNhanVien3
             }
         }
         //chekc cam 
+
+        private void StopCamera()
+        {
+            try
+            {
+                // 🔹 Dừng camera nếu đang chạy
+                if (videoSource != null)
+                {
+                    if (videoSource.IsRunning)
+                    {
+                        videoSource.SignalToStop();  // Yêu cầu camera dừng
+                        videoSource.WaitForStop();   // Đợi camera dừng hẳn
+                    }
+
+                    videoSource.NewFrame -= VideoSource_NewFrame; // Gỡ sự kiện frame
+                    videoSource = null; // Giải phóng đối tượng
+                }
+
+                // 🔹 Dừng Timer quét QR
+                if (timer1.Enabled)
+                    timer1.Stop();
+
+                // 🔹 Giải phóng hình ảnh trong PictureBox
+                if (pictureBoxQR.Image != null)
+                {
+                    pictureBoxQR.Image.Dispose();
+                    pictureBoxQR.Image = null;
+                }
+
+                GC.Collect();       // Thu gom rác .NET
+                GC.WaitForPendingFinalizers(); // Đảm bảo giải phóng xong
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tắt camera: " + ex.Message,
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void StartCamera()
         {
             try
             {
+                // Dừng camera cũ trước khi bật mới
+                if (videoSource != null && videoSource.IsRunning)
+                {
+                    videoSource.SignalToStop();
+                    videoSource.WaitForStop();
+                    videoSource = null;
+                }
+
                 videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
                 if (videoDevices.Count == 0)
                 {
@@ -114,7 +161,7 @@ namespace QuanLyNhanVien3
                 videoSource.NewFrame += VideoSource_NewFrame;
                 videoSource.Start();
 
-                timer1.Start(); // Timer quét QR liên tục
+                timer1.Start(); // Bắt đầu quét QR
             }
             catch (Exception ex)
             {
@@ -190,55 +237,32 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                using (OpenFileDialog ofd = new OpenFileDialog())
+                // 1. Dừng camera cũ nếu đang chạy
+                if (videoSource != null && videoSource.IsRunning)
                 {
-                    ofd.Filter = "Ảnh QR|*.jpg;*.jpeg;*.png;*.bmp";
-
-                    if (ofd.ShowDialog() == DialogResult.OK)
-                    {
-                        pictureBoxQR.Image = Image.FromFile(ofd.FileName);
-
-                        BarcodeReader reader = new BarcodeReader
-                        {
-                            Options = new ZXing.Common.DecodingOptions
-                            {
-                                CharacterSet = "UTF-8"
-                            }
-                        };
-
-                        var result = reader.Decode((Bitmap)pictureBoxQR.Image);
-                        if (result != null)
-                        {
-                            string maNV = result.Text.Trim();
-                            //tbMaNV.Text = maNV;
-
-                            // Thực hiện đăng nhập
-                            DangNhapBangQR(maNV);
-                            //frm.ShowDialog();
-                            //frm = null;
-                            //this.Show();
-                            //this.Close();
-                            if (timer1.Enabled)
-                                timer1.Stop();
-
-                            if (videoSource != null && videoSource.IsRunning)
-                            {
-                                videoSource.SignalToStop();
-                                videoSource.WaitForStop();
-                                videoSource = null;
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không nhận diện được mã QR!",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
+                    timer1.Stop();
+                    videoSource.SignalToStop();
+                    videoSource.WaitForStop();
+                    videoSource = null;
                 }
+
+                // 2. Xóa hình ảnh cũ để tránh hiển thị ảnh cũ
+                if (pictureBoxQR.Image != null)
+                {
+                    pictureBoxQR.Image.Dispose();
+                    pictureBoxQR.Image = null;
+                }
+
+                // 3. Khởi động lại camera
+                StartCamera();
+
+                MessageBox.Show("Camera đã được làm mới!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi quét QR từ ảnh: " + ex.Message);
+                MessageBox.Show("Lỗi khi refresh camera: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

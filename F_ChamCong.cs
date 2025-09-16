@@ -7,14 +7,29 @@ using AForge.Video;
 using AForge.Video.DirectShow;
 using DocumentFormat.OpenXml.Wordprocessing;
 using ZXing;
+using AForge.Video.DirectShow;
+using AForge.Video;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using ZXing;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace QuanLyNhanVien3
 {
     public partial class F_ChamCong : Form
     {
-        private FilterInfoCollection videoDevices;  // Danh sách camera
-        private VideoCaptureDevice videoSource;     // Camera đang chạy
-        private bool isChamCongMode = false;        // true = chế độ chấm công, false = chỉ quét mã
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
 
         connectData cn = new connectData(); // Class kết nối SQL của bạn
 
@@ -92,251 +107,306 @@ namespace QuanLyNhanVien3
         }
 
 
-        //private void btnThem_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        cn.connect();
-        //        string maChamCong = "CC" + DateTime.Now.ToString("yyyyMMddHHmmss");
-
-        //        string sql = @"
-        //            INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
-        //            VALUES (@MaChamCong, @MaNV, @Ngay, @GioVao, @GioVe, @Ghichu)";
-
-        //        SqlCommand cmd = new SqlCommand(sql, cn.conn);
-        //        cmd.Parameters.AddWithValue("@MaChamCong", maChamCong);
-        //        cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@Ngay", dateTimeNgayChamCong.Value.Date);
-        //        cmd.Parameters.AddWithValue("@GioVao", tbGioVao.Text);
-        //        cmd.Parameters.AddWithValue("@GioVe", tbGioVe.Text);
-        //        cmd.Parameters.AddWithValue("@Ghichu", tbGhiChu.Text);
-
-        //        cmd.ExecuteNonQuery();
-        //        MessageBox.Show("Thêm thành công!");
-        //        LoadDataChamCong();
-        //        ClearAllInputs(this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi thêm dữ liệu: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        cn.disconnect();
-        //    }
-        //}
-
-        //private void btnSua_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (ccBoxMaNV.SelectedIndex == -1)
-        //        {
-        //            MessageBox.Show("Vui lòng chọn bản ghi cần sửa!");
-        //            return;
-        //        }
-
-        //        cn.connect();
-        //        string sql = @"
-        //            UPDATE tblChamCong
-        //            SET MaNV = @MaNV, Ngay = @Ngay, GioVao = @GioVao, GioVe = @GioVe, Ghichu = @Ghichu
-        //            WHERE Id = @Id";
-
-        //        SqlCommand cmd = new SqlCommand(sql, cn.conn);
-        //        cmd.Parameters.AddWithValue("@Id", txtId.Text);
-        //        cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@Ngay", dtpNgay.Value.Date);
-        //        cmd.Parameters.AddWithValue("@GioVao", dtpGioVao.Value.TimeOfDay);
-        //        cmd.Parameters.AddWithValue("@GioVe", dtpGioVe.Value.TimeOfDay);
-        //        cmd.Parameters.AddWithValue("@Ghichu", txtGhichu.Text);
-
-        //        cmd.ExecuteNonQuery();
-        //        MessageBox.Show("Sửa thành công!");
-        //        LoadDataChamCong();
-        //        ClearAllInputs(this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi sửa dữ liệu: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        cn.disconnect();
-        //    }
-        //}
-
-        //private void btnXoa_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (txtId.Text == "")
-        //        {
-        //            MessageBox.Show("Vui lòng chọn bản ghi cần xóa!");
-        //            return;
-        //        }
-
-        //        cn.connect();
-        //        string sql = "UPDATE tblChamCong SET DeletedAt = 1 WHERE Id = @Id";
-        //        SqlCommand cmd = new SqlCommand(sql, cn.conn);
-        //        cmd.Parameters.AddWithValue("@Id", txtId.Text);
-
-        //        cmd.ExecuteNonQuery();
-        //        MessageBox.Show("Xóa thành công!");
-        //        LoadDataChamCong();
-        //        ClearAllInputs(this);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi xóa dữ liệu: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        cn.disconnect();
-        //    }
-        //}
-
-        //private void btnTimKiem_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        cn.connect();
-        //        string keyword = txtTimKiem.Text.Trim();
-
-        //        string sql = @"
-        //            SELECT Id, MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu
-        //            FROM tblChamCong
-        //            WHERE DeletedAt = 0 
-        //            AND (MaNV LIKE @keyword OR MaChamCong LIKE @keyword)";
-
-        //        SqlDataAdapter da = new SqlDataAdapter(sql, cn.conn);
-        //        da.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-
-        //        DataTable dt = new DataTable();
-        //        da.Fill(dt);
-        //        dtGridViewChamCong.DataSource = dt;
-
-        //        cn.disconnect();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
-        //    }
-        //}
-
-        //private void btnrestar_Click(object sender, EventArgs e)
-        //{
-        //    ClearAllInputs(this);
-        //    LoadDataChamCong();
-        //}
-
         // ===== FORM LOAD =====
         private void F_ChamCong_Load(object sender, EventArgs e)
         {
             LoadcomboBox();
             LoadDataChamCong();
         }
-        // ======== Hàm Bắt Đầu Camera ========
-        private void StartCamera()
-        {
-            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            if (videoDevices.Count > 0)
-            {
-                videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-                videoSource.NewFrame += VideoSource_NewFrame;
-                videoSource.Start();
-            }
-            else
-            {
-                MessageBox.Show("Không tìm thấy camera!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
-        // ======== Hàm Tắt Camera ========
-        private void StopCamera()
-        {
-            if (videoSource != null && videoSource.IsRunning)
-            {
-                videoSource.SignalToStop();
-                videoSource = null;
-            }
-        }
-
-        // ======== Xử lý hình ảnh từ Camera ========
-        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            try
-            {
-                //    Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-                //    pictureBoxChamCong.Image = bitmap;
-
-                //    BarcodeReader reader = new BarcodeReader();
-                //    var result = reader.Decode(bitmap);
-
-                //    if (result != null)
-                //    {
-                //        this.Invoke(new Action(() =>
-                //        {
-                //            txtMaNV.Text = result.Text;
-                //            cbMaNV.Items.Clear();
-                //            cbMaNV.Items.Add(result.Text);
-                //            cbMaNV.SelectedIndex = 0;
-
-                //            if (isChamCongMode)
-                //            {
-                //                // Nếu chế độ chấm công thì thực hiện luôn
-                //                ChamCong(result.Text);
-                //            }
-
-                //            StopCamera(); // Dừng camera sau khi quét xong
-                //        }));
-                //    }
-            }
-            catch { }
-        }
-
-        // ======== Nút Chấm Công - Bật camera và chấm công ========
         private void btnChamCong_Click(object sender, EventArgs e)
         {
-            isChamCongMode = true; // chế độ chấm công
-            StartCamera();
-        }
-
-        // ======== Nút Quét Mã - Chỉ quét không chấm công ========
-        private void btnQuetMa_Click(object sender, EventArgs e)
-        {
-            isChamCongMode = false; // chỉ quét
-            StartCamera();
+            isChamCongMode = true;  // Chế độ chấm công
+            StartCamera();          // Bật camera
         }
 
         // ======== Nút Chọn Ảnh QR từ file - Chỉ quét không chấm công ========
         private void btnChonAnh_Click(object sender, EventArgs e)
         {
-            //    using (OpenFileDialog ofd = new OpenFileDialog())
-            //    {
-            //        ofd.Title = "Chọn ảnh QR Code";
-            //        ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Chọn ảnh QR Code";
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
 
-            //        if (ofd.ShowDialog() == DialogResult.OK)
-            //        {
-            //            pictureBoxChamCong.Image = Image.FromFile(ofd.FileName);
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Hiển thị ảnh vừa chọn lên PictureBox
+                        pictureBoxChamCong.Image = Image.FromFile(ofd.FileName);
 
-            //            BarcodeReader reader = new BarcodeReader();
-            //            var result = reader.Decode((Bitmap)pictureBoxQR.Image);
+                        // Giải mã QR
+                        BarcodeReader reader = new BarcodeReader();
+                        var result = reader.Decode((Bitmap)pictureBoxChamCong.Image);
 
-            //            if (result != null)
-            //            {
-            //                txtMaNV.Text = result.Text;
-            //                cbMaNV.Items.Clear();
-            //                cbMaNV.Items.Add(result.Text);
-            //                cbMaNV.SelectedIndex = 0;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Không nhận diện được mã QR!", "Thông báo",
-            //                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //            }
-            //        }
-            //    }
+                        if (result != null)
+                        {
+                            string maNV = result.Text.Trim();
+
+                            // Kiểm tra mã NV có tồn tại trong CSDL không
+                            cn.connect();
+                            string query = "SELECT MaNV, HoTen FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
+                            using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                            {
+                                cmd.Parameters.AddWithValue("@MaNV", maNV);
+
+                                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                                DataTable dt = new DataTable();
+                                da.Fill(dt);
+
+                                if (dt.Rows.Count > 0)
+                                {
+                                    // Load dữ liệu vào ComboBox
+                                    ccBoxMaNV.DataSource = dt;
+                                    ccBoxMaNV.DisplayMember = "HoTen";   // Hiển thị tên nhân viên
+                                    ccBoxMaNV.ValueMember = "MaNV";      // Giá trị là mã nhân viên
+                                    ccBoxMaNV.SelectedValue = maNV;
+
+                                    MessageBox.Show("Đã quét thành công mã nhân viên: " + maNV,
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Mã nhân viên không tồn tại hoặc đã nghỉ việc!",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không nhận diện được mã QR!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi chọn ảnh: " + ex.Message,
+                            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        cn.disconnect();
+                    }
+                }
+            }
+        }
+
+
+
+        // tesst cam ==========================================
+        private bool isChamCongMode = false;  // true = Chấm công, false = Chỉ quét mã
+        private string scannedMaNV = null;    // Lưu mã nhân viên quét được
+        private void LoadNhanVienToComboBox(string maNV)
+        {
+            try
+            {
+                cn.connect();
+                string query = "SELECT MaNV, HoTen FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", maNV);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        ccBoxMaNV.DataSource = dt;
+                        ccBoxMaNV.DisplayMember = "HoTen";
+                        ccBoxMaNV.ValueMember = "MaNV";
+                        ccBoxMaNV.SelectedValue = maNV;
+                        MessageBox.Show($"Đã quét thành công!\nMã nhân viên: {scannedMaNV}",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên hoặc nhân viên đã nghỉ việc!",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load dữ liệu: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
+        }
+
+        private void StartCamera()
+        {
+            try
+            {
+                videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if (videoDevices.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy camera!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Chọn camera đầu tiên
+                videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
+                videoSource.NewFrame += VideoSource_NewFrame;
+                videoSource.Start();
+
+                timer1.Start(); // Timer quét QR liên tục
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi bật camera: " + ex.Message);
+            }
+        }
+        // sop camenra 
+        private void StopCamera()
+        {
+            try
+            {
+                // 🔹 Dừng camera nếu đang chạy
+                if (videoSource != null)
+                {
+                    if (videoSource.IsRunning)
+                    {
+                        videoSource.SignalToStop();  // Yêu cầu camera dừng
+                        videoSource.WaitForStop();   // Đợi camera dừng hẳn
+                    }
+
+                    videoSource.NewFrame -= VideoSource_NewFrame; // Gỡ sự kiện frame
+                    videoSource = null; // Giải phóng đối tượng
+                }
+
+                // 🔹 Dừng Timer quét QR
+                if (timer1.Enabled)
+                    timer1.Stop();
+
+                // 🔹 Giải phóng hình ảnh trong PictureBox
+                if (pictureBoxChamCong.Image != null)
+                {
+                    pictureBoxChamCong.Image.Dispose();
+                    pictureBoxChamCong.Image = null;
+                }
+
+                GC.Collect();       // Thu gom rác .NET
+                GC.WaitForPendingFinalizers(); // Đảm bảo giải phóng xong
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tắt camera: " + ex.Message,
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra camera có ảnh chưa
+                if (pictureBoxChamCong.Image == null) return;
+
+                Bitmap snapshot;
+
+                // 🔹 Tạo bản sao an toàn từ ảnh hiện tại
+                lock (pictureBoxChamCong.Image)
+                {
+                    snapshot = new Bitmap(pictureBoxChamCong.Image);
+                }
+
+                // Khởi tạo BarcodeReader
+                BarcodeReader reader = new BarcodeReader
+                {
+                    Options = new ZXing.Common.DecodingOptions
+                    {
+                        CharacterSet = "UTF-8"
+                    }
+                };
+
+                // Decode từ bản sao
+                var result = reader.Decode(snapshot);
+
+                snapshot.Dispose(); // Giải phóng bộ nhớ sau khi decode
+
+                if (result != null)
+                {
+                    timer1.Stop(); // Dừng quét để xử lý dữ liệu
+                    StopCamera();  // Dừng camera tạm thời
+
+                    //string maNV = result.Text.Trim();
+
+                    scannedMaNV = result.Text.Trim(); // Lưu mã nhân viên quét được
+                    if (!string.IsNullOrEmpty(scannedMaNV))
+                    {
+                        if (isChamCongMode)
+                        {
+                            // Chế độ chấm công → Quét và chấm công luôn
+                            ChamCong(scannedMaNV);
+                        }
+                        else
+                        {
+                            // Chế độ chỉ quét mã → Hiển thị thông tin nhân viên
+                            LoadNhanVienToComboBox(scannedMaNV);
+                        }
+                    }
+                    //MessageBox.Show("Quét thành công: " + maNV);
+
+                    //ChamCong(maNV); // Hàm lưu dữ liệu chấm công
+
+                    //StartCamera(); // Mở lại camera
+                    //timer1.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Lỗi quét QR: " + ex.Message);
+            }
+        }
+        private string GenerateMaChamCong()
+        {
+            string newMa = "CC0001"; // Mặc định nếu chưa có dữ liệu
+            string query = "SELECT TOP 1 MaChamCong FROM tblChamCong ORDER BY Id DESC";
+
+            using (SqlConnection conn = new SqlConnection(cn.conn.ConnectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    string lastMa = result.ToString();  // VD: "CC0005"
+                    int number = int.Parse(lastMa.Substring(2)); // Lấy phần số: 0005 -> 5
+                    number++;
+                    newMa = "CC" + number.ToString("D4"); // Format về 4 chữ số: 0006
+                }
+            }
+            return newMa;
+        }
+
+
+        // ===== Hiển thị video từ camera lên PictureBox =====
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            try
+            {
+                Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
+
+                if (pictureBoxChamCong.Image != null)
+                {
+                    var oldImage = pictureBoxChamCong.Image;
+                    pictureBoxChamCong.Image = null;
+                    oldImage.Dispose();
+                }
+
+                pictureBoxChamCong.Image = bitmap;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi camera: " + ex.Message);
+            }
         }
 
         // ======== Hàm Chấm Công Check-in / Check-out ========
@@ -346,11 +416,41 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
+                // ========================== 🔹 BƯỚC 1: KIỂM TRA NHÂN VIÊN ==========================
+                string checkNVQuery = @"
+                                        SELECT DeletedAt 
+                                        FROM tblNhanVien 
+                                        WHERE MaNV = @MaNV";
+
+                using (SqlCommand cmdNV = new SqlCommand(checkNVQuery, cn.conn))
+                {
+                    cmdNV.Parameters.AddWithValue("@MaNV", maNV);
+                    object result = cmdNV.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show($"Không tìm thấy nhân viên",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // ⛔ Dừng luôn
+                    }
+
+                    int deletedAt = Convert.ToInt32(result);
+
+                    if (deletedAt != 0)
+                    {
+                        // 🔹 Nhân viên đã nghỉ việc
+                        MessageBox.Show($"Không tìm thấy nhân viên hoặc nhân viên đã nghỉ việc!",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return; // ⛔ Dừng luôn
+                    }
+                }
+
+                // ========================== 🔹 BƯỚC 2: XỬ LÝ CHẤM CÔNG ==========================
                 string checkQuery = @"
-                    SELECT TOP 1 * 
-                    FROM tblChamCong
-                    WHERE MaNV = @MaNV AND Ngay = CAST(GETDATE() AS DATE)
-                    ORDER BY Id DESC";
+                                        SELECT TOP 1 * 
+                                        FROM tblChamCong
+                                        WHERE MaNV = @MaNV AND Ngay = CAST(GETDATE() AS DATE)
+                                        ORDER BY Id DESC";
 
                 using (SqlCommand cmdCheck = new SqlCommand(checkQuery, cn.conn))
                 {
@@ -359,42 +459,51 @@ namespace QuanLyNhanVien3
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
+                    // ==== LẦN QUÉT THỨ 1: CHECK-IN ====
                     if (dt.Rows.Count == 0)
                     {
-                        // === Check-in ===
-                        string maChamCong = "CC" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                        // Sinh mã tự động: CC0001, CC0002,...
+                        string maChamCong = GenerateMaChamCong();
+
                         string insertQuery = @"
-                            INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, Ghichu)
-                            VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE), CONVERT(TIME, GETDATE()), N'Đi làm')";
+                    INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
+                    VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE), 
+                            CONVERT(TIME, GETDATE()), CONVERT(TIME, GETDATE()), N'Đi làm')";
 
-                        SqlCommand cmdInsert = new SqlCommand(insertQuery, cn.conn);
-                        cmdInsert.Parameters.AddWithValue("@MaChamCong", maChamCong);
-                        cmdInsert.Parameters.AddWithValue("@MaNV", maNV);
-
-                        if (cmdInsert.ExecuteNonQuery() > 0)
+                        using (SqlCommand cmdInsert = new SqlCommand(insertQuery, cn.conn))
                         {
-                            MessageBox.Show($"Nhân viên {maNV} đã check-in thành công!",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cmdInsert.Parameters.AddWithValue("@MaChamCong", maChamCong);
+                            cmdInsert.Parameters.AddWithValue("@MaNV", maNV);
+
+                            if (cmdInsert.ExecuteNonQuery() > 0)
+                            {
+                                MessageBox.Show($"Nhân viên {maNV} đã **check-in** thành công!\nThời gian vào: {DateTime.Now:HH:mm:ss}",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                     else
                     {
-                        // === Check-out ===
+                        // ==== LẦN QUÉT THỨ 2: CHECK-OUT ====
                         DataRow row = dt.Rows[0];
-                        if (row["GioVe"] == DBNull.Value)
+
+                        if (row["GioVao"].ToString() == row["GioVe"].ToString()) // Lần quét đầu: GioVao = GioVe
                         {
                             string updateQuery = @"
-                                UPDATE tblChamCong
-                                SET GioVe = CONVERT(TIME, GETDATE()), Ghichu = N'Hoàn thành ngày làm việc'
-                                WHERE Id = @Id";
+                        UPDATE tblChamCong
+                        SET GioVe = CONVERT(TIME, GETDATE()), 
+                            Ghichu = N'Hoàn thành ngày làm việc'
+                        WHERE Id = @Id";
 
-                            SqlCommand cmdUpdate = new SqlCommand(updateQuery, cn.conn);
-                            cmdUpdate.Parameters.AddWithValue("@Id", row["Id"]);
-
-                            if (cmdUpdate.ExecuteNonQuery() > 0)
+                            using (SqlCommand cmdUpdate = new SqlCommand(updateQuery, cn.conn))
                             {
-                                MessageBox.Show($"Nhân viên {maNV} đã check-out thành công!",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                cmdUpdate.Parameters.AddWithValue("@Id", row["Id"]);
+
+                                if (cmdUpdate.ExecuteNonQuery() > 0)
+                                {
+                                    MessageBox.Show($"Nhân viên {maNV} đã **check-out** thành công!\nThời gian ra: {DateTime.Now:HH:mm:ss}",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
                             }
                         }
                         else
@@ -403,6 +512,8 @@ namespace QuanLyNhanVien3
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
+
+                    LoadDataChamCong(); // Refresh danh sách chấm công
                 }
             }
             catch (Exception ex)
@@ -415,15 +526,21 @@ namespace QuanLyNhanVien3
             }
         }
 
-        // ======== Đóng Form dừng camera ========
-        private void F_ChamCong_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void btnrestar_Click(object sender, EventArgs e)
+        {
+            LoadDataChamCong();
+        }
+
+        private void btnDungQuetCam_Click(object sender, EventArgs e)
         {
             StopCamera();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void btnQuetma_Click_1(object sender, EventArgs e)
         {
-
+            isChamCongMode = false; // Chế độ chỉ quét mã
+            StartCamera();          // Bật camera
         }
     }
 }

@@ -65,6 +65,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dtGridViewChamCong = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnDungQuetCam = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChamCong)).BeginInit();
             this.panel2.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnDungQuetCam);
             this.panel1.Controls.Add(this.btnChonAnh);
             this.panel1.Controls.Add(this.btnQuetma);
             this.panel1.Controls.Add(this.btnChamCong);
@@ -109,6 +111,7 @@
             this.btnQuetma.TabIndex = 164;
             this.btnQuetma.Text = "Quet ma";
             this.btnQuetma.UseVisualStyleBackColor = true;
+            this.btnQuetma.Click += new System.EventHandler(this.btnQuetma_Click_1);
             // 
             // btnChamCong
             // 
@@ -390,6 +393,7 @@
             this.btnrestar.TabIndex = 174;
             this.btnrestar.Text = "Refresh";
             this.btnrestar.UseVisualStyleBackColor = true;
+            this.btnrestar.Click += new System.EventHandler(this.btnrestar_Click);
             // 
             // btnKhoiPhucNhanVien
             // 
@@ -439,8 +443,19 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 500;
+            this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnDungQuetCam
+            // 
+            this.btnDungQuetCam.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDungQuetCam.Location = new System.Drawing.Point(200, 303);
+            this.btnDungQuetCam.Name = "btnDungQuetCam";
+            this.btnDungQuetCam.Size = new System.Drawing.Size(230, 42);
+            this.btnDungQuetCam.TabIndex = 166;
+            this.btnDungQuetCam.Text = "Dừng Quét";
+            this.btnDungQuetCam.UseVisualStyleBackColor = true;
+            this.btnDungQuetCam.Click += new System.EventHandler(this.btnDungQuetCam_Click);
             // 
             // F_ChamCong
             // 
@@ -506,5 +521,6 @@
         private System.Windows.Forms.Button btnQuetma;
         private System.Windows.Forms.DataGridView dtGridViewChamCong;
         private System.Windows.Forms.Button btnChonAnh;
+        private System.Windows.Forms.Button btnDungQuetCam;
     }
 }
