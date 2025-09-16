@@ -48,9 +48,6 @@ VALUES
 -- ===== Bảng Nhân Viên =====
 INSERT INTO tblNhanVien (MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, Ghichu)
 VALUES
-('NV111', N'Hoàng Tuấn Anh', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'anh@example.com', 'PB001', 'CV001', N'Giám đốc công ty'),
-('NV222', N'Nguyễn Trung Kien', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'Kien@example.com', 'PB001', 'CV001', N'Giám đốc công ty'),
-('NV333', N'Nguyễn Văn Thành', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'Thanh@example.com', 'PB001', 'CV001', N'Giám đốc công ty'),
 ('NV001', N'Nguyễn Văn A', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'ana@example.com', 'PB001', 'CV001', N'Giám đốc công ty'),
 ('NV002', N'Trần Thị B', '1990-09-15', N'Nữ', N'Hồ Chí Minh', '0987654321', 'hib@example.com', 'PB002', 'CV002', N'Trưởng phòng kỹ thuật'),
 ('NV003', N'Lê Văn C', '1995-12-01', N'Nam', N'Đà Nẵng', '0934567890', 'vnc@example.com', 'PB003', 'CV003', N'Nhân viên kinh doanh'),
@@ -61,6 +58,11 @@ VALUES
 ('NV008', N'Bùi Thị H', '1993-03-12', N'Nữ', N'Hải Phòng', '0955223344', 'bth@example.com', 'PB007', 'CV004', N'Phó phòng CSKH'),
 ('NV009', N'Nguyễn Văn I', '1991-06-22', N'Nam', N'Hà Nội', '0966334455', 'nvi@example.com', 'PB009', 'CV006', N'Kỹ sư IT'),
 ('NV010', N'Lưu Thị K', '1996-08-14', N'Nữ', N'Đà Nẵng', '0977445566', 'ltk@example.com', 'PB010', 'CV007', N'Nhân viên logistics');
+INSERT INTO tblNhanVien (MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, Ghichu,DeletedAt)
+VALUES
+('NV111', N'Hoàng Tuấn Anh', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'anh@example.com', 'PB001', 'CV001', N'Giám đốc công ty', '3'),
+('NV222', N'Nguyễn Trung Kien', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'Kien@example.com', 'PB001', 'CV001', N'Giám đốc công ty', '3'),
+('NV333', N'Nguyễn Văn Thành', '1985-05-20', N'Nam', N'Hà Nội', '0912345678', 'Thanh@example.com', 'PB001', 'CV001', N'Giám đốc công ty', '3');
 
 -- ===== Bảng Hợp Đồng =====
 INSERT INTO tblHopDong (MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu)
@@ -135,9 +137,6 @@ VALUES
 -- ===== Bảng Tài Khoản =====
 INSERT INTO tblTaiKhoan (MaTK, MaNV, TenDangNhap, MatKhau, Quyen, Ghichu)
 VALUES
-('TK111', 'NV111', 'a', '1', N'Admin', N'Tài khoản quản trị'),
-('TK222', 'NV222', 'k', '1', N'Admin', N'Tài khoản quản trị'),
-('TK333', 'NV333', 't', '1', N'Admin', N'Tài khoản quản trị'),
 ('TK001', 'NV001', 'admin', '123456', N'User', N'Tài khoản quản trị'),
 ('TK002', 'NV002', 'thib', '123456', N'Manager', N'Tài khoản trưởng phòng'),
 ('TK003', 'NV003', 'vanc', '123456', N'User', N'Tài khoản nhân viên KD'),
@@ -148,3 +147,9 @@ VALUES
 ('TK008', 'NV008', 'buith', '123456', N'Manager', N'Tài khoản phó phòng'),
 ('TK009', 'NV009', 'nguyeni', '123456', N'User', N'Tài khoản kỹ sư IT'),
 ('TK010', 'NV010', 'luuthik', '123456', N'User', N'Tài khoản logistics');
+
+INSERT INTO tblTaiKhoan (MaTK, MaNV, TenDangNhap, MatKhau, Quyen, Ghichu, DeletedAt)
+VALUES
+('TK111', 'NV111', 'a', '1', N'Admin', N'Tài khoản quản trị', '3'),
+('TK222', 'NV222', 'k', '1', N'Admin', N'Tài khoản quản trị', '3'),
+('TK333', 'NV333', 't', '1', N'Admin', N'Tài khoản quản trị', '3');
