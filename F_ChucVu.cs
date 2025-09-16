@@ -42,22 +42,6 @@ namespace QuanLyNhanVien3
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            double a;
-            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
-            {
-                MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
-            }
-            else
-            {
-                c.connect();
-                string query = "insert into tblChucVu(MaCV,TenCV,GhiChu) " +
-                        "values ('" + cbMaChucVu.Text + "',N'" + txtTenChucVu.Text + "',N'" + txtGhiChu.Text + "')";
-                bool kq = c.exeSQL(query);
-                MessageBox.Show("Thêm thành công!!", "Thông báo", MessageBoxButtons.OK);
-                LoadDataChucVu();
-                ClearAllInputs(this);
-                c.disconnect();
-            }
         }
 
 
@@ -71,77 +55,10 @@ namespace QuanLyNhanVien3
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
-            {
-                MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
-            }
-            else
-            {
-                c.connect();
-
-                string query = "update tblChucVu set " +
-                               "TenCV = N'" + txtTenChucVu.Text + "', " +
-                               "GhiChu = N'" + txtGhiChu.Text + "' " +
-                               "where MaCV = '" + cbMaChucVu.Text + "'";
-
-                bool kq = c.exeSQL(query);
-                if (kq)
-                    MessageBox.Show("Sửa thành công!!", "Thông báo", MessageBoxButtons.OK);
-                else
-                    MessageBox.Show("Sửa thất bại!!", "Thông báo", MessageBoxButtons.OK);
-
-                LoadDataChucVu();
-                ClearAllInputs(this);
-
-                c.disconnect();
-            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(cbMaChucVu.Text))
-                {
-                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Chức Vụ cho chức vụ cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DialogResult confirm = MessageBox.Show(
-                    "Bạn có chắc chắn muốn xóa chức vụ này không?",
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
-                if (confirm == DialogResult.Yes)
-                {
-                    c.connect();
-                    string query = "UPDATE tblChucVu SET DeletedAt = 1 WHERE MaCV = @MaCV";
-                    using (SqlCommand cmd = new SqlCommand(query, c.conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MaCV", cbMaChucVu.Text);
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Xóa Chức Vụ thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            c.disconnect();
-                            LoadDataChucVu();
-                            ClearAllInputs(this);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy Chức Vụ để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            c.disconnect();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void dgvHienThiChucVu_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -216,18 +133,109 @@ namespace QuanLyNhanVien3
 
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
-           LoadDataChucVu();
+            double a;
+            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
+            {
+                MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
+            }
+            else
+            {
+                c.connect();
+                string query = "insert into tblChucVu(MaCV,TenCV,GhiChu) " +
+                        "values ('" + cbMaChucVu.Text + "',N'" + txtTenChucVu.Text + "',N'" + txtGhiChu.Text + "')";
+                bool kq = c.exeSQL(query);
+                MessageBox.Show("Thêm thành công!!", "Thông báo", MessageBoxButtons.OK);
+                LoadDataChucVu();
+                ClearAllInputs(this);
+                c.disconnect();
+            }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
+        {
+            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
+            {
+                MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
+            }
+            else
+            {
+                c.connect();
+
+                string query = "update tblChucVu set " +
+                               "TenCV = N'" + txtTenChucVu.Text + "', " +
+                               "GhiChu = N'" + txtGhiChu.Text + "' " +
+                               "where MaCV = '" + cbMaChucVu.Text + "'";
+
+                bool kq = c.exeSQL(query);
+                if (kq)
+                    MessageBox.Show("Sửa thành công!!", "Thông báo", MessageBoxButtons.OK);
+                else
+                    MessageBox.Show("Sửa thất bại!!", "Thông báo", MessageBoxButtons.OK);
+
+                LoadDataChucVu();
+                ClearAllInputs(this);
+
+                c.disconnect();
+            }
+        }
+
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrEmpty(cbMaChucVu.Text))
                 {
-                    MessageBox.Show("Vui lòng nhập mã Chức Vụ để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                    MessageBox.Show("Vui lòng chọn hoặc nhập mã Chức Vụ cho chức vụ cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa chức vụ này không?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirm == DialogResult.Yes)
+                {
+                    c.connect();
+                    string query = "UPDATE tblChucVu SET DeletedAt = 1 WHERE MaCV = @MaCV";
+                    using (SqlCommand cmd = new SqlCommand(query, c.conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaCV", cbMaChucVu.Text);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xóa Chức Vụ thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            c.disconnect();
+                            LoadDataChucVu();
+                            ClearAllInputs(this);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy Chức Vụ để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            c.disconnect();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(cbMaChucVu.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập mã Chức Vụ để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 c.connect();
@@ -252,7 +260,12 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnXuatExcel_Click(object sender, EventArgs e)
+        private void btnRefresh_Click_1(object sender, EventArgs e)
+        {
+            LoadDataChucVu();
+        }
+
+        private void btnXuatExcel_Click_1(object sender, EventArgs e)
         {
             if (dgvHienThiChucVu.Rows.Count > 0)
             {
@@ -308,7 +321,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnHienThiNVNghiViec_Click(object sender, EventArgs e)
+        private void btnHienThiNVNghiViec_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -328,7 +341,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnKhoiPhucNV_Click(object sender, EventArgs e)
+        private void btnKhoiPhucNV_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -417,7 +430,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
+        private void checkshowpassword_CheckedChanged_1(object sender, EventArgs e)
         {
             if (checkshowpassword.Checked)
             {
@@ -428,8 +441,5 @@ namespace QuanLyNhanVien3
                 txtMKKhoiPhuc.UseSystemPasswordChar = true;
             }
         }
-
-
-
     }
 }
