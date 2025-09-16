@@ -1,28 +1,29 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using AForge.Video;
+using AForge.Video;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using AForge.Video.DirectShow;
+using AForge.Video.DirectShow;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
-using ZXing;
-using AForge.Video.DirectShow;
-using AForge.Video;
+using System;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AForge.Video;
-using AForge.Video.DirectShow;
+using System.Windows.Forms;
 using ZXing;
-using DocumentFormat.OpenXml.Spreadsheet;
+using ZXing;
 
 namespace QuanLyNhanVien3
 {
@@ -541,6 +542,346 @@ namespace QuanLyNhanVien3
         {
             isChamCongMode = false; // Chế độ chỉ quét mã
             StartCamera();          // Bật camera
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cn.connect();
+
+                string maChamCong = GenerateMaChamCong();
+                string query = @"INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu, DeletedAt)
+                         VALUES (@MaChamCong, @MaNV, @Ngay, @GioVao, @GioVe, @Ghichu, 0)";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaChamCong", maChamCong);
+                    cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Ngay", dateTimeNgayChamCong.Value.Date);
+                    cmd.Parameters.AddWithValue("@GioVao", TimeSpan.Parse(tbGioVao.Text));
+                    cmd.Parameters.AddWithValue("@GioVe", TimeSpan.Parse(tbGioVe.Text));
+                    cmd.Parameters.AddWithValue("@Ghichu", tbGhiChu.Text);
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                        MessageBox.Show("Thêm dữ liệu thành công!");
+                }
+
+                LoadDataChamCong();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thêm: " + ex.Message);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtGridViewChamCong.CurrentRow == null) return;
+
+                int id = Convert.ToInt32(dtGridViewChamCong.CurrentRow.Cells["Id"].Value);
+
+                cn.connect();
+                string query = @"UPDATE tblChamCong
+                         SET MaNV = @MaNV, Ngay = @Ngay, GioVao = @GioVao, GioVe = @GioVe, Ghichu = @Ghichu
+                         WHERE Id = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Ngay", dateTimeNgayChamCong.Value.Date);
+                    cmd.Parameters.AddWithValue("@GioVao", TimeSpan.Parse(tbGioVao.Text));
+                    cmd.Parameters.AddWithValue("@GioVe", TimeSpan.Parse(tbGioVe.Text));
+                    cmd.Parameters.AddWithValue("@Ghichu", tbGhiChu.Text);
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                        MessageBox.Show("Cập nhật thành công!");
+                }
+
+                LoadDataChamCong();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi sửa: " + ex.Message);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtGridViewChamCong.CurrentRow == null) return;
+
+                int id = Convert.ToInt32(dtGridViewChamCong.CurrentRow.Cells["Id"].Value);
+
+                cn.connect();
+                string query = "UPDATE tblChamCong SET DeletedAt = 1 WHERE Id = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    if (cmd.ExecuteNonQuery() > 0)
+                        MessageBox.Show("Xóa thành công!");
+                }
+
+                LoadDataChamCong();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xóa: " + ex.Message);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
+        }
+
+        private void btnxuatExcel_Click(object sender, EventArgs e)
+        {
+            if (dtGridViewChamCong.Rows.Count > 0)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            using (XLWorkbook wb = new XLWorkbook())
+                            {
+                                var ws = wb.Worksheets.Add("ChucVu");
+
+                                // Ghi header
+                                for (int i = 0; i < dtGridViewChamCong.Columns.Count; i++)
+                                {
+                                    ws.Cell(1, i + 1).Value = dtGridViewChamCong.Columns[i].HeaderText;
+                                }
+
+                                // Ghi dữ liệu
+                                for (int i = 0; i < dtGridViewChamCong.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < dtGridViewChamCong.Columns.Count; j++)
+                                    {
+                                        ws.Cell(i + 2, j + 1).Value = dtGridViewChamCong.Rows[i].Cells[j].Value?.ToString();
+                                    }
+                                }
+
+                                // Thêm border cho toàn bảng
+                                var range = ws.Range(1, 1, dtGridViewChamCong.Rows.Count + 1, dtGridViewChamCong.Columns.Count);
+                                range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tự động co giãn cột
+                                ws.Columns().AdjustToContents();
+
+                                // Lưu file
+                                wb.SaveAs(sfd.FileName);
+                            }
+
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(ccBoxMaNV.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập Mã nhân viên để tìm kiếm!",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string sql = @"SELECT Id, MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu
+                   FROM tblChamCong
+                   WHERE DeletedAt = 0
+                     AND MaNV LIKE '%' + @MaNV + '%'
+                   ORDER BY Id";
+
+                using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.Text);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dtGridViewChamCong.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+            }
+
+        }
+
+        private void btnNVDaNghiViec_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cn.connect();
+                string query = @"SELECT Id, MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu
+                         FROM tblChamCong
+                         WHERE DeletedAt = 1 ORDER BY Id";
+                using (SqlDataAdapter da = new SqlDataAdapter(query, cn.conn))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dtGridViewChamCong.DataSource = dt;
+                }
+                cn.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void btnKhoiPhucNhanVien_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbMaChamCong.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập Mã chấm công cần khôi phục!",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                cn.connect();
+                string checkSql = "SELECT COUNT(*) FROM tblChamCong WHERE MaChamCong = @MaChamCong AND DeletedAt = 1";
+                using (SqlCommand cmdCheck = new SqlCommand(checkSql, cn.conn))
+                {
+                    cmdCheck.Parameters.AddWithValue("@MaChamCong", tbMaChamCong.Text.Trim());
+                    int count = (int)cmdCheck.ExecuteScalar();
+
+                    if (count == 0)
+                    {
+                        MessageBox.Show("Mã chấm công này không tồn tại trong danh sách đã xóa!",
+                                        "Thông báo",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning);
+                        cn.disconnect();
+                        return;
+                    }
+                }
+
+                // Yêu cầu mật khẩu khôi phục
+                if (string.IsNullOrEmpty(tbMKkhoiphuc.Text))
+                {
+                    MessageBox.Show("Vui lòng nhập mật khẩu để khôi phục!",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string sqlCheckAdmin = "SELECT * FROM tblTaiKhoan WHERE Quyen = @Quyen AND MatKhau = @MatKhau";
+                SqlCommand cmdAdmin = new SqlCommand(sqlCheckAdmin, cn.conn);
+                cmdAdmin.Parameters.AddWithValue("@Quyen", "Admin");
+                cmdAdmin.Parameters.AddWithValue("@MatKhau", tbMKkhoiphuc.Text);
+                SqlDataReader reader = cmdAdmin.ExecuteReader();
+
+                if (!reader.Read())
+                {
+                    MessageBox.Show("Mật khẩu không đúng! Vui lòng nhập lại.",
+                                    "Thông báo",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    tbMKkhoiphuc.Text = "";
+                    reader.Close();
+                    cn.disconnect();
+                    return;
+                }
+                reader.Close();
+
+                DialogResult confirm = MessageBox.Show(
+                    "Bạn có chắc chắn muốn khôi phục bản chấm công này không?",
+                    "Xác nhận khôi phục",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirm == DialogResult.Yes)
+                {
+                    tbMKkhoiphuc.Text = "";
+                    string query = "UPDATE tblChamCong SET DeletedAt = 0 WHERE MaChamCong = @MaChamCong";
+                    using (SqlCommand cmd = new SqlCommand(query, cn.conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MaChamCong", tbMaChamCong.Text.Trim());
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Khôi phục bản chấm công thành công!",
+                                            "Thông báo",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+                            LoadDataChamCong();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy bản chấm công để khôi phục!",
+                                            "Thông báo",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+                        }
+                    }
+                    cn.disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void checkshowpassword_CheckedChanged(object sender, EventArgs e)
+        {
+            tbMKkhoiphuc.UseSystemPasswordChar = !checkshowpassword.Checked;
+        }
+
+        private void dtGridViewChamCong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Đảm bảo click vào dòng hợp lệ
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dtGridViewChamCong.Rows[e.RowIndex];
+
+                // Giả sử bạn có các TextBox/ComboBox tương ứng:
+                tbMaChamCong.Text = row.Cells["MaChamCong"].Value?.ToString();
+                ccBoxMaNV.Text = row.Cells["MaNV"].Value?.ToString();
+                dateTimeNgayChamCong.Value = Convert.ToDateTime(row.Cells["Ngay"].Value);
+
+                tbGioVao.Text = row.Cells["GioVao"].Value?.ToString();
+                tbGioVe.Text = row.Cells["GioVe"].Value?.ToString();
+                tbGhiChu.Text = row.Cells["Ghichu"].Value?.ToString();
+            }
         }
     }
 }
