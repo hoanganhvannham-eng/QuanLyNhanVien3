@@ -367,7 +367,7 @@ namespace QuanLyNhanVien3
         }
         private string GenerateMaChamCong()
         {
-            string newMa = "CC0001"; // Mặc định nếu chưa có dữ liệu
+            string newMa = "CC001"; // Mặc định nếu chưa có dữ liệu
             string query = "SELECT TOP 1 MaChamCong FROM tblChamCong ORDER BY Id DESC";
 
             using (SqlConnection conn = new SqlConnection(cn.conn.ConnectionString))
