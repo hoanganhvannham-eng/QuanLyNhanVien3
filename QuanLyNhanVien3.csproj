@@ -282,5 +282,35 @@
   <ItemGroup>
     <None Include="Img\Screenshot 2025-09-17 154643.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-17 235446.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-17 235838.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\0082.jpg_wh860.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\2-cach-quan-ly-nhan-vien.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\ký năng quản lý.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\quan-ly-nhan-su-2-e1632800759551.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\human-2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Screenshot 2025-09-15 091122.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\QTNS-711x400.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Img\Mô_hình_quản_lý_nhân_sự_nào_phổ_biến_hiện_nay.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

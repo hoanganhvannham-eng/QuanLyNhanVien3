@@ -75,28 +75,30 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(588, 32);
+            this.label1.Location = new System.Drawing.Point(643, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 51);
+            this.label1.Size = new System.Drawing.Size(203, 49);
             this.label1.TabIndex = 102;
             this.label1.Text = "Tài Khoản";
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1316, 86);
+            this.panel1.Size = new System.Drawing.Size(1316, 170);
             this.panel1.TabIndex = 129;
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 86);
+            this.panel2.Location = new System.Drawing.Point(0, 170);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1316, 299);
             this.panel2.TabIndex = 130;
@@ -427,9 +429,9 @@
             // 
             this.panel3.Controls.Add(this.dataGridViewTaiKhoan);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 385);
+            this.panel3.Location = new System.Drawing.Point(0, 469);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1316, 332);
+            this.panel3.Size = new System.Drawing.Size(1316, 248);
             this.panel3.TabIndex = 131;
             // 
             // dataGridViewTaiKhoan
@@ -444,7 +446,7 @@
             this.dataGridViewTaiKhoan.ReadOnly = true;
             this.dataGridViewTaiKhoan.RowHeadersWidth = 51;
             this.dataGridViewTaiKhoan.RowTemplate.Height = 24;
-            this.dataGridViewTaiKhoan.Size = new System.Drawing.Size(1316, 332);
+            this.dataGridViewTaiKhoan.Size = new System.Drawing.Size(1316, 248);
             this.dataGridViewTaiKhoan.TabIndex = 118;
             this.dataGridViewTaiKhoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTaiKhoan_CellClick_1);
             // 
@@ -452,10 +454,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_15_0914231;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1316, 717);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "F_TaiKhoan";
             this.Text = "TaiKhoan";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

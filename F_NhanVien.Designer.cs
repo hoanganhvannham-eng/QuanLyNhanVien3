@@ -81,12 +81,14 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1598, 82);
+            this.panel1.Size = new System.Drawing.Size(1598, 160);
             this.panel1.TabIndex = 120;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label7
             // 
@@ -94,7 +96,7 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(685, 19);
+            this.label7.Location = new System.Drawing.Point(685, 37);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(204, 49);
             this.label7.TabIndex = 105;
@@ -102,17 +104,19 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 82);
+            this.panel2.Location = new System.Drawing.Point(0, 160);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1598, 450);
             this.panel2.TabIndex = 121;
             // 
             // panel4
             // 
+            this.panel4.BackColor = System.Drawing.Color.Transparent;
             this.panel4.Controls.Add(this.pictureBoxQRNV);
             this.panel4.Controls.Add(this.btnTaoQR);
             this.panel4.Controls.Add(this.cbBoxChucVu);
@@ -132,6 +136,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(596, 450);
             this.panel4.TabIndex = 161;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // pictureBoxQRNV
             // 
@@ -283,6 +288,7 @@
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.Transparent;
             this.panel5.Controls.Add(this.checkshowpassword);
             this.panel5.Controls.Add(this.label8);
             this.panel5.Controls.Add(this.tbMKkhoiphuc);
@@ -379,6 +385,7 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.Controls.Add(this.cbBoxGioiTinh);
             this.panel3.Controls.Add(this.btnXoa);
             this.panel3.Controls.Add(this.btnThem);
@@ -532,9 +539,9 @@
             // 
             this.panel6.Controls.Add(this.dtGridViewNhanVien);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 532);
+            this.panel6.Location = new System.Drawing.Point(0, 610);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1598, 308);
+            this.panel6.Size = new System.Drawing.Size(1598, 230);
             this.panel6.TabIndex = 122;
             // 
             // dtGridViewNhanVien
@@ -549,7 +556,7 @@
             this.dtGridViewNhanVien.ReadOnly = true;
             this.dtGridViewNhanVien.RowHeadersWidth = 51;
             this.dtGridViewNhanVien.RowTemplate.Height = 24;
-            this.dtGridViewNhanVien.Size = new System.Drawing.Size(1598, 308);
+            this.dtGridViewNhanVien.Size = new System.Drawing.Size(1598, 230);
             this.dtGridViewNhanVien.TabIndex = 120;
             this.dtGridViewNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewNhanVien_CellClick_2);
             // 
@@ -557,10 +564,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources._0082_jpg_wh860;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1598, 840);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "F_NhanVien";
             this.Text = "NhanVien";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

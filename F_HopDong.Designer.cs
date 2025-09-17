@@ -84,19 +84,20 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1202, 66);
+            this.panel1.Size = new System.Drawing.Size(1202, 74);
             this.panel1.TabIndex = 92;
             // 
             // panel4
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.panel4.Location = new System.Drawing.Point(6, 72);
+            this.panel4.Location = new System.Drawing.Point(6, 76);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(466, 319);
             this.panel4.TabIndex = 95;
@@ -130,6 +131,7 @@
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.Transparent;
             this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.tbLoaiHD);
             this.panel5.Controls.Add(this.checkHienMK);
@@ -156,9 +158,9 @@
             this.panel5.Controls.Add(this.label5);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 66);
+            this.panel5.Location = new System.Drawing.Point(0, 74);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1202, 352);
+            this.panel5.Size = new System.Drawing.Size(1202, 361);
             this.panel5.TabIndex = 94;
             // 
             // label9
@@ -440,6 +442,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.human_2;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1202, 847);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);

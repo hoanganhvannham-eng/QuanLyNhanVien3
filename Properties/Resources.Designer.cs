@@ -63,9 +63,79 @@ namespace QuanLyNhanVien3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _0082_jpg_wh860 {
+            get {
+                object obj = ResourceManager.GetObject("0082.jpg_wh860", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_cach_quan_ly_nhan_vien {
+            get {
+                object obj = ResourceManager.GetObject("2-cach-quan-ly-nhan-vien", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ảnh_phông_nền {
             get {
                 object obj = ResourceManager.GetObject("ảnh phông nền", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap human_2 {
+            get {
+                object obj = ResourceManager.GetObject("human-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ký_năng_quản_lý {
+            get {
+                object obj = ResourceManager.GetObject("ký năng quản lý", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Mô_hình_quản_lý_nhân_sự_nào_phổ_biến_hiện_nay {
+            get {
+                object obj = ResourceManager.GetObject("Mô_hình_quản_lý_nhân_sự_nào_phổ_biến_hiện_nay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap QTNS_711x400 {
+            get {
+                object obj = ResourceManager.GetObject("QTNS-711x400", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap quan_ly_nhan_su_2_e1632800759551 {
+            get {
+                object obj = ResourceManager.GetObject("quan-ly-nhan-su-2-e1632800759551", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +163,29 @@ namespace QuanLyNhanVien3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_15_0904112 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-15 0904112", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2025_09_15_090548 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2025-09-15 090548", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_15_091122 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-15 091122", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +203,29 @@ namespace QuanLyNhanVien3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_15_0911511 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-15 0911511", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2025_09_15_091423 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2025-09-15 091423", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_15_0914231 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-15 0914231", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -226,6 +336,36 @@ namespace QuanLyNhanVien3.Properties {
         internal static System.Drawing.Bitmap Screenshot_2025_09_17_154643 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2025-09-17 154643", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_17_235446 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-17 235446", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_17_235838 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-17 235838", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_17_2358381 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-17 2358381", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

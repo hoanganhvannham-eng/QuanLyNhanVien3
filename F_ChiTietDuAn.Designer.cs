@@ -143,7 +143,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(487, 9);
+            this.label1.Location = new System.Drawing.Point(481, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(268, 46);
             this.label1.TabIndex = 25;
@@ -151,15 +151,17 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1255, 88);
+            this.panel1.Size = new System.Drawing.Size(1255, 131);
             this.panel1.TabIndex = 88;
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.cbMaDuAn);
             this.panel2.Controls.Add(this.cbMaNV);
             this.panel2.Controls.Add(this.btnKhoiPhucDACu);
@@ -174,7 +176,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 88);
+            this.panel2.Location = new System.Drawing.Point(0, 131);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1255, 261);
             this.panel2.TabIndex = 89;
@@ -326,6 +328,7 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.Controls.Add(this.btnRefresh);
             this.panel3.Controls.Add(this.btnThem);
             this.panel3.Controls.Add(this.btnXoa);
@@ -333,7 +336,7 @@
             this.panel3.Controls.Add(this.btnXuatExcel);
             this.panel3.Controls.Add(this.btnTimKiem);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 349);
+            this.panel3.Location = new System.Drawing.Point(0, 392);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1255, 156);
             this.panel3.TabIndex = 90;
@@ -366,11 +369,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_15_0904112;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1255, 1017);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "F_ChiTietDuAn";
             this.Text = "F_ChiTietDA";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

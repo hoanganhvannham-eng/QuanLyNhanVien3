@@ -455,8 +455,8 @@ namespace QuanLyNhanVien3
                 {
                     cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
                     SqlDataAdapter da = new SqlDataAdapter(cmdCheck);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    DataTable dt = new DataTable(); //DataTable là một cấu trúc dữ liệu trong C#, dùng để lưu dữ liệu giống một bảng trong SQL.
+                    da.Fill(dt); //Lấy dữ liệu trả về và đưa vào dt.
 
                     // ==== LẦN QUÉT THỨ 1: CHECK-IN ====
                     if (dt.Rows.Count == 0)
@@ -464,10 +464,8 @@ namespace QuanLyNhanVien3
                         // Sinh mã tự động: CC0001, CC0002,...
                         string maChamCong = GenerateMaChamCong();
 
-                        string insertQuery = @"
-                    INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
-                    VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE), 
-                            CONVERT(TIME, GETDATE()), CONVERT(TIME, GETDATE()), N'Đi làm')";
+                        string insertQuery = @" INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
+                    VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE),  CONVERT(TIME, GETDATE()), CONVERT(TIME, GETDATE()), N'Đi làm')";
 
                         using (SqlCommand cmdInsert = new SqlCommand(insertQuery, cn.conn))
                         {

@@ -441,5 +441,10 @@ namespace QuanLyNhanVien3
                 txtMKKhoiPhuc.UseSystemPasswordChar = true;
             }
         }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
