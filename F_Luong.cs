@@ -116,10 +116,13 @@ namespace QuanLyNhanVien3
                 cn.connect();
 
                 string sqlLoadDataLuong =
-                    @"SELECT MaLuong as N'Mã Lương', MaNV as N'Mã Nhân Viên',Thang as N'Tháng' ,Nam as N'Năm',
-                    LuongCoBan as N'Lương Cơ Bản' , SoNgayCong as N'Số Ngày Công' , PhuCap as N'Phụ cấp' , KhauTru as N'Khấu Trừ',Ghichu as N'Ghi Chú',
-                    TongLuong as N'Tổng Lương'
-                     FROM tblLuong WHERE DeletedAt = 0 ORDER BY MaLuong;";
+                    @"SELECT l.MaLuong as N'Mã Lương', l.MaNV as N'Mã Nhân Viên',
+                                Thang as N'Tháng', Nam as N'Năm',
+                                LuongCoBan as N'Lương Cơ Bản', SoNgayCong as N'Số Ngày Công',
+                                PhuCap as N'Phụ cấp', KhauTru as N'Khấu Trừ', l.Ghichu as N'Ghi Chú',
+                                TongLuong as N'Tổng Lương'
+                         FROM tblLuong as l ,tblNhanVien as nv
+                         WHERE nv.DeletedAt = 0 and l.MaNV = nv.MaNV";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataLuong, cn.conn))
                 {
@@ -185,6 +188,27 @@ namespace QuanLyNhanVien3
             }
 
             return ma;
+        }
+        private void dgvLuong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
+            if (e.RowIndex < 0 || e.RowIndex >= dgvLuong.Rows.Count) return;
+
+            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
+
+            // Gán giá trị từ DataGridView sang các control
+            cbMaLuong.Text = row.Cells["Mã Lương"].Value?.ToString();
+            cbMaNV.Text = row.Cells["Mã Nhân Viên"].Value?.ToString();
+            cbThang.Text = row.Cells["Tháng"].Value?.ToString();
+
+            if (int.TryParse(row.Cells["Năm"].Value?.ToString(), out int nam))
+                numNam.Value = nam;
+
+            txtLuongCoBan.Text = row.Cells["Lương Cơ Bản"].Value?.ToString();
+            txtSoNgayCong.Text = row.Cells["Số Ngày Công"].Value?.ToString();
+            txtPhuCap.Text = row.Cells["Phụ cấp"].Value?.ToString();
+            txtKhauTru.Text = row.Cells["Khấu Trừ"].Value?.ToString();
+            txtGhiChu.Text = row.Cells["Ghi Chú"].Value?.ToString();
         }
 
         private void cbMaNV_SelectedIndexChanged(object sender, EventArgs e)
@@ -519,24 +543,7 @@ namespace QuanLyNhanVien3
 
         private void dgvLuong_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
-            if (e.RowIndex < 0 || e.RowIndex >= dgvLuong.Rows.Count) return;
 
-            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
-
-            // Gán giá trị từ DataGridView sang các control
-            cbMaLuong.Text = row.Cells["Mã Lương"].Value?.ToString();
-            cbMaNV.Text = row.Cells["Mã Nhân Viên"].Value?.ToString();
-            cbThang.Text = row.Cells["Tháng"].Value?.ToString();
-
-            if (int.TryParse(row.Cells["Năm"].Value?.ToString(), out int nam))
-                numNam.Value = nam;
-
-            txtLuongCoBan.Text = row.Cells["Lương Cơ Bản"].Value?.ToString();
-            txtSoNgayCong.Text = row.Cells["Số Ngày Công"].Value?.ToString();
-            txtPhuCap.Text = row.Cells["Phụ cấp"].Value?.ToString();
-            txtKhauTru.Text = row.Cells["Khấu Trừ"].Value?.ToString();
-            txtGhiChu.Text = row.Cells["Ghi Chú"].Value?.ToString();
         }
     }
 

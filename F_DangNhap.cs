@@ -34,7 +34,6 @@ namespace QuanLyNhanVien3
 
         private void btndangnhap_Click(object sender, EventArgs e)
         {
-
             cn.connect();
             string username = tbusename.Text.Trim();
             string password = tbpassword.Text.Trim();
@@ -312,6 +311,11 @@ namespace QuanLyNhanVien3
             {
                 MessageBox.Show("Lỗi quét QR: " + ex.Message);
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
         }
     }
 }
