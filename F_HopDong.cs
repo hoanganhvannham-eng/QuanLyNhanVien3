@@ -65,7 +65,7 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @" SELECT MaHopDong, MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, Ghichu FROM tblHopDong WHERE DeletedAt = 0 ORDER BY MaHopDong";
+                string sqlLoadDataNhanVien = @" SELECT MaHopDong, hd.MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, hd.Ghichu FROM tblHopDong as hd ,tblNhanVien as nv WHERE nv.DeletedAt = 0 and hd.MaNV = nv.MaNV ORDER BY MaHopDong";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {

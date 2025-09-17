@@ -4,84 +4,106 @@ GO
 
 USE QuanLyNhanVien3;
 GO
+-- ========================================
+-- ============ TẠO CSDL ================
+-- ========================================
+CREATE DATABASE QuanLyNhanVien3;
+GO
 
--- 2. Các bảng
+USE QuanLyNhanVien3;
+GO
+
+-- ========================================
+-- ============ CÁC BẢNG =================
+-- ========================================
 
 -- ===== Bảng Phòng Ban =====
+-- Chứa thông tin các phòng ban trong công ty
 CREATE TABLE tblPhongBan (
     Id INT PRIMARY KEY IDENTITY(1,1),          -- Khóa chính tự tăng
     MaPB VARCHAR(10) UNIQUE NOT NULL,          -- Mã phòng ban duy nhất
-    TenPB NVARCHAR(100) NOT NULL,
-    DiaChi NVARCHAR(200),
-    SoDienThoai VARCHAR(20),
-    Ghichu NVARCHAR(255),
+    TenPB NVARCHAR(100) NOT NULL,              -- Tên phòng ban
+    DiaChi NVARCHAR(200),                       -- Địa chỉ phòng ban
+    SoDienThoai VARCHAR(20),                    -- Số điện thoại
+    Ghichu NVARCHAR(255),                       -- Ghi chú khác
     DeletedAt INT NOT NULL DEFAULT 0            -- 0: chưa xóa, 1: đã xóa
 );
 
 -- ===== Bảng Chức Vụ =====
+-- Chứa thông tin các chức vụ (Trưởng phòng, Nhân viên, ...)
 CREATE TABLE tblChucVu (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaCV VARCHAR(10) UNIQUE NOT NULL,
-    TenCV NVARCHAR(100) NOT NULL,
+    MaCV VARCHAR(10) UNIQUE NOT NULL,          -- Mã chức vụ duy nhất
+    TenCV NVARCHAR(100) NOT NULL,              -- Tên chức vụ
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0
 );
 
 -- ===== Bảng Nhân Viên =====
+-- Chứa thông tin chi tiết nhân viên
+-- Quan hệ:
+--  + Một phòng ban (tblPhongBan) có nhiều nhân viên → 1 - N
+--  + Một chức vụ (tblChucVu) có nhiều nhân viên → 1 - N
 CREATE TABLE tblNhanVien (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaNV VARCHAR(10) UNIQUE NOT NULL,
-    HoTen NVARCHAR(100) NOT NULL,
+    MaNV VARCHAR(10) UNIQUE NOT NULL,           -- Mã nhân viên duy nhất
+    HoTen NVARCHAR(100) NOT NULL,               -- Họ tên nhân viên
     NgaySinh DATE,
     GioiTinh NVARCHAR(10),
     DiaChi NVARCHAR(200),
     SoDienThoai VARCHAR(20),
     Email VARCHAR(100) UNIQUE,                  -- Email không được trùng 
-    MaPB VARCHAR(10) NOT NULL,                  -- Liên kết theo mã phòng ban
-    MaCV VARCHAR(10) NOT NULL,                  -- Liên kết theo mã chức vụ
+    MaPB VARCHAR(10) NOT NULL,                  -- Liên kết đến mã phòng ban
+    MaCV VARCHAR(10) NOT NULL,                  -- Liên kết đến mã chức vụ
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (MaPB) REFERENCES tblPhongBan(MaPB),
-    FOREIGN KEY (MaCV) REFERENCES tblChucVu(MaCV)
+    FOREIGN KEY (MaPB) REFERENCES tblPhongBan(MaPB), -- Khóa ngoại phòng ban
+    FOREIGN KEY (MaCV) REFERENCES tblChucVu(MaCV)    -- Khóa ngoại chức vụ
 );
 
 -- ===== Bảng Hợp Đồng =====
+-- Chứa thông tin hợp đồng làm việc của nhân viên
+-- Quan hệ: Một nhân viên có thể có nhiều hợp đồng → 1 - N
 CREATE TABLE tblHopDong (
     Id INT PRIMARY KEY IDENTITY(1,1),   
-	MaHopDong VARCHAR(10) UNIQUE NOT NULL,   -- Mã hợp đồng duy nhất
-    MaNV VARCHAR(10) NOT NULL, 
+    MaHopDong VARCHAR(10) UNIQUE NOT NULL,      -- Mã hợp đồng duy nhất
+    MaNV VARCHAR(10) NOT NULL,                  -- Nhân viên ký hợp đồng
     NgayBatDau DATE NOT NULL,
     NgayKetThuc DATE,
-    LoaiHopDong NVARCHAR(50),
+    LoaiHopDong NVARCHAR(50),                   -- Ví dụ: thử việc, chính thức
     LuongCoBan DECIMAL(18,2) NOT NULL,
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)
+    FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)  -- Liên kết nhân viên
 );
 
 -- ===== Bảng Lương =====
+-- Chứa thông tin lương hàng tháng của nhân viên
+-- Quan hệ: Một nhân viên có nhiều bảng lương → 1 - N
 CREATE TABLE tblLuong (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaLuong VARCHAR(10) UNIQUE NOT NULL,
-    MaNV VARCHAR(10) NOT NULL,
-    Thang INT CHECK (Thang BETWEEN 1 AND 12),
+    MaLuong VARCHAR(10) UNIQUE NOT NULL,        -- Mã lương duy nhất
+    MaNV VARCHAR(10) NOT NULL,                  -- Nhân viên nhận lương
+    Thang INT CHECK (Thang BETWEEN 1 AND 12),   -- Tháng (1-12)
     Nam INT,
-    LuongCoBan DECIMAL(18,2) NOT NULL,         -- ########.## (tối đa 8 số nguyên + 2 số thập phân)
-    SoNgayCong INT,
-    PhuCap DECIMAL(18,2) DEFAULT 0,
-    KhauTru DECIMAL(18,2) DEFAULT 0,
+    LuongCoBan DECIMAL(18,2) NOT NULL,          -- Lương cơ bản
+    SoNgayCong INT,                              -- Số ngày làm việc
+    PhuCap DECIMAL(18,2) DEFAULT 0,             -- Phụ cấp
+    KhauTru DECIMAL(18,2) DEFAULT 0,            -- Khoản khấu trừ
     Ghichu NVARCHAR(255),
-    TongLuong AS (LuongCoBan + PhuCap - KhauTru) PERSISTED, -- cột tính toán
+    -- Cột tính toán tự động: tổng lương = lương cơ bản + phụ cấp - khấu trừ
+    TongLuong AS (LuongCoBan + PhuCap - KhauTru) PERSISTED, 
     DeletedAt INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)
+    FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)  -- Liên kết nhân viên
 );
 
 -- ===== Bảng Dự Án =====
+-- Chứa thông tin các dự án mà công ty thực hiện
 CREATE TABLE tblDuAn (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaDA VARCHAR(10) UNIQUE NOT NULL,
-    TenDA NVARCHAR(200) NOT NULL,
-    MoTa NVARCHAR(500),
+    MaDA VARCHAR(10) UNIQUE NOT NULL,           -- Mã dự án duy nhất
+    TenDA NVARCHAR(200) NOT NULL,               -- Tên dự án
+    MoTa NVARCHAR(500),                         -- Mô tả dự án
     NgayBatDau DATE,
     NgayKetThuc DATE,
     Ghichu NVARCHAR(255),
@@ -89,45 +111,57 @@ CREATE TABLE tblDuAn (
 );
 
 -- ===== Bảng Chi Tiết Dự Án =====
+-- Lưu thông tin nhân viên tham gia dự án
+-- Quan hệ:
+--  + Một nhân viên có thể tham gia nhiều dự án → N - N
+--  + Một dự án có thể có nhiều nhân viên → N - N
+--  => Bảng trung gian để quản lý
 CREATE TABLE tblChiTietDuAn (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaNV VARCHAR(10) NOT NULL,
-    MaDA VARCHAR(10) NOT NULL,
-    VaiTro NVARCHAR(100),
+    MaNV VARCHAR(10) NOT NULL,                  -- Nhân viên tham gia
+    MaDA VARCHAR(10) NOT NULL,                  -- Dự án tham gia
+    VaiTro NVARCHAR(100),                        -- Vai trò trong dự án
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0,
-    UNIQUE(MaNV, MaDA),                         -- Một nhân viên chỉ có 1 vai trò trong dự án
+    UNIQUE(MaNV, MaDA),                         -- Mỗi nhân viên chỉ có 1 vai trò trong 1 dự án
     FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV),
     FOREIGN KEY (MaDA) REFERENCES tblDuAn(MaDA)
 );
 
 -- ===== Bảng Chấm Công =====
+-- Lưu lịch sử chấm công hàng ngày của nhân viên
+-- Quan hệ: Một nhân viên có thể có nhiều bản ghi chấm công → 1 - N
 CREATE TABLE tblChamCong (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaChamCong VARCHAR(10) UNIQUE NOT NULL,
-    MaNV VARCHAR(10) NOT NULL,
-    Ngay DATE NOT NULL,
-    GioVao TIME NOT NULL,                       -- Giờ bắt đầu làm
-    GioVe TIME NOT NULL,                        -- Giờ kết thúc làm
+    MaChamCong VARCHAR(10) UNIQUE NOT NULL,     -- Mã chấm công duy nhất
+    MaNV VARCHAR(10) NOT NULL,                  -- Nhân viên chấm công
+    Ngay DATE NOT NULL,                          -- Ngày chấm công
+    GioVao TIME NOT NULL,                        -- Giờ vào làm
+    GioVe TIME NOT NULL,                         -- Giờ tan ca
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0,
     FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)
 );
 
 -- ===== Bảng Tài Khoản =====
+-- Lưu thông tin tài khoản đăng nhập của nhân viên
+-- Quan hệ: 1 - 1 (Mỗi nhân viên chỉ có 1 tài khoản)
 CREATE TABLE tblTaiKhoan (
     Id INT PRIMARY KEY IDENTITY(1,1),
-    MaTK VARCHAR(10) UNIQUE NOT NULL,
-    MaNV VARCHAR(10) UNIQUE NOT NULL,
-    TenDangNhap VARCHAR(50) UNIQUE NOT NULL,
-    MatKhau VARCHAR(255) NOT NULL, 
-    Quyen NVARCHAR(50) DEFAULT 'User',          -- Mặc định quyền User
+    MaTK VARCHAR(10) UNIQUE NOT NULL,           -- Mã tài khoản
+    MaNV VARCHAR(10) UNIQUE NOT NULL,           -- Liên kết đến nhân viên
+    TenDangNhap VARCHAR(50) UNIQUE NOT NULL,    -- Tên đăng nhập duy nhất
+    MatKhau VARCHAR(255) NOT NULL,              -- Mật khẩu
+    Quyen NVARCHAR(50) DEFAULT 'User',          -- Quyền hệ thống: User/Admin
     Ghichu NVARCHAR(255),
     DeletedAt INT NOT NULL DEFAULT 0,
     FOREIGN KEY (MaNV) REFERENCES tblNhanVien(MaNV)
 );
 
 -- ========================================
+-- ========= KẾT THÚC SCRIPT ==============
+-- ========================================
+
 -- 3. Dữ liệu mẫu
 -- ========================================
 

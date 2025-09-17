@@ -190,10 +190,10 @@
             // 
             // pictureBoxQR
             // 
-            this.pictureBoxQR.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBoxQR.Location = new System.Drawing.Point(822, 21);
+            this.pictureBoxQR.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxQR.Location = new System.Drawing.Point(468, 12);
             this.pictureBoxQR.Name = "pictureBoxQR";
-            this.pictureBoxQR.Size = new System.Drawing.Size(414, 262);
+            this.pictureBoxQR.Size = new System.Drawing.Size(270, 270);
             this.pictureBoxQR.TabIndex = 27;
             this.pictureBoxQR.TabStop = false;
             // 
@@ -201,7 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_17_150345;
+            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Screenshot_2025_09_17_154643;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1300, 807);
             this.Controls.Add(this.panel1);

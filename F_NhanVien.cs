@@ -132,10 +132,10 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @" SELECT MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, Ghichu
-                                FROM tblNhanVien
-                                WHERE DeletedAt = 0  
-                                ORDER BY MaNV";
+                string sqlLoadDataNhanVien = @"SELECT nv.MaNV, nv.HoTen, nv.NgaySinh, nv.GioiTinh, nv.DiaChi, nv.SoDienThoai, nv.Email, nv.MaPB, nv.MaCV, nv.Ghichu
+                                FROM tblNhanVien as nv , tblHopDong as hd
+                                WHERE nv.DeletedAt = 0 and hd.DeletedAt = 0 and hd.MaNV = nv.MaNV 
+                                ORDER BY MaNV"; //  and cv.DeletedAt = 0  ,tblChucVu as cv   and cv.MaCV = nv.MaCV 
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {

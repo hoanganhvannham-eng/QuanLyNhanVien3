@@ -219,5 +219,15 @@ namespace QuanLyNhanVien3.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_17_154643 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-17 154643", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
