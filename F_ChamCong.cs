@@ -381,7 +381,7 @@ namespace QuanLyNhanVien3
                     string lastMa = result.ToString();  // VD: "CC0005"
                     int number = int.Parse(lastMa.Substring(2)); // Lấy phần số: 0005 -> 5
                     number++;
-                    newMa = "CC" + number.ToString("D4"); // Format về 4 chữ số: 0006
+                    newMa = "CC" + number.ToString("D3"); // Format về 4 chữ số: 0006
                 }
             }
             return newMa;
