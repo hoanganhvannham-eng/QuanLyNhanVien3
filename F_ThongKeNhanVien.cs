@@ -39,20 +39,26 @@ namespace QuanLyNhanVien3
                 if (rdbLuong.Checked)
                 {
                     sql = @"
-                SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
-                       l.MaLuong, l.LuongCoBan, l.PhuCap, l.KhauTru, l.TongLuong
-                FROM tblNhanVien nv
-                INNER JOIN tblLuong l ON nv.MaNV = l.MaNV
-                WHERE l.DeletedAt = 0
-            ";
+        SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
+               l.MaLuong, l.LuongCoBan, l.PhuCap, l.KhauTru, l.TongLuong
+        FROM tblNhanVien nv
+        INNER JOIN tblLuong l ON nv.MaNV = l.MaNV
+        WHERE l.DeletedAt = 0
+    ";
 
-                    // lọc theo ngày
+                    // Nếu chọn theo ngày thì tự chuyển sang theo tháng
                     if (rdbTheoNgay.Checked)
                     {
-                        sql += " AND l.Ngay BETWEEN @FromDate AND @ToDate";
+                        MessageBox.Show("Thống kê Lương chỉ hỗ trợ theo Tháng, hệ thống sẽ tự động chuyển sang Thống kê theo Tháng!",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // chuyển radio button
+                        rdbTheoNgay.Checked = false;
+                        rdbTheoThang.Checked = true;
                     }
+
                     // lọc theo tháng
-                    else if (rdbTheoThang.Checked)
+                    if (rdbTheoThang.Checked)
                     {
                         if (numThang.Value == 0 || numNam.Value == 0)
                         {
@@ -69,36 +75,40 @@ namespace QuanLyNhanVien3
                         sql += " AND nv.MaNV = @MaNV";
                     }
                 }
+
                 // ============= TRƯỜNG HỢP THỐNG KÊ CHẤM CÔNG =============
                 else if (rdbChamCong.Checked)
                 {
                     sql = @"
-                SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
-                       cc.MaChamCong, cc.Ngay, cc.GioVao, cc.GioVe,
-                       CASE 
-                           WHEN DATEDIFF(HOUR, cc.GioVao, cc.GioVe) >= 8 
-                           THEN N'Đủ' ELSE N'Không đủ' 
-                       END AS TrangThai
-                FROM tblNhanVien nv
-                INNER JOIN tblChamCong cc ON nv.MaNV = cc.MaNV
-                WHERE cc.DeletedAt = 0
-            ";
+        SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
+               cc.MaChamCong, cc.Ngay, cc.GioVao, cc.GioVe,
+               CASE 
+                   WHEN DATEDIFF(HOUR, cc.GioVao, cc.GioVe) >= 8 
+                   THEN N'Đủ' ELSE N'Không đủ' 
+               END AS TrangThai
+        FROM tblNhanVien nv
+        INNER JOIN tblChamCong cc ON nv.MaNV = cc.MaNV
+        WHERE cc.DeletedAt = 0
+    ";
 
+                    // Nếu chọn theo tháng thì tự chuyển sang theo ngày
+                    if (rdbTheoThang.Checked)
+                    {
+                        MessageBox.Show("Thống kê Chấm công chỉ hỗ trợ theo Ngày, hệ thống sẽ tự động chuyển sang Thống kê theo Ngày!",
+                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // chuyển radio button
+                        rdbTheoThang.Checked = false;
+                        rdbTheoNgay.Checked = true;
+                    }
+
+                    // lọc theo ngày
                     if (rdbTheoNgay.Checked)
                     {
                         sql += " AND cc.Ngay BETWEEN @FromDate AND @ToDate";
                     }
-                    else if (rdbTheoThang.Checked)
-                    {
-                        if (numThang.Value == 0 || numNam.Value == 0)
-                        {
-                            MessageBox.Show("Vui lòng nhập Tháng và Năm hợp lệ!",
-                                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                        sql += " AND MONTH(cc.Ngay) = @Thang AND YEAR(cc.Ngay) = @Nam";
-                    }
 
+                    // lọc theo mã nhân viên
                     if (!string.IsNullOrEmpty(txtMaNV.Text.Trim()))
                     {
                         sql += " AND nv.MaNV = @MaNV";
