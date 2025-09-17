@@ -416,8 +416,6 @@ namespace QuanLyNhanVien3
             try
             {
                 cn.connect();
-
-                // ========================== 🔹 BƯỚC 1: KIỂM TRA NHÂN VIÊN ==========================
                 string checkNVQuery = @"
                                         SELECT DeletedAt 
                                         FROM tblNhanVien 
@@ -491,10 +489,10 @@ namespace QuanLyNhanVien3
                         if (row["GioVao"].ToString() == row["GioVe"].ToString()) // Lần quét đầu: GioVao = GioVe
                         {
                             string updateQuery = @"
-                        UPDATE tblChamCong
-                        SET GioVe = CONVERT(TIME, GETDATE()), 
-                            Ghichu = N'Hoàn thành ngày làm việc'
-                        WHERE Id = @Id";
+                            UPDATE tblChamCong
+                            SET GioVe = CONVERT(TIME, GETDATE()), 
+                                Ghichu = N'Hoàn thành ngày làm việc'
+                            WHERE Id = @Id";
 
                             using (SqlCommand cmdUpdate = new SqlCommand(updateQuery, cn.conn))
                             {
