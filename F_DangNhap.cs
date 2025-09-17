@@ -194,12 +194,6 @@ namespace QuanLyNhanVien3
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    string tenDangNhap = reader["TenDangNhap"].ToString();
-                    string quyen = reader["Quyen"].ToString();
-
-                    MessageBox.Show($"Đăng nhập thành công!\nNgười dùng: {tenDangNhap}\nQuyền: {quyen}",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     // Mở form chính
                     this.Hide();
                     F_FormMain frm = new F_FormMain();
