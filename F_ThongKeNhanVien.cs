@@ -155,6 +155,9 @@ namespace QuanLyNhanVien3
             numThang.Value = DateTime.Now.Month;
             numNam.Value = DateTime.Now.Year;
             rdbTheoNgay.Checked = true; // mặc định theo ngày
+                                        // Gắn sự kiện
+            rdbLuong.CheckedChanged += rdbLuong_CheckedChanged;
+            rdbChamCong.CheckedChanged += rdbChamCong_CheckedChanged;
         }
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
@@ -217,5 +220,31 @@ namespace QuanLyNhanVien3
         {
             this.Close();
         }
+
+        private void rdbLuong_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbLuong.Checked)
+            {
+                // Khi chọn Lương -> mặc định theo tháng
+                rdbTheoThang.Checked = true;
+
+                numThang.Value = DateTime.Now.Month;
+                numNam.Value = DateTime.Now.Year;
+            }
+        }
+
+        private void rdbChamCong_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbChamCong.Checked)
+            {
+                // Khi chọn Chấm công -> mặc định theo ngày
+                rdbTheoNgay.Checked = true;
+
+                dtpFromDate.Value = DateTime.Now.AddDays(-7); // mặc định từ 7 ngày trước
+                dtpToDate.Value = DateTime.Now;               // đến hôm nay
+            }
+        }
+
+
     }
 }
