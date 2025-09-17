@@ -733,7 +733,7 @@ namespace QuanLyNhanVien3
                 string sql = @"SELECT MaNV, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaPB, MaCV, GhiChu
                                 FROM tblNhanVien
                                 WHERE DeletedAt = 0
-                                  AND(@TenTimKiem IS NULL OR HoTen LIKE '%' + @TenTimKiem + '%')
+                                  AND HoTen LIKE '%' + @TenTimKiem + '%'
                                 ORDER BY MaNV";
 
                 using (SqlCommand cmd = new SqlCommand(sql, cn.conn))

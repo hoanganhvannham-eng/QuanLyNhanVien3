@@ -187,8 +187,42 @@ namespace QuanLyNhanVien3
             return ma;
         }
 
+        private void cbMaNV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbMaNV.SelectedValue == null) return;
 
-        private void btnThem_Click(object sender, EventArgs e)
+            try
+            {
+                cn.connect();
+
+                string sql = "SELECT LuongCoBan FROM tblHopDong WHERE MaNV = @MaNV AND DeletedAt = 0";
+                using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MaNV", cbMaNV.SelectedValue.ToString());
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        txtLuongCoBan.Text = result.ToString(); // gán vào textbox Lương cơ bản
+                    }
+                    else
+                    {
+                        txtLuongCoBan.Text = ""; // nếu NV chưa có hợp đồng thì để trống
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy lương cơ bản từ Hợp đồng: " + ex.Message,
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cn.disconnect();
+            }
+        }
+
+        private void btnThem_Click_1(object sender, EventArgs e)
         {
             string maLuong = GenerateMaLuong();
 
@@ -295,7 +329,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnSua_Click(object sender, EventArgs e)
+        private void btnSua_Click_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cbMaLuong.Text))
             {
@@ -341,7 +375,7 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
+        private void btnXoa_Click_1(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cbMaLuong.Text))
             {
@@ -376,81 +410,14 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                cn.connect();
-
-                string sqlSearch = @"SELECT MaLuong as N'Mã Lương', MaNV as N'Mã Nhân Viên',
-                                Thang as N'Tháng', Nam as N'Năm',
-                                LuongCoBan as N'Lương Cơ Bản', SoNgayCong as N'Số Ngày Công',
-                                PhuCap as N'Phụ cấp', KhauTru as N'Khấu Trừ', Ghichu as N'Ghi Chú',
-                                TongLuong as N'Tổng Lương'
-                         FROM tblLuong 
-                         WHERE DeletedAt = 0";
-
-                if (!string.IsNullOrWhiteSpace(txtTimKiem.Text))
-                {
-                    sqlSearch += " AND (MaLuong LIKE @Search OR MaNV LIKE @Search)";
-                }
-
-                using (SqlCommand cmd = new SqlCommand(sqlSearch, cn.conn))
-                {
-                    if (!string.IsNullOrWhiteSpace(txtTimKiem.Text))
-                    {
-                        cmd.Parameters.AddWithValue("@Search", "%" + txtTimKiem.Text.Trim() + "%");
-                    }
-
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        dgvLuong.DataSource = dt;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tìm kiếm: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                cn.disconnect();
-            }
-        }
-
-        private void dgvLuong_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
-            if (e.RowIndex < 0 || e.RowIndex >= dgvLuong.Rows.Count) return;
-
-            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
-
-            // Gán giá trị từ DataGridView sang các control
-            cbMaLuong.Text = row.Cells["Mã Lương"].Value?.ToString();
-            cbMaNV.Text = row.Cells["Mã Nhân Viên"].Value?.ToString();
-            cbThang.Text = row.Cells["Tháng"].Value?.ToString();
-
-            if (int.TryParse(row.Cells["Năm"].Value?.ToString(), out int nam))
-                numNam.Value = nam;
-
-            txtLuongCoBan.Text = row.Cells["Lương Cơ Bản"].Value?.ToString();
-            txtSoNgayCong.Text = row.Cells["Số Ngày Công"].Value?.ToString();
-            txtPhuCap.Text = row.Cells["Phụ cấp"].Value?.ToString();
-            txtKhauTru.Text = row.Cells["Khấu Trừ"].Value?.ToString();
-            txtGhiChu.Text = row.Cells["Ghi Chú"].Value?.ToString();
-        }
-
-
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void btnRefresh_Click_1(object sender, EventArgs e)
         {
             ClearAllInputs(this);
             InitThangNam();
             LoadDataLuong();
         }
 
-        private void btnXuatExcel_Click(object sender, EventArgs e)
+        private void btnXuatExcel_Click_1(object sender, EventArgs e)
         {
             if (dgvLuong.Rows.Count > 0)
             {
@@ -506,34 +473,43 @@ namespace QuanLyNhanVien3
             }
         }
 
-        private void cbMaNV_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
-            if (cbMaNV.SelectedValue == null) return;
-
             try
             {
                 cn.connect();
 
-                string sql = "SELECT LuongCoBan FROM tblHopDong WHERE MaNV = @MaNV AND DeletedAt = 0";
-                using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaNV", cbMaNV.SelectedValue.ToString());
+                string sqlSearch = @"SELECT MaLuong as N'Mã Lương', MaNV as N'Mã Nhân Viên',
+                                Thang as N'Tháng', Nam as N'Năm',
+                                LuongCoBan as N'Lương Cơ Bản', SoNgayCong as N'Số Ngày Công',
+                                PhuCap as N'Phụ cấp', KhauTru as N'Khấu Trừ', Ghichu as N'Ghi Chú',
+                                TongLuong as N'Tổng Lương'
+                         FROM tblLuong 
+                         WHERE DeletedAt = 0";
 
-                    object result = cmd.ExecuteScalar();
-                    if (result != null && result != DBNull.Value)
+                if (!string.IsNullOrWhiteSpace(txtTimKiem.Text))
+                {
+                    sqlSearch += " AND (MaLuong LIKE @Search OR MaNV LIKE @Search)";
+                }
+
+                using (SqlCommand cmd = new SqlCommand(sqlSearch, cn.conn))
+                {
+                    if (!string.IsNullOrWhiteSpace(txtTimKiem.Text))
                     {
-                        txtLuongCoBan.Text = result.ToString(); // gán vào textbox Lương cơ bản
+                        cmd.Parameters.AddWithValue("@Search", "%" + txtTimKiem.Text.Trim() + "%");
                     }
-                    else
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                     {
-                        txtLuongCoBan.Text = ""; // nếu NV chưa có hợp đồng thì để trống
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvLuong.DataSource = dt;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi lấy lương cơ bản từ Hợp đồng: " + ex.Message,
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi tìm kiếm: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -541,8 +517,27 @@ namespace QuanLyNhanVien3
             }
         }
 
+        private void dgvLuong_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
+            if (e.RowIndex < 0 || e.RowIndex >= dgvLuong.Rows.Count) return;
 
+            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
 
+            // Gán giá trị từ DataGridView sang các control
+            cbMaLuong.Text = row.Cells["Mã Lương"].Value?.ToString();
+            cbMaNV.Text = row.Cells["Mã Nhân Viên"].Value?.ToString();
+            cbThang.Text = row.Cells["Tháng"].Value?.ToString();
+
+            if (int.TryParse(row.Cells["Năm"].Value?.ToString(), out int nam))
+                numNam.Value = nam;
+
+            txtLuongCoBan.Text = row.Cells["Lương Cơ Bản"].Value?.ToString();
+            txtSoNgayCong.Text = row.Cells["Số Ngày Công"].Value?.ToString();
+            txtPhuCap.Text = row.Cells["Phụ cấp"].Value?.ToString();
+            txtKhauTru.Text = row.Cells["Khấu Trừ"].Value?.ToString();
+            txtGhiChu.Text = row.Cells["Ghi Chú"].Value?.ToString();
+        }
     }
 
 }

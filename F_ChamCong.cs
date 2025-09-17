@@ -716,25 +716,28 @@ namespace QuanLyNhanVien3
                                     MessageBoxIcon.Warning);
                     return;
                 }
-
+                cn.connect();
                 string sql = @"SELECT Id, MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu
                    FROM tblChamCong
                    WHERE DeletedAt = 0
-                     AND MaNV LIKE '%' + @MaNV + '%'
+                     AND MaNV = @MaNV 
                    ORDER BY Id";
 
                 using (SqlCommand cmd = new SqlCommand(sql, cn.conn))
                 {
-                    cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.Text);
+                    cmd.Parameters.AddWithValue("@MaNV", ccBoxMaNV.SelectedValue);
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dtGridViewChamCong.DataSource = dt;
                 }
+                cn.disconnect();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+                //MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                //    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
