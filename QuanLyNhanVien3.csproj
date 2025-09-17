@@ -168,12 +168,6 @@
     <Compile Include="F_TaiKhoan.Designer.cs">
       <DependentUpon>F_TaiKhoan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Test.Designer.cs">
-      <DependentUpon>Test.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="F_ChamCong.resx">
       <DependentUpon>F_ChamCong.cs</DependentUpon>
     </EmbeddedResource>
@@ -217,9 +211,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Test.resx">
-      <DependentUpon>Test.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
