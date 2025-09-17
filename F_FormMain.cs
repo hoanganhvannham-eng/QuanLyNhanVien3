@@ -109,5 +109,20 @@ namespace QuanLyNhanVien3
         {
 
         }
+
+        private void thoátToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DialogResult rs = MessageBox.Show("Bạn có chắc chắn muốn thoat khong?", "tieu de thoat",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (rs == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void ThongKe_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new F_ThongKeNhanVien());
+        }
     }
 }

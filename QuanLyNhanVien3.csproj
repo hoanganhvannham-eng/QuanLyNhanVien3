@@ -160,6 +160,12 @@
     <Compile Include="F_PhongBan.Designer.cs">
       <DependentUpon>F_PhongBan.cs</DependentUpon>
     </Compile>
+    <Compile Include="F_ThongKeNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_ThongKeNhanVien.Designer.cs">
+      <DependentUpon>F_ThongKeNhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="F_TaiKhoan.cs">
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_TaiKhoan.resx">
       <DependentUpon>F_TaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_ThongKeNhanVien.resx">
+      <DependentUpon>F_ThongKeNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
