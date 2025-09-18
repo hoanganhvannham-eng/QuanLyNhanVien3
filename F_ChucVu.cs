@@ -136,7 +136,6 @@ namespace QuanLyNhanVien3
 
         private void btnThem_Click_1(object sender, EventArgs e)
         {
-            double a;
             if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
             {
                 MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);

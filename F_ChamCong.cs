@@ -1,28 +1,18 @@
 ﻿using AForge.Video;
-using AForge.Video;
-using AForge.Video;
-using AForge.Video.DirectShow;
-using AForge.Video.DirectShow;
 using AForge.Video.DirectShow;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms;
-using ZXing;
 using ZXing;
 
 namespace QuanLyNhanVien3
@@ -360,7 +350,7 @@ namespace QuanLyNhanVien3
                     //timer1.Start();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show("Lỗi quét QR: " + ex.Message);
             }
@@ -416,10 +406,9 @@ namespace QuanLyNhanVien3
             try
             {
                 cn.connect();
-                string checkNVQuery = @"
-                                        SELECT DeletedAt 
-                                        FROM tblNhanVien 
-                                        WHERE MaNV = @MaNV";
+                string checkNVQuery = @"SELECT nv.DeletedAt 
+                                        FROM tblNhanVien as nv , tblHopDong as hd
+                                        WHERE nv.MaNV = '@MaNV' and nv.MaNV = hd.MaNV and hd.DeletedAt = 0";
 
                 using (SqlCommand cmdNV = new SqlCommand(checkNVQuery, cn.conn))
                 {

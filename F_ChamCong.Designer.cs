@@ -155,9 +155,9 @@
             this.pictureBoxChamCong.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxChamCong.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.pictureBoxChamCong.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxChamCong.ErrorImage")));
-            this.pictureBoxChamCong.Location = new System.Drawing.Point(512, 105);
+            this.pictureBoxChamCong.Location = new System.Drawing.Point(494, 90);
             this.pictureBoxChamCong.Name = "pictureBoxChamCong";
-            this.pictureBoxChamCong.Size = new System.Drawing.Size(430, 240);
+            this.pictureBoxChamCong.Size = new System.Drawing.Size(454, 267);
             this.pictureBoxChamCong.TabIndex = 1;
             this.pictureBoxChamCong.TabStop = false;
             // 
