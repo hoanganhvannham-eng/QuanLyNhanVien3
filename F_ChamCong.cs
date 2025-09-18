@@ -136,7 +136,7 @@ namespace QuanLyNhanVien3
 
                             // Kiểm tra mã NV có tồn tại trong CSDL không
                             cn.connect();
-                            string query = "SELECT MaNV, HoTen FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
+                            string query = "SELECT nv.MaNV, nv.HoTen FROM  tblNhanVien as nv , tblHopDong as hd WHERE nv.MaNV = @MaNV and nv.MaNV = hd.MaNV and hd.DeletedAt = 0";
                             using (SqlCommand cmd = new SqlCommand(query, cn.conn))
                             {
                                 cmd.Parameters.AddWithValue("@MaNV", maNV);
@@ -192,7 +192,7 @@ namespace QuanLyNhanVien3
             try
             {
                 cn.connect();
-                string query = "SELECT MaNV, HoTen FROM tblNhanVien WHERE MaNV = @MaNV AND DeletedAt = 0";
+                string query = "SELECT nv.MaNV, nv.HoTen FROM  tblNhanVien as nv , tblHopDong as hd WHERE nv.MaNV = @MaNV and nv.MaNV = hd.MaNV and hd.DeletedAt = 0";
 
                 using (SqlCommand cmd = new SqlCommand(query, cn.conn))
                 {
