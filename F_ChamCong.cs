@@ -52,8 +52,7 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sql = @"
-                    SELECT Id, MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu
+                string sql = @"SELECT MaChamCong as 'Mã chấm công' , MaNV as 'Mã nhân viên', Ngay as 'Ngày', GioVao as 'Giờ vào', GioVe as ' Giờ về', Ghichu as 'Ghi chú'
                     FROM tblChamCong
                     WHERE DeletedAt = 0
                     ORDER BY Ngay DESC";
@@ -870,6 +869,11 @@ namespace QuanLyNhanVien3
                 tbGioVe.Text = row.Cells["GioVe"].Value?.ToString();
                 tbGhiChu.Text = row.Cells["Ghichu"].Value?.ToString();
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

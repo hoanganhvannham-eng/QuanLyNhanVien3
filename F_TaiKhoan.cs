@@ -40,10 +40,18 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @"SELECT tk.MaTK, tk.MaNV, tk.TenDangNhap, tk.MatKhau, tk.Quyen, tk.Ghichu
-                                FROM tblTaiKhoan as tk , tblNhanVien as nv
-                                WHERE tk.MaNV = nv.MaNV and nv.DeletedAt = 0  
-                                ORDER BY tk.MaTK";
+                string sqlLoadDataNhanVien = @"SELECT 
+                                                tk.MaTK AS [Mã Tài Khoản], 
+                                                tk.MaNV AS [Mã Nhân Viên], 
+                                                tk.TenDangNhap AS [Tên Đăng Nhập], 
+                                                tk.MatKhau AS [Mật Khẩu], 
+                                                tk.Quyen AS [Quyền], 
+                                                tk.GhiChu AS [Ghi Chú]
+                                            FROM tblTaiKhoan AS tk
+                                            INNER JOIN tblNhanVien AS nv ON tk.MaNV = nv.MaNV
+                                            WHERE nv.DeletedAt = 0  
+                                            ORDER BY tk.MaTK;
+                                            ";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {
@@ -616,6 +624,11 @@ namespace QuanLyNhanVien3
                 //oldMaNV = row.Cells["MaNV"].Value.ToString();
                 //oldTenDangNhap = row.Cells["TenDangNhap"].Value.ToString();
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

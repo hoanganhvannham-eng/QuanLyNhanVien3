@@ -41,7 +41,7 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @" SELECT MaDA, TenDA, MoTa, NgayBatDau, NgayKetThuc, Ghichu FROM tblDuAn WHERE DeletedAt = 0 ORDER BY MaDA";
+                string sqlLoadDataNhanVien = @"SELECT MaDA as 'Mã dự án', TenDA as ' Tên dự án', MoTa as 'Mô tả', NgayBatDau as 'Ngày bắt đầu', NgayKetThuc as 'Ngày kết thúc', Ghichu as 'Ghi chú' FROM tblDuAn WHERE DeletedAt = 0 ORDER BY MaDA";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {
@@ -501,6 +501,11 @@ namespace QuanLyNhanVien3
         private void btnRefresh_Click_1(object sender, EventArgs e)
         {
             LoadDataDuAn();
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

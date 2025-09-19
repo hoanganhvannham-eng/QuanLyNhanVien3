@@ -67,6 +67,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dtGridViewChamCong = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnThoat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxChamCong)).BeginInit();
             this.panel2.SuspendLayout();
@@ -80,6 +81,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.btnThoat);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.btnDungQuetCam);
             this.panel1.Controls.Add(this.btnChonAnh);
@@ -482,11 +484,22 @@
             this.timer1.Interval = 300;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnThoat
+            // 
+            this.btnThoat.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThoat.Location = new System.Drawing.Point(1209, 37);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(163, 50);
+            this.btnThoat.TabIndex = 168;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
             // F_ChamCong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.Mô_hình_quản_lý_nhân_sự_nào_phổ_biến_hiện_nay;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1406, 840);
             this.Controls.Add(this.panel3);
@@ -552,5 +565,6 @@
         private System.Windows.Forms.Button btnChonAnh;
         private System.Windows.Forms.Button btnDungQuetCam;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnThoat;
     }
 }

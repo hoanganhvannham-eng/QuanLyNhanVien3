@@ -132,10 +132,23 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @"SELECT nv.MaNV, nv.HoTen, nv.NgaySinh, nv.GioiTinh, nv.DiaChi, nv.SoDienThoai, nv.Email, nv.MaPB, nv.MaCV, nv.Ghichu
-                                FROM tblNhanVien as nv , tblHopDong as hd
-                                WHERE nv.DeletedAt = 0 and hd.DeletedAt = 0 and hd.MaNV = nv.MaNV 
-                                ORDER BY MaNV"; //  and cv.DeletedAt = 0  ,tblChucVu as cv   and cv.MaCV = nv.MaCV 
+                string sqlLoadDataNhanVien = @"SELECT 
+                                            nv.MaNV AS [Mã Nhân Viên], 
+                                            nv.HoTen AS [Họ và Tên], 
+                                            nv.NgaySinh AS [Ngày Sinh], 
+                                            nv.GioiTinh AS [Giới Tính], 
+                                            nv.DiaChi AS [Địa Chỉ], 
+                                            nv.SoDienThoai AS [Số Điện Thoại], 
+                                            nv.Email AS [Email], 
+                                            nv.MaPB AS [Mã Phòng Ban], 
+                                            nv.MaCV AS [Mã Chức Vụ], 
+                                            nv.GhiChu AS [Ghi Chú]
+                                        FROM tblNhanVien AS nv
+                                        INNER JOIN tblHopDong AS hd ON nv.MaNV = hd.MaNV
+                                        WHERE nv.DeletedAt = 0 
+                                          AND hd.DeletedAt = 0
+                                        ORDER BY nv.MaNV;
+                                        "; //  and cv.DeletedAt = 0  ,tblChucVu as cv   and cv.MaCV = nv.MaCV 
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {
@@ -836,6 +849,11 @@ namespace QuanLyNhanVien3
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

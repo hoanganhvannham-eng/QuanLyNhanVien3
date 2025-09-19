@@ -85,7 +85,7 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataChiTietDuAn = @"SELECT MaNV, MaDA, VaiTro, Ghichu FROM tblChiTietDuAn WHERE DeletedAt = 0 ORDER BY MaNV;";
+                string sqlLoadDataChiTietDuAn = @"SELECT MaNV as 'Mã nhân viên', MaDA as 'Mã dự án', VaiTro as 'Vai trò', Ghichu as 'Ghi chú' FROM tblChiTietDuAn WHERE DeletedAt = 0 ORDER BY MaNV;";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataChiTietDuAn, cn.conn))
                 {
@@ -535,6 +535,11 @@ namespace QuanLyNhanVien3
                 tbVaiTro.Text = dtGridViewChiTietDuAn.Rows[i].Cells[2].Value.ToString();
                 tbGhiChu.Text = dtGridViewChiTietDuAn.Rows[i].Cells[3].Value.ToString();
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

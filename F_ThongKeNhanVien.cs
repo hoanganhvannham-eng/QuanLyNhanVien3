@@ -38,13 +38,20 @@ namespace QuanLyNhanVien3
                 // ============= TRƯỜNG HỢP THỐNG KÊ LƯƠNG =============
                 if (rdbLuong.Checked)
                 {
-                    sql = @"
-        SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
-               l.MaLuong, l.LuongCoBan, l.PhuCap, l.KhauTru, l.TongLuong
-        FROM tblNhanVien nv
-        INNER JOIN tblLuong l ON nv.MaNV = l.MaNV
-        WHERE l.DeletedAt = 0
-    ";
+                    sql = @"SELECT 
+                            nv.MaNV AS [Mã Nhân Viên],
+                            nv.HoTen AS [Họ và Tên],
+                            nv.MaPB AS [Mã Phòng Ban],
+                            nv.MaCV AS [Mã Chức Vụ],
+                            l.MaLuong AS [Mã Lương],
+                            l.LuongCoBan AS [Lương Cơ Bản],
+                            l.PhuCap AS [Phụ Cấp],
+                            l.KhauTru AS [Khấu Trừ],
+                            l.TongLuong AS [Tổng Lương]
+                        FROM tblNhanVien AS nv
+                        INNER JOIN tblLuong AS l ON nv.MaNV = l.MaNV
+                        WHERE l.DeletedAt = 0";
+
 
                     // Nếu chọn theo ngày thì tự chuyển sang theo tháng
                     if (rdbTheoNgay.Checked)
@@ -56,7 +63,6 @@ namespace QuanLyNhanVien3
                         rdbTheoNgay.Checked = false;
                         rdbTheoThang.Checked = true;
                     }
-
                     // lọc theo tháng
                     if (rdbTheoThang.Checked)
                     {
@@ -74,22 +80,33 @@ namespace QuanLyNhanVien3
                     {
                         sql += " AND nv.MaNV = @MaNV";
                     }
+
+                    // Thêm ORDER BY sau cùng
+                    sql += " ORDER BY nv.MaNV";
+
                 }
 
                 // ============= TRƯỜNG HỢP THỐNG KÊ CHẤM CÔNG =============
                 else if (rdbChamCong.Checked)
                 {
-                    sql = @"
-        SELECT nv.MaNV, nv.HoTen, nv.MaPB, nv.MaCV, 
-               cc.MaChamCong, cc.Ngay, cc.GioVao, cc.GioVe,
-               CASE 
-                   WHEN DATEDIFF(HOUR, cc.GioVao, cc.GioVe) >= 8 
-                   THEN N'Đủ' ELSE N'Không đủ' 
-               END AS TrangThai
-        FROM tblNhanVien nv
-        INNER JOIN tblChamCong cc ON nv.MaNV = cc.MaNV
-        WHERE cc.DeletedAt = 0
-    ";
+                    sql = @"SELECT 
+                                nv.MaNV AS [Mã Nhân Viên],
+                                nv.HoTen AS [Họ và Tên],
+                                nv.MaPB AS [Mã Phòng Ban],
+                                nv.MaCV AS [Mã Chức Vụ],
+                                cc.MaChamCong AS [Mã Chấm Công],
+                                cc.Ngay AS [Ngày],
+                                cc.GioVao AS [Giờ Vào],
+                                cc.GioVe AS [Giờ Về],
+                                CASE 
+                                    WHEN DATEDIFF(HOUR, cc.GioVao, cc.GioVe) >= 8 
+                                        THEN N'Đủ' 
+                                    ELSE N'Không Đủ' 
+                                END AS [Trạng Thái]
+                            FROM tblNhanVien AS nv
+                            INNER JOIN tblChamCong AS cc ON nv.MaNV = cc.MaNV
+                            WHERE cc.DeletedAt = 0";
+
 
                     // Nếu chọn theo tháng thì tự chuyển sang theo ngày
                     if (rdbTheoThang.Checked)
@@ -113,6 +130,10 @@ namespace QuanLyNhanVien3
                     {
                         sql += " AND nv.MaNV = @MaNV";
                     }
+
+                    // Thêm ORDER BY cuối cùng
+                    sql += " ORDER BY cc.Ngay, nv.MaNV";
+
                 }
                 else
                 {
@@ -147,12 +168,41 @@ namespace QuanLyNhanVien3
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    dtGridViewThongKe.DataSource = dt;
+                    dtGridViewThongKe.DataSource = dt;// Sau khi gán dữ liệu
+
+                    // Định dạng cột "Tổng Lương" (tên phải khớp với tên cột trong DataTable)
+                    if (dtGridViewThongKe.Columns.Contains("Tổng Lương"))
+                    {
+                        dtGridViewThongKe.Columns["Tổng Lương"].DefaultCellStyle.Format = "c0";
+                        dtGridViewThongKe.Columns["Tổng Lương"].DefaultCellStyle.FormatProvider =
+                            new System.Globalization.CultureInfo("vi-VN");
+                    }
+                    if (dtGridViewThongKe.Columns.Contains("Khấu Trừ"))
+                    {
+                        dtGridViewThongKe.Columns["Khấu Trừ"].DefaultCellStyle.Format = "c0";
+                        dtGridViewThongKe.Columns["Khấu Trừ"].DefaultCellStyle.FormatProvider =
+                            new System.Globalization.CultureInfo("vi-VN");
+                    }
+                    if (dtGridViewThongKe.Columns.Contains("Phụ Cấp"))
+                    {
+                    dtGridViewThongKe.Columns["Phụ Cấp"].DefaultCellStyle.Format = "c0";
+                        dtGridViewThongKe.Columns["Phụ Cấp"].DefaultCellStyle.FormatProvider =
+                            new System.Globalization.CultureInfo("vi-VN");
+                    }
+                    if (dtGridViewThongKe.Columns.Contains("Lương Cơ Bản"))
+                    {
+                        dtGridViewThongKe.Columns["Lương Cơ Bản"].DefaultCellStyle.Format = "c0";
+                        dtGridViewThongKe.Columns["Lương Cơ Bản"].DefaultCellStyle.FormatProvider =
+                            new System.Globalization.CultureInfo("vi-VN");
+                    }
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Chi tiết lỗi: " + ex.ToString(), "Lỗi hệ thống",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

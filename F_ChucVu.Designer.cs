@@ -41,7 +41,6 @@
             this.checkshowpassword = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.cbMaChucVu = new System.Windows.Forms.ComboBox();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
@@ -52,6 +51,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dgvHienThiChucVu = new System.Windows.Forms.DataGridView();
+            this.tbMaChuVu = new System.Windows.Forms.TextBox();
+            this.btnThoat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -63,6 +64,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.btnThoat);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -210,7 +212,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.cbMaChucVu);
+            this.panel3.Controls.Add(this.tbMaChuVu);
             this.panel3.Controls.Add(this.btnXoa);
             this.panel3.Controls.Add(this.btnSua);
             this.panel3.Controls.Add(this.btnThem);
@@ -225,17 +227,6 @@
             this.panel3.Size = new System.Drawing.Size(578, 359);
             this.panel3.TabIndex = 0;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // cbMaChucVu
-            // 
-            this.cbMaChucVu.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cbMaChucVu.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMaChucVu.FormattingEnabled = true;
-            this.cbMaChucVu.Location = new System.Drawing.Point(297, 80);
-            this.cbMaChucVu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbMaChucVu.Name = "cbMaChucVu";
-            this.cbMaChucVu.Size = new System.Drawing.Size(229, 27);
-            this.cbMaChucVu.TabIndex = 36;
             // 
             // btnXoa
             // 
@@ -352,12 +343,34 @@
             this.dgvHienThiChucVu.RowTemplate.Height = 24;
             this.dgvHienThiChucVu.Size = new System.Drawing.Size(1111, 215);
             this.dgvHienThiChucVu.TabIndex = 121;
+            this.dgvHienThiChucVu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHienThiChucVu_CellClick_1);
+            // 
+            // tbMaChuVu
+            // 
+            this.tbMaChuVu.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.tbMaChuVu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMaChuVu.Location = new System.Drawing.Point(297, 74);
+            this.tbMaChuVu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbMaChuVu.Name = "tbMaChuVu";
+            this.tbMaChuVu.Size = new System.Drawing.Size(229, 30);
+            this.tbMaChuVu.TabIndex = 31;
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThoat.Location = new System.Drawing.Point(911, 25);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(163, 50);
+            this.btnThoat.TabIndex = 169;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // F_ChucVu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::QuanLyNhanVien3.Properties.Resources.ký_năng_quản_lý;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1111, 702);
             this.Controls.Add(this.panel5);
@@ -396,7 +409,6 @@
         private System.Windows.Forms.CheckBox checkshowpassword;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox cbMaChucVu;
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnThem;
@@ -407,5 +419,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dgvHienThiChucVu;
+        private System.Windows.Forms.TextBox tbMaChuVu;
+        private System.Windows.Forms.Button btnThoat;
     }
 }

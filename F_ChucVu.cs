@@ -61,13 +61,6 @@ namespace QuanLyNhanVien3
         {
         }
 
-        private void dgvHienThiChucVu_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = dgvHienThiChucVu.CurrentRow.Index;
-            cbMaChucVu.Text = dgvHienThiChucVu.Rows[i].Cells[0].Value.ToString();
-            txtTenChucVu.Text = dgvHienThiChucVu.Rows[i].Cells[1].Value.ToString();
-            txtGhiChu.Text = dgvHienThiChucVu.Rows[i].Cells[2].Value.ToString();
-        }
 
         private void ClearAllInputs(Control parent)
         {
@@ -83,28 +76,28 @@ namespace QuanLyNhanVien3
                     ClearAllInputs(ctl);
             }
         }
-        private void LoadcbChucVu()
-        {
-            // load chuc vu combobox
-            try
-            {
-                c.connect();
-                string sqlLoadcomboBoxttblChucVu = "SELECT * FROM tblChucVu WHERE DeletedAt = 0";
-                using (SqlDataAdapter da = new SqlDataAdapter(sqlLoadcomboBoxttblChucVu, c.conn))
-                {
-                    DataSet ds = new DataSet();
-                    da.Fill(ds);
+        //private void LoadcbChucVu()
+        //{
+        //    // load chuc vu combobox
+        //    try
+        //    {
+        //        c.connect();
+        //        string sqlLoadcomboBoxttblChucVu = "SELECT MaCV  as 'Mã chức vụ', TenCV as 'Tên chức vụ', Ghichu as 'Ghi chú' FROM tblChucVu WHERE DeletedAt = 0";
+        //        using (SqlDataAdapter da = new SqlDataAdapter(sqlLoadcomboBoxttblChucVu, c.conn))
+        //        {
+        //            DataSet ds = new DataSet();
+        //            da.Fill(ds);
 
-                    cbMaChucVu.DataSource = ds.Tables[0];
-                    cbMaChucVu.DisplayMember = "MaCV"; // cot hien thi
-                    cbMaChucVu.ValueMember = "MaCV"; // cot gia tri
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi tải dữ liệu mã Chức Vụ: " + ex.Message);
-            }
-        }
+        //            cbMaChucVu.DataSource = ds.Tables[0];
+        //            cbMaChucVu.DisplayMember = "MaCV"; // cot hien thi
+        //            cbMaChucVu.ValueMember = "MaCV"; // cot gia tri
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi tải dữ liệu mã Chức Vụ: " + ex.Message);
+        //    }
+        //}
 
         private void LoadDataChucVu()
         {
@@ -124,7 +117,7 @@ namespace QuanLyNhanVien3
                 c.disconnect();
                 ClearAllInputs(this);
                 txtMKKhoiPhuc.UseSystemPasswordChar = true;
-                LoadcbChucVu();
+                //LoadcbChucVu();
             }
             catch (Exception ex)
             {
@@ -136,7 +129,7 @@ namespace QuanLyNhanVien3
 
         private void btnThem_Click_1(object sender, EventArgs e)
         {
-            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
+            if (tbMaChuVu.Text == "" || txtTenChucVu.Text == "")
             {
                 MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
             }
@@ -144,7 +137,7 @@ namespace QuanLyNhanVien3
             {
                 c.connect();
                 string query = "insert into tblChucVu(MaCV,TenCV,GhiChu) " +
-                        "values ('" + cbMaChucVu.Text + "',N'" + txtTenChucVu.Text + "',N'" + txtGhiChu.Text + "')";
+                        "values ('" + tbMaChuVu.Text + "',N'" + txtTenChucVu.Text + "',N'" + txtGhiChu.Text + "')";
                 bool kq = c.exeSQL(query);
                 MessageBox.Show("Thêm thành công!!", "Thông báo", MessageBoxButtons.OK);
                 LoadDataChucVu();
@@ -155,7 +148,7 @@ namespace QuanLyNhanVien3
 
         private void btnSua_Click_1(object sender, EventArgs e)
         {
-            if (cbMaChucVu.Text == "" || txtTenChucVu.Text == "")
+            if (tbMaChuVu.Text == "" || txtTenChucVu.Text == "")
             {
                 MessageBox.Show("Chưa nhập đủ thông tin", "Thông báo", MessageBoxButtons.OK);
             }
@@ -166,7 +159,7 @@ namespace QuanLyNhanVien3
                 string query = "update tblChucVu set " +
                                "TenCV = N'" + txtTenChucVu.Text + "', " +
                                "GhiChu = N'" + txtGhiChu.Text + "' " +
-                               "where MaCV = '" + cbMaChucVu.Text + "'";
+                               "where MaCV = '" + tbMaChuVu.Text + "'";
 
                 bool kq = c.exeSQL(query);
                 if (kq)
@@ -185,7 +178,7 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                if (string.IsNullOrEmpty(cbMaChucVu.Text))
+                if (string.IsNullOrEmpty(tbMaChuVu.Text))
                 {
                     MessageBox.Show("Vui lòng chọn hoặc nhập mã Chức Vụ cho chức vụ cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -204,7 +197,7 @@ namespace QuanLyNhanVien3
                     string query = "UPDATE tblChucVu SET DeletedAt = 1 WHERE MaCV = @MaCV";
                     using (SqlCommand cmd = new SqlCommand(query, c.conn))
                     {
-                        cmd.Parameters.AddWithValue("@MaCV", cbMaChucVu.Text);
+                        cmd.Parameters.AddWithValue("@MaCV", tbMaChuVu.Text);
                         int rowsAffected = cmd.ExecuteNonQuery();
 
                         if (rowsAffected > 0)
@@ -232,13 +225,13 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                if (string.IsNullOrEmpty(cbMaChucVu.Text))
+                if (string.IsNullOrEmpty(tbMaChuVu.Text))
                 {
                     MessageBox.Show("Vui lòng nhập mã Chức Vụ để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 c.connect();
-                string MaNVtimkiem = cbMaChucVu.Text.Trim();
+                string MaNVtimkiem = tbMaChuVu.Text.Trim();
                 string sql = @" SELECT MaCV as N'Mã Chức Vụ',TenCV as N'Tên Chức Vụ',Ghichu as N'Ghi chú'
                                 FROM tblChucVu
                                 WHERE DeletedAt = 0 AND MaCV LIKE @MaCV
@@ -344,7 +337,7 @@ namespace QuanLyNhanVien3
         {
             try
             {
-                if (string.IsNullOrEmpty(cbMaChucVu.Text.Trim()))
+                if (string.IsNullOrEmpty(tbMaChuVu.Text.Trim()))
                 {
                     MessageBox.Show("Vui lòng chọn hoặc nhập mã Chức Vụ để tìm Chức vụ  cần khôi phục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -354,7 +347,7 @@ namespace QuanLyNhanVien3
                 string query = "SELECT COUNT(*) FROM tblChucVu WHERE MaCV = @MaCV AND DeletedAt = 1";
                 using (SqlCommand cmdcheckPB = new SqlCommand(query, c.conn))
                 {
-                    cmdcheckPB.Parameters.AddWithValue("@MaCV", cbMaChucVu.Text.Trim());
+                    cmdcheckPB.Parameters.AddWithValue("@MaCV", tbMaChuVu.Text.Trim());
                     int emailCount = (int)cmdcheckPB.ExecuteScalar();
 
                     if (emailCount == 0)
@@ -405,7 +398,7 @@ namespace QuanLyNhanVien3
                     string querytblPhongBan = "UPDATE tblChucVu SET DeletedAt = 0 WHERE MaCV = @MaCV";
                     using (SqlCommand cmd = new SqlCommand(querytblPhongBan, c.conn))
                     {
-                        cmd.Parameters.AddWithValue("@MaCV", cbMaChucVu.Text.Trim());
+                        cmd.Parameters.AddWithValue("@MaCV", tbMaChuVu.Text.Trim());
                         int rowsAffected = cmd.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
@@ -444,6 +437,19 @@ namespace QuanLyNhanVien3
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dgvHienThiChucVu_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = dgvHienThiChucVu.CurrentRow.Index;
+            tbMaChuVu.Text = dgvHienThiChucVu.Rows[i].Cells[0].Value.ToString();
+            txtTenChucVu.Text = dgvHienThiChucVu.Rows[i].Cells[1].Value.ToString();
+            txtGhiChu.Text = dgvHienThiChucVu.Rows[i].Cells[2].Value.ToString();
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -65,7 +65,19 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sqlLoadDataNhanVien = @" SELECT MaHopDong, hd.MaNV, NgayBatDau, NgayKetThuc, LoaiHopDong, LuongCoBan, hd.Ghichu FROM tblHopDong as hd ,tblNhanVien as nv WHERE nv.DeletedAt = 0 and hd.MaNV = nv.MaNV ORDER BY MaHopDong";
+                string sqlLoadDataNhanVien = @"SELECT 
+                                                    MaHopDong AS [Mã Hợp Đồng], 
+                                                    hd.MaNV AS [Mã Nhân Viên], 
+                                                    NgayBatDau AS [Ngày Bắt Đầu], 
+                                                    NgayKetThuc AS [Ngày Kết Thúc], 
+                                                    LoaiHopDong AS [Loại Hợp Đồng], 
+                                                    LuongCoBan AS [Lương Cơ Bản], 
+                                                    hd.GhiChu AS [Ghi Chú]
+                                                FROM tblHopDong AS hd
+                                                JOIN tblNhanVien AS nv ON hd.MaNV = nv.MaNV
+                                                WHERE nv.DeletedAt = 0
+                                                ORDER BY MaHopDong;
+                                                ";
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(sqlLoadDataNhanVien, cn.conn))
                 {
@@ -571,6 +583,11 @@ namespace QuanLyNhanVien3
             {
                 MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
