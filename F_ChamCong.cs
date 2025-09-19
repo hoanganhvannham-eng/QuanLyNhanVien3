@@ -52,7 +52,7 @@ namespace QuanLyNhanVien3
             {
                 cn.connect();
 
-                string sql = @"SELECT MaChamCong as 'Mã chấm công' , MaNV as 'Mã nhân viên', Ngay as 'Ngày', GioVao as 'Giờ vào', GioVe as ' Giờ về', Ghichu as 'Ghi chú'
+                string sql = @"SELECT MaChamCong as 'Mã chấm công' , MaNV as 'Mã nhân viên', Ngay as 'Ngày', CONVERT(VARCHAR(8), GioVao, 108) as 'Giờ vào',  CONVERT(VARCHAR(8), GioVe, 108) as ' Giờ về', Ghichu as 'Ghi chú'
                     FROM tblChamCong
                     WHERE DeletedAt = 0
                     ORDER BY Ngay DESC";
@@ -405,9 +405,13 @@ namespace QuanLyNhanVien3
             try
             {
                 cn.connect();
-                string checkNVQuery = @"SELECT nv.DeletedAt 
-                                        FROM tblNhanVien as nv , tblHopDong as hd
-                                        WHERE nv.MaNV = '@MaNV' and nv.MaNV = hd.MaNV and hd.DeletedAt = 0";
+
+                // ========================== 🔹 BƯỚC 1: KIỂM TRA NHÂN VIÊN ==========================
+                string checkNVQuery = @"
+                                    SELECT nv.DeletedAt 
+                                    FROM tblNhanVien AS nv 
+                                    INNER JOIN tblHopDong AS hd ON nv.MaNV = hd.MaNV
+                                    WHERE nv.MaNV = @MaNV AND hd.DeletedAt = 0";
 
                 using (SqlCommand cmdNV = new SqlCommand(checkNVQuery, cn.conn))
                 {
@@ -416,7 +420,7 @@ namespace QuanLyNhanVien3
 
                     if (result == null)
                     {
-                        MessageBox.Show($"Không tìm thấy nhân viên",
+                        MessageBox.Show($"Không tìm thấy nhân viên hoặc hợp đồng không tồn tại!",
                             "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return; // ⛔ Dừng luôn
                     }
@@ -425,35 +429,34 @@ namespace QuanLyNhanVien3
 
                     if (deletedAt != 0)
                     {
-                        // 🔹 Nhân viên đã nghỉ việc
-                        MessageBox.Show($"Không tìm thấy nhân viên hoặc nhân viên đã nghỉ việc!",
-                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show($"Nhân viên này đã nghỉ việc!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return; // ⛔ Dừng luôn
                     }
                 }
 
                 // ========================== 🔹 BƯỚC 2: XỬ LÝ CHẤM CÔNG ==========================
                 string checkQuery = @"
-                                        SELECT TOP 1 * 
-                                        FROM tblChamCong
-                                        WHERE MaNV = @MaNV AND Ngay = CAST(GETDATE() AS DATE)
-                                        ORDER BY Id DESC";
+                                    SELECT TOP 1 * 
+                                    FROM tblChamCong
+                                    WHERE MaNV = @MaNV AND Ngay = CAST(GETDATE() AS DATE)
+                                    ORDER BY Id DESC";
 
                 using (SqlCommand cmdCheck = new SqlCommand(checkQuery, cn.conn))
                 {
                     cmdCheck.Parameters.AddWithValue("@MaNV", maNV);
                     SqlDataAdapter da = new SqlDataAdapter(cmdCheck);
-                    DataTable dt = new DataTable(); //DataTable là một cấu trúc dữ liệu trong C#, dùng để lưu dữ liệu giống một bảng trong SQL.
-                    da.Fill(dt); //Lấy dữ liệu trả về và đưa vào dt.
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
 
-                    // ==== LẦN QUÉT THỨ 1: CHECK-IN ====
+                    // Nếu chưa có bản ghi nào hôm nay -> INSERT
                     if (dt.Rows.Count == 0)
                     {
-                        // Sinh mã tự động: CC0001, CC0002,...
                         string maChamCong = GenerateMaChamCong();
 
-                        string insertQuery = @" INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
-                    VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE),  CONVERT(TIME, GETDATE()), CONVERT(TIME, GETDATE()), N'Đi làm')";
+                        string insertQuery = @"
+                                            INSERT INTO tblChamCong (MaChamCong, MaNV, Ngay, GioVao, GioVe, Ghichu)
+                                            VALUES (@MaChamCong, @MaNV, CAST(GETDATE() AS DATE), CONVERT(TIME, GETDATE()), CONVERT(TIME, GETDATE()), N'Đi làm')";
 
                         using (SqlCommand cmdInsert = new SqlCommand(insertQuery, cn.conn))
                         {
@@ -462,39 +465,35 @@ namespace QuanLyNhanVien3
 
                             if (cmdInsert.ExecuteNonQuery() > 0)
                             {
-                                MessageBox.Show($"Nhân viên {maNV} đã **check-in** thành công!\nThời gian vào: {DateTime.Now:HH:mm:ss}",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(
+                                    $"Nhân viên {maNV} đã **check-in** thành công!\nThời gian vào: {DateTime.Now:HH:mm:ss}",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information
+                                );
                             }
                         }
                     }
                     else
                     {
-                        // ==== LẦN QUÉT THỨ 2: CHECK-OUT ====
+                        // Nếu đã có bản ghi trong ngày -> Update giờ về để lấy giờ quét cuối cùng
                         DataRow row = dt.Rows[0];
 
-                        if (row["GioVao"].ToString() == row["GioVe"].ToString()) // Lần quét đầu: GioVao = GioVe
-                        {
-                            string updateQuery = @"
-                            UPDATE tblChamCong
-                            SET GioVe = CONVERT(TIME, GETDATE()), 
-                                Ghichu = N'Hoàn thành ngày làm việc'
-                            WHERE Id = @Id";
+                        string updateQuery = @"
+                UPDATE tblChamCong
+                SET GioVe = CONVERT(TIME, GETDATE()),
+                    Ghichu = N'Đã cập nhật giờ ra cuối cùng'
+                WHERE Id = @Id";
 
-                            using (SqlCommand cmdUpdate = new SqlCommand(updateQuery, cn.conn))
+                        using (SqlCommand cmdUpdate = new SqlCommand(updateQuery, cn.conn))
+                        {
+                            cmdUpdate.Parameters.AddWithValue("@Id", row["Id"]);
+
+                            if (cmdUpdate.ExecuteNonQuery() > 0)
                             {
-                                cmdUpdate.Parameters.AddWithValue("@Id", row["Id"]);
-
-                                if (cmdUpdate.ExecuteNonQuery() > 0)
-                                {
-                                    MessageBox.Show($"Nhân viên {maNV} đã **check-out** thành công!\nThời gian ra: {DateTime.Now:HH:mm:ss}",
-                                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
+                                MessageBox.Show(
+                                    $"Nhân viên {maNV} đã **cập nhật giờ ra** thành công!\nThời gian ra mới: {DateTime.Now:HH:mm:ss}",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information
+                                );
                             }
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Nhân viên {maNV} hôm nay đã check-in và check-out đầy đủ.",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
 
@@ -503,7 +502,8 @@ namespace QuanLyNhanVien3
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi chấm công: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi chấm công: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -855,19 +855,15 @@ namespace QuanLyNhanVien3
 
         private void dtGridViewChamCong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Đảm bảo click vào dòng hợp lệ
-            if (e.RowIndex >= 0)
+            int i = e.RowIndex;
+            if (i >= 0)
             {
-                DataGridViewRow row = dtGridViewChamCong.Rows[e.RowIndex];
-
-                // Giả sử bạn có các TextBox/ComboBox tương ứng:
-                tbMaChamCong.Text = row.Cells["MaChamCong"].Value?.ToString();
-                ccBoxMaNV.Text = row.Cells["MaNV"].Value?.ToString();
-                dateTimeNgayChamCong.Value = Convert.ToDateTime(row.Cells["Ngay"].Value);
-
-                tbGioVao.Text = row.Cells["GioVao"].Value?.ToString();
-                tbGioVe.Text = row.Cells["GioVe"].Value?.ToString();
-                tbGhiChu.Text = row.Cells["Ghichu"].Value?.ToString();
+                tbMaChamCong.Text = dtGridViewChamCong.Rows[i].Cells[0].Value.ToString();
+                ccBoxMaNV.Text = dtGridViewChamCong.Rows[i].Cells[1].Value.ToString();
+                dateTimeNgayChamCong.Value = Convert.ToDateTime(dtGridViewChamCong.Rows[i].Cells[2].Value);
+                tbGioVao.Text = dtGridViewChamCong.Rows[i].Cells[3].Value.ToString();
+                tbGioVe.Text = dtGridViewChamCong.Rows[i].Cells[4].Value.ToString();
+                tbGhiChu.Text = dtGridViewChamCong.Rows[i].Cells[5].Value.ToString();
             }
         }
 

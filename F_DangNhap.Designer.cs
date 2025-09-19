@@ -191,9 +191,9 @@
             // pictureBoxQR
             // 
             this.pictureBoxQR.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxQR.Location = new System.Drawing.Point(524, 12);
+            this.pictureBoxQR.Location = new System.Drawing.Point(405, 12);
             this.pictureBoxQR.Name = "pictureBoxQR";
-            this.pictureBoxQR.Size = new System.Drawing.Size(270, 270);
+            this.pictureBoxQR.Size = new System.Drawing.Size(538, 270);
             this.pictureBoxQR.TabIndex = 27;
             this.pictureBoxQR.TabStop = false;
             // 
